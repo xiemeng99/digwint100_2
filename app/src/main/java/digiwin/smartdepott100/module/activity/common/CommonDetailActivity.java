@@ -17,10 +17,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import digiwin.library.dialog.CustomDialog;
 import digiwin.library.dialog.OnDialogClickgetTextListener;
-<<<<<<< HEAD
-=======
-import digiwin.smartdepott100.core.coreutil.AlertDialogUtils;
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
 import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.ObjectAndMapUtils;
 import digiwin.library.utils.StringUtils;

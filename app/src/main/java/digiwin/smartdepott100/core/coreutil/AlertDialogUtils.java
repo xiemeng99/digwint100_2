@@ -17,10 +17,7 @@ import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.ViewUtils;
 import digiwin.smartdepott100.R;
-<<<<<<< HEAD:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
 import digiwin.smartdepott100.core.customview.ThreeBallRotationProgressBar;
-=======
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
 
 
 /**
@@ -177,7 +174,6 @@ public class AlertDialogUtils {
                 } else {
                     LogUtils.e(TAG, "showCommitFailDialog-----content类型Error");
                 }
-<<<<<<< HEAD:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 String s = mTv_text.getText().toString();
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
@@ -185,15 +181,6 @@ public class AlertDialogUtils {
                     });
                     mTv_text.setTextColor(a.getColor(0, context.getResources().getColor(R.color.red50)));
                 }
-=======
-				 String s = mTv_text.getText().toString();
-                    if (null!=s&&(s.contains("!")||s.contains("！"))){
-                        TypedArray a = context.obtainStyledAttributes(new int[] {
-                                R.attr.Base_color
-                        });
-                        mTv_text.setTextColor(a.getColor(0,context.getResources().getColor(R.color.red50)));
-                    }
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,7 +222,6 @@ public class AlertDialogUtils {
                 } else {
                     LogUtils.e(TAG, "showCommitFailDialogAndCall-----content类型Error");
                 }
-<<<<<<< HEAD:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 String s = mTv_text.getText().toString();
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
@@ -243,15 +229,6 @@ public class AlertDialogUtils {
                     });
                     mTv_text.setTextColor(a.getColor(0, context.getResources().getColor(R.color.red50)));
                 }
-=======
-				 String s = mTv_text.getText().toString();
-                    if (null!=s&&(s.contains("!")||s.contains("！"))){
-                        TypedArray a = context.obtainStyledAttributes(new int[] {
-                                R.attr.Base_color
-                        });
-                        mTv_text.setTextColor(a.getColor(0,context.getResources().getColor(R.color.red50)));
-                    }
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -559,19 +536,11 @@ public class AlertDialogUtils {
                     LogUtils.e(TAG, "showFailedDialog-----content类型Error");
                 }
                 String s = mTv_text.getText().toString();
-<<<<<<< HEAD:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
                             R.attr.Base_color
                     });
                     mTv_text.setTextColor(a.getColor(0, context.getResources().getColor(R.color.red50)));
-=======
-                if (null!=s&&(s.contains("!")||s.contains("！"))){
-                    TypedArray a = context.obtainStyledAttributes(new int[] {
-                            R.attr.Base_color
-                    });
-                    mTv_text.setTextColor(a.getColor(0,context.getResources().getColor(R.color.red50)));
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 }
             }
         } catch (Exception e) {
@@ -619,19 +588,11 @@ public class AlertDialogUtils {
                     LogUtils.e(TAG, "showFailedDialog-----content类型Error");
                 }
                 String s = mTv_text.getText().toString();
-<<<<<<< HEAD:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
                             R.attr.Base_color
                     });
                     mTv_text.setTextColor(a.getColor(0, context.getResources().getColor(R.color.red50)));
-=======
-                if (null!=s&&(s.contains("!")||s.contains("！"))){
-                    TypedArray a = context.obtainStyledAttributes(new int[] {
-                            R.attr.Base_color
-                    });
-                    mTv_text.setTextColor(a.getColor(0,context.getResources().getColor(R.color.red50)));
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b:app/src/main/java/digiwin/smartdepott100/core/coreutil/AlertDialogUtils.java
                 }
             }
         } catch (Exception e) {

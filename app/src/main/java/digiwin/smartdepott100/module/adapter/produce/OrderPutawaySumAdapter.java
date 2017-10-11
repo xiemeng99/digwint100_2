@@ -38,11 +38,7 @@ public class OrderPutawaySumAdapter extends BaseRecyclerAdapter<ListSumBean> {
         holder.setText(R.id.tv_item_name,item.getItem_name());
         holder.setText(R.id.tv_item_model,item.getItem_spec());
         holder.setText(R.id.tv_unit_no,item.getUnit_no());
-<<<<<<< HEAD
         holder.setText(R.id.tv_product_code,item.getProduct_no());
-=======
-        holder.setText(R.id.tv_product_code,item.getUnit_no());
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
         holder.setText(R.id.tv_in_apply_number,StringUtils.deleteZero(String.valueOf(numb1)));
         holder.setText(R.id.tv_match_number, StringUtils.deleteZero(String.valueOf(numb2)));
 

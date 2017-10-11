@@ -589,20 +589,12 @@ public class LoginActivity extends BaseActivity {
                     etLoginLock.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case 3:
-<<<<<<< HEAD
                     ivEntid.setImageResource(R.drawable.login_entid_on);
-=======
-//                    ivEntid.setImageDrawable(a.getDrawable(2));
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
                     lineEntid.setBackgroundColor(getResources().getColor(R.color.black));
                     tvEntid.setTextColor(getResources().getColor(R.color.black));
                     break;
                 case 4:
-<<<<<<< HEAD
                     ivSite.setImageResource(R.drawable.login_site_on);
-=======
-//                    ivSite.setImageDrawable(a.getDrawable(3));
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
                     lineSite.setBackgroundColor(getResources().getColor(R.color.black));
                     tvSite.setTextColor(getResources().getColor(R.color.black));
                     break;

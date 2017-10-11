@@ -70,10 +70,7 @@ public class AccordingMaterialSumAdapter extends BaseRecyclerAdapter<ListSumBean
             holder.setTextColor(R.id.tv_material_return, a.getColor(0,mContext.getResources().getColor(R.color.Base_color)));
             holder.setTextColor(R.id.tv_material_return_big, a.getColor(0,mContext.getResources().getColor(R.color.Base_color)));
             holder.setTextColor(R.id.tv_feeding_amount, a.getColor(0,mContext.getResources().getColor(R.color.Base_color)));
-<<<<<<< HEAD
             holder.setTextColor(R.id.tv_product_code, a.getColor(0,mContext.getResources().getColor(R.color.Base_color)));
-=======
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
         } else if (numb1 > numb2) {
             holder.setBackground(R.id.item_ll,R.drawable.yellow_scandetail_bg);
             holder.setTextColor(R.id.tv_item_no,a.getColor(1,mContext.getResources().getColor(R.color.outside_yellow)));
@@ -83,10 +80,7 @@ public class AccordingMaterialSumAdapter extends BaseRecyclerAdapter<ListSumBean
             holder.setTextColor(R.id.tv_material_return,a.getColor(1,mContext.getResources().getColor(R.color.outside_yellow)));
             holder.setTextColor(R.id.tv_material_return_big, a.getColor(1,mContext.getResources().getColor(R.color.outside_yellow)));
             holder.setTextColor(R.id.tv_feeding_amount,a.getColor(1,mContext.getResources().getColor(R.color.outside_yellow)));
-<<<<<<< HEAD
             holder.setTextColor(R.id.tv_product_code,a.getColor(1,mContext.getResources().getColor(R.color.outside_yellow)));
-=======
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
         } else if (numb1 ==numb2) {
             holder.setBackground(R.id.item_ll,R.drawable.green_scandetail_bg);
             holder.setTextColor(R.id.tv_item_no,a.getColor(2,mContext.getResources().getColor(R.color.green1b)));
@@ -96,10 +90,7 @@ public class AccordingMaterialSumAdapter extends BaseRecyclerAdapter<ListSumBean
             holder.setTextColor(R.id.tv_material_return,a.getColor(2,mContext.getResources().getColor(R.color.green1b)));
             holder.setTextColor(R.id.tv_material_return_big, a.getColor(2,mContext.getResources().getColor(R.color.green1b)));
             holder.setTextColor(R.id.tv_feeding_amount,a.getColor(2,mContext.getResources().getColor(R.color.green1b)));
-<<<<<<< HEAD
             holder.setTextColor(R.id.tv_product_code,a.getColor(2,mContext.getResources().getColor(R.color.green1b)));
-=======
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
         }
     }
 }

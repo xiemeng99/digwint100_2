@@ -24,11 +24,7 @@ import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseTitleActivity;
 import digiwin.smartdepott100.module.adapter.produce.InBinningDetailAdapter;
 import digiwin.smartdepott100.module.bean.common.DetailShowBean;
-<<<<<<< HEAD
 import digiwin.smartdepott100.module.bean.common.ListSumBean;
-=======
-import digiwin.smartdepott100.module.bean.common.SumShowBean;
->>>>>>> 4d7b59101c1458e1b480d12370a5d31f39dc490b
 import digiwin.smartdepott100.module.logic.produce.InBinningLogic;
 
 /**
