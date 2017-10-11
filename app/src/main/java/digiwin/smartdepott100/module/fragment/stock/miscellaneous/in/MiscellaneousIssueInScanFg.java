@@ -21,26 +21,24 @@ import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import digiwin.library.utils.WeakRefHandler;
-import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
-import digiwin.smartdepott100.core.coreutil.CommonUtils;
-import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
-import digiwin.smartdepott100.module.logic.purchase.PurchaseInStoreLogic;
 import digiwin.library.dialog.OnDialogClickListener;
 import digiwin.library.utils.StringUtils;
+import digiwin.library.utils.WeakRefHandler;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
+import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
 import digiwin.smartdepott100.core.base.BaseFragment;
+import digiwin.smartdepott100.core.coreutil.CommonUtils;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
 import digiwin.smartdepott100.module.activity.stock.miscellaneousissues.MiscellaneousissuesInActivity;
+import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.bean.common.SaveBackBean;
 import digiwin.smartdepott100.module.bean.common.SaveBean;
 import digiwin.smartdepott100.module.bean.common.ScanBarcodeBackBean;
 import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
+import digiwin.smartdepott100.module.logic.purchase.PurchaseInStoreLogic;
 
-import static digiwin.smartdepott100.R.id.cb_locatorlock;
-import static digiwin.smartdepott100.R.id.et_scan_barocde;
 
 
 /**
@@ -58,7 +56,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
     /**
      * 条码
      */
-    @BindView(et_scan_barocde)
+    @BindView(R.id.et_scan_barocde)
     EditText etScanBarocde;
 
     /**
@@ -74,7 +72,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
     /**
      * 锁定库位
      */
-    @BindView(cb_locatorlock)
+    @BindView(R.id.cb_locatorlock)
     CheckBox cbLocatorlock;
     /**
      * 数量
@@ -113,7 +111,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
     }
 
 
-    @BindViews({R.id.et_tray, et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
+    @BindViews({R.id.et_tray, R.id.et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_tray,R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -164,7 +162,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
 
     CommonLogic commonLogic;
 
-    @OnCheckedChanged(cb_locatorlock)
+    @OnCheckedChanged(R.id.cb_locatorlock)
     void isLock(boolean checked) {
         if (checked) {
             etScanLocator.setKeyListener(null);
@@ -173,7 +171,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
         }
     }
 
-    @OnFocusChange(et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barocde)
     void barcodeFocusChange() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -194,7 +192,7 @@ public class MiscellaneousIssueInScanFg extends BaseFragment {
         ModuleUtils.tvChange(activity, tvNumber, textViews);
     }
 
-    @OnTextChanged(value = et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString().trim())) {
             mHandler.removeMessages(BARCODEWHAT);

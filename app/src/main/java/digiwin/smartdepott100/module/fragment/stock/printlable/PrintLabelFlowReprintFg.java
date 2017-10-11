@@ -14,6 +14,9 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import digiwin.library.dialog.OnDialogClickListener;
+import digiwin.library.utils.SharedPreferencesUtils;
+import digiwin.library.utils.StringUtils;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.appcontants.SharePreferenceKey;
@@ -25,11 +28,8 @@ import digiwin.smartdepott100.module.activity.stock.printlabel.PrintLabelFlowAct
 import digiwin.smartdepott100.module.activity.stock.printlabel.PrintLableFlowDialog;
 import digiwin.smartdepott100.module.bean.stock.PrintLabelFlowBean;
 import digiwin.smartdepott100.module.logic.stock.printer.PrinterFlowLogic;
-import digiwin.library.dialog.OnDialogClickListener;
-import digiwin.library.utils.SharedPreferencesUtils;
-import digiwin.library.utils.StringUtils;
 
-import static digiwin.smartdepott100.R.id.et_resource_barcode;
+
 
 /**
  * Created by qGod on 2017/5/28
@@ -45,7 +45,7 @@ public class PrintLabelFlowReprintFg extends BaseFragment {
     LinearLayout llWorkOrderNo;
     @BindView(R.id.tv_resource_barcode)
     TextView tvWorkOrderNo;
-    @BindView(et_resource_barcode)
+    @BindView(R.id.et_resource_barcode)
     EditText etWorkOrderNo;
     /**
      * 物料批号
@@ -58,7 +58,7 @@ public class PrintLabelFlowReprintFg extends BaseFragment {
     EditText etLuHao;
     private PrintLabelFlowActivity parentActivity;
 
-    @BindViews({et_resource_barcode, R.id.et_luhao})
+    @BindViews({R.id.et_resource_barcode, R.id.et_luhao})
     List<EditText> editTexts;
     @BindViews({R.id.tv_resource_barcode, R.id.tv_luhao})
     List<TextView> textViews;
@@ -66,7 +66,7 @@ public class PrintLabelFlowReprintFg extends BaseFragment {
     List<View> views;
 
     //工单单号
-    @OnFocusChange(et_resource_barcode)
+    @OnFocusChange(R.id.et_resource_barcode)
     void workOrderFocusChanage() {
         ModuleUtils.viewChange(llWorkOrderNo, views);
         ModuleUtils.etChange(activity, etWorkOrderNo, editTexts);

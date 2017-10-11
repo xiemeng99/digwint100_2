@@ -14,6 +14,9 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import digiwin.library.dialog.OnDialogClickListener;
+import digiwin.library.utils.SharedPreferencesUtils;
+import digiwin.library.utils.StringUtils;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.appcontants.SharePreferenceKey;
@@ -25,11 +28,8 @@ import digiwin.smartdepott100.module.activity.purchase.rawmaterial.RawMaterialPr
 import digiwin.smartdepott100.module.activity.stock.printlabel.PrintLableFlowDialog;
 import digiwin.smartdepott100.module.bean.purchase.RawMaterialPrintBean;
 import digiwin.smartdepott100.module.logic.purchase.RawMaterialPrintLogic;
-import digiwin.library.dialog.OnDialogClickListener;
-import digiwin.library.utils.SharedPreferencesUtils;
-import digiwin.library.utils.StringUtils;
 
-import static digiwin.smartdepott100.R.id.et_item_no;
+
 
 /**
  * @author xiemeng
@@ -43,7 +43,7 @@ public class RawMaterialReprintFg extends BaseFragment {
     LinearLayout llItemNo;
     @BindView(R.id.tv_item_no)
     TextView tvItemNo;
-    @BindView(et_item_no)
+    @BindView(R.id.et_item_no)
     EditText etItemNo;
 
     @BindView(R.id.ll_luhao)
@@ -76,7 +76,7 @@ public class RawMaterialReprintFg extends BaseFragment {
     @BindViews({R.id.ll_item_no, R.id.ll_luhao,R.id.ll_supplier,R.id.ll_date})
     List<View> views;
 
-    @OnFocusChange(et_item_no)
+    @OnFocusChange(R.id.et_item_no)
     void itemNoFocusChanage() {
         ModuleUtils.viewChange(llItemNo, views);
         ModuleUtils.etChange(activity, etItemNo, editTexts);

@@ -44,8 +44,6 @@ import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.sale.pickupshipment.PickUpShipmentLogic;
 import digiwin.smartdepott100.module.logic.sale.saleoutlet.SaleOutLetLogic;
 
-import static digiwin.smartdepott100.R.id.et_barcode;
-import static digiwin.smartdepott100.R.id.et_input_num;
 
 /**
  * @author 赵浩然
@@ -119,7 +117,7 @@ public class PickUpShipmentScanFg extends BaseFragment {
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
 
-    @BindViews({R.id.et_barcode, R.id.et_scan_locator, et_input_num})
+    @BindViews({R.id.et_barcode, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;

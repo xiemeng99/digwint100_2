@@ -25,7 +25,6 @@ import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import digiwin.library.dialog.CustomDialog;
 import digiwin.library.dialog.OnDialogClickListener;
-import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.ViewUtils;
 import digiwin.library.utils.WeakRefHandler;
@@ -47,9 +46,6 @@ import digiwin.smartdepott100.module.bean.common.ScanBarcodeBackBean;
 import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.produce.WorkOrderlLogic;
-
-import static digiwin.smartdepott100.R.id.et_input_num;
-import static digiwin.smartdepott100.R.id.et_scan_barocde;
 
 
 /**
@@ -124,7 +120,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_number)
     TextView tvNumber;
-    @BindView(et_input_num)
+    @BindView(R.id.et_input_num)
     EditText etInputNum;
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
@@ -317,14 +313,14 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         ModuleUtils.tvChange(activity, tvLocator, textViews);
     }
 
-    @OnFocusChange(et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barocde)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
         ModuleUtils.tvChange(activity, tvBarcode, textViews);
     }
 
-    @OnFocusChange(et_input_num)
+    @OnFocusChange(R.id.et_input_num)
     void numFocusChanage() {
         ModuleUtils.viewChange(llInputNum, views);
         ModuleUtils.etChange(activity, etInputNum, editTexts);
@@ -339,7 +335,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         }
     }
 
-    @OnTextChanged(value = et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);
@@ -368,7 +364,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
                             } else {
                                 etInputNum.requestFocus();
                             }
-                            if (barcodeFlag&&CommonUtils.isAutoSave(saveBean)) {
+                            if (barcodeFlag && CommonUtils.isAutoSave(saveBean)) {
                                 saveData();
                             }
                         }
@@ -490,7 +486,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         map.put(AddressContants.QTY, localData.getApply_qty());
         map.put(AddressContants.ITEM_NO, localData.getLow_order_item_no());
         map.put(AddressContants.WAREHOUSE_NO, LoginLogic.getWare());
-        map.put(AddressContants.UNIT_NO,localData.getUnit_no());
+        map.put(AddressContants.UNIT_NO, localData.getUnit_no());
         mHandler.removeMessages(FIFOWHAT);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(FIFOWHAT, map), AddressContants.DELAYTIME);
     }
@@ -531,7 +527,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         saveBean.setFifo_check(barcodeBackBean.getFifo_check());
         saveBean.setItem_barcode_type(barcodeBackBean.getItem_barcode_type());
         etScanBarocde.requestFocus();
-        if (locatorFlag&&CommonUtils.isAutoSave(saveBean)) {
+        if (locatorFlag && CommonUtils.isAutoSave(saveBean)) {
             saveData();
         }
 

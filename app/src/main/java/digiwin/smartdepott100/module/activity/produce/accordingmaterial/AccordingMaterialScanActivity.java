@@ -44,8 +44,6 @@ import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.produce.AccordingMaterialLogic;
 
-import static digiwin.smartdepott100.R.id.et_input_num;
-import static digiwin.smartdepott100.R.id.et_scan_barocde;
 
 
 /**
@@ -124,7 +122,7 @@ public class AccordingMaterialScanActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(et_scan_barocde)
+    @BindView(R.id.et_scan_barocde)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -144,12 +142,12 @@ public class AccordingMaterialScanActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_number)
     TextView tvNumber;
-    @BindView(et_input_num)
+    @BindView(R.id.et_input_num)
     EditText etInputNum;
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
 
-    @BindViews({et_scan_barocde, R.id.et_scan_locator, et_input_num})
+    @BindViews({R.id.et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -251,7 +249,7 @@ public class AccordingMaterialScanActivity extends BaseTitleActivity {
         }
     }
 
-    @OnFocusChange(et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barocde)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -265,14 +263,14 @@ public class AccordingMaterialScanActivity extends BaseTitleActivity {
         ModuleUtils.tvChange(activity, tvLocator, textViews);
     }
 
-    @OnFocusChange(et_input_num)
+    @OnFocusChange(R.id.et_input_num)
     void numFocusChanage() {
         ModuleUtils.viewChange(llInputNum, views);
         ModuleUtils.etChange(activity, etInputNum, editTexts);
         ModuleUtils.tvChange(activity, tvNumber, textViews);
     }
 
-    @OnTextChanged(value = et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);

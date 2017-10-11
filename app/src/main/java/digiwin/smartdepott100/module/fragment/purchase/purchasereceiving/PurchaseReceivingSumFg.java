@@ -24,9 +24,11 @@ import digiwin.smartdepott100.core.base.BaseFragment;
 import digiwin.smartdepott100.module.activity.common.CommonDetailActivity;
 import digiwin.smartdepott100.module.activity.purchase.purchasereceiving.PurchaseReceivingActivity;
 import digiwin.smartdepott100.module.adapter.purchase.PurchaseReceivingSumAdapter;
+import digiwin.smartdepott100.module.bean.common.ClickItemPutBean;
 import digiwin.smartdepott100.module.bean.common.DetailShowBean;
 import digiwin.smartdepott100.module.bean.common.ListSumBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
+import digiwin.smartdepott100.module.logic.purchase.PurchaseReceivingLogic;
 
 /**
  * @des  采购收货数据汇总页面
@@ -54,7 +56,7 @@ public class PurchaseReceivingSumFg extends BaseFragment{
 
     PurchaseReceivingActivity pactivity;
 
-    CommonLogic commonLogic;
+    PurchaseReceivingLogic commonLogic;
 
     private boolean upDateFlag;
 
@@ -82,12 +84,12 @@ public class PurchaseReceivingSumFg extends BaseFragment{
      */
     public void upDateList() {
         try {
-            Map<String, String> map = new HashMap<>();
             sumShowBeanList.clear();
             adapter = new PurchaseReceivingSumAdapter(activity, sumShowBeanList);
             ryList.setAdapter(adapter);
             showLoadingDialog();
-            commonLogic.getSum(map, new CommonLogic.GetSumListener() {
+            ClickItemPutBean putBean = new ClickItemPutBean();
+            commonLogic.getPGSSumData(putBean, new CommonLogic.GetZSumListener() {
                 @Override
                 public void onSuccess(List<ListSumBean> list) {
                     sumShowBeanList = list;
@@ -114,16 +116,12 @@ public class PurchaseReceivingSumFg extends BaseFragment{
      * 查看单笔料明细
      */
     public void toDetail() {
-        try {
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(View itemView, int pos) {
                     getDetail(sumShowBeanList.get(pos));
                 }
             });
-        } catch (Exception e) {
-            LogUtils.e(TAG, "toDetail-->" + e);
-        }
     }
 
 
@@ -132,6 +130,7 @@ public class PurchaseReceivingSumFg extends BaseFragment{
      */
     private void getDetail(final ListSumBean sumShowBean) {
         showLoadingDialog();
+        sumShowBean.setAvailable_in_qty(sumShowBean.getApply_qty());
         commonLogic.getDetail(sumShowBean, new CommonLogic.GetDetailListener() {
             @Override
             public void onSuccess(List<DetailShowBean> detailShowBeen) {
@@ -159,7 +158,7 @@ public class PurchaseReceivingSumFg extends BaseFragment{
         }
         showLoadingDialog();
         HashMap<String, String> map = new HashMap<>();
-        commonLogic.commit(map, new CommonLogic.CommitListener() {
+        commonLogic.commitPGSData(map, new CommonLogic.CommitListener() {
             @Override
             public void onSuccess(String msg) {
                 dismissLoadingDialog();
@@ -183,7 +182,7 @@ public class PurchaseReceivingSumFg extends BaseFragment{
 
     }
     public void initData() {
-        commonLogic = CommonLogic.getInstance(activity, pactivity.module, pactivity.mTimestamp.toString());
+        commonLogic = PurchaseReceivingLogic.getInstance(activity, pactivity.module, pactivity.mTimestamp.toString());
         upDateFlag = false;
     }
 }

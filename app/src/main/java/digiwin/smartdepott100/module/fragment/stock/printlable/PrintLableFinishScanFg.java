@@ -20,6 +20,9 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
+import digiwin.library.dialog.OnDialogClickListener;
+import digiwin.library.utils.SharedPreferencesUtils;
+import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.WeakRefHandler;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
@@ -34,11 +37,7 @@ import digiwin.smartdepott100.module.adapter.stock.printlable.PrintLableFlowAdap
 import digiwin.smartdepott100.module.bean.dailywork.ProcedureOrderBean;
 import digiwin.smartdepott100.module.bean.stock.PrintLabelFlowBean;
 import digiwin.smartdepott100.module.logic.stock.printer.PrinterFlowLogic;
-import digiwin.library.dialog.OnDialogClickListener;
-import digiwin.library.utils.SharedPreferencesUtils;
-import digiwin.library.utils.StringUtils;
 
-import static digiwin.smartdepott100.R.id.et_resource_barcode;
 
 /**
  * Created by qGod on 2017/5/28
@@ -54,7 +53,7 @@ public class PrintLableFinishScanFg extends BaseFragment {
     LinearLayout llWorkOrderNo;
     @BindView(R.id.tv_resource_barcode)
     TextView tvWorkOrderNo;
-    @BindView(et_resource_barcode)
+    @BindView(R.id.et_resource_barcode)
     EditText etWorkOrderNo;
 
     /**
@@ -67,7 +66,7 @@ public class PrintLableFinishScanFg extends BaseFragment {
     @BindView(R.id.et_work_people)
     EditText etWorkPeople;
 
-    @BindViews({et_resource_barcode,R.id.et_work_people})
+    @BindViews({R.id.et_resource_barcode,R.id.et_work_people})
     List<EditText> editTexts;
     @BindViews({R.id.tv_resource_barcode,R.id.tv_work_people})
     List<TextView> textViews;
@@ -75,7 +74,7 @@ public class PrintLableFinishScanFg extends BaseFragment {
     List<View> views;
 
     //工单单号
-    @OnFocusChange(et_resource_barcode)
+    @OnFocusChange(R.id.et_resource_barcode)
     void workOrderFocusChanage() {
         ModuleUtils.viewChange(llWorkOrderNo, views);
         ModuleUtils.etChange(activity, etWorkOrderNo, editTexts);

@@ -40,16 +40,6 @@ public class PurchaseReceivingActivity extends BaseFirstModuldeActivity {
      */
     @BindView(R.id.module_vp)
     public ViewPager moduleVp;
-//    @BindView(R.id.un_com)
-//    ImageView unCom;
-//
-//    @OnClick(R.id.un_com)
-//    void toUnCom() {
-//        Bundle bundle = new Bundle();
-//        bundle.putString(AddressContants.MODULEID_INTENT, mTimestamp.toString());
-//        bundle.putString(NoComeUnComActivity.MODULECODE, module);
-//        ActivityManagerUtils.startActivityForBundleData(activity, NoComeUnComActivity.class, bundle);
-//    }
 
     /**
      * Fragment设置
@@ -88,7 +78,6 @@ public class PurchaseReceivingActivity extends BaseFirstModuldeActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(R.string.purchase_receiving);
-//        unCom.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -153,18 +142,14 @@ public class PurchaseReceivingActivity extends BaseFirstModuldeActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
             if (requestCode == DETAILCODE) {
                 sumFg.upDateList();
             }
-        } catch (Exception e) {
-            LogUtils.e(TAG, "onActivityResult-->" + e);
-        }
     }
 
 
     @Override
     public ExitMode exitOrDel() {
-        return ExitMode.EXITISD;
+        return ExitMode.EXITD;
     }
 }

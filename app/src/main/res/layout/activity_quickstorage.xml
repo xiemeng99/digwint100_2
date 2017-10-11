@@ -4,98 +4,92 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <include layout="@layout/activity_title_toolbar_bar"></include>
+    <include layout="@layout/activity_title_toolbar_bar" />
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar_title">
+        android:layout_below="@+id/toolbar_title"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/rl_top"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_6dp"
+            android:layout_marginLeft="@dimen/layout_10dp"
+            android:layout_marginRight="@dimen/layout_10dp"
+            android:layout_marginTop="@dimen/layout_6dp"
+            android:background="@drawable/accordingmaterialtop_pink_sharp"
+            android:orientation="vertical"
+            android:padding="@dimen/layout_5dp">
 
             <LinearLayout
-                android:id="@+id/rl_top"
+                style="@style/itemstyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/layout_6dp"
-                android:layout_marginLeft="@dimen/layout_10dp"
-                android:layout_marginRight="@dimen/layout_10dp"
-                android:layout_marginTop="@dimen/layout_6dp"
-                android:background="@drawable/accordingmaterialtop_pink_sharp"
-                android:orientation="vertical"
-                android:padding="@dimen/layout_5dp">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    style="@style/itemstyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    style="@style/app_text_ingreen"
+                    android:layout_width="@dimen/layout_60dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/purchase_order" />
 
-                    <TextView
-                        style="@style/app_text_ingreen"
-                        android:layout_width="@dimen/layout_60dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/purchase_order" />
-
-                    <TextView
-                        android:id="@+id/tv_post_material_order"
-                        style="@style/ser_text_ingreen"
-                        android:layout_width="@dimen/layout_0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@null" />
-                </LinearLayout>
-
-                <View style="@style/line_in_pink_style"></View>
-
-
-                <LinearLayout
-                    style="@style/itemstyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/app_text_ingreen"
-                        android:layout_width="@dimen/layout_60dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/supplier" />
-
-                    <TextView
-                        android:id="@+id/tv_supplier"
-                        style="@style/ser_text_ingreen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                       />
-                </LinearLayout>
-
-                <View style="@style/line_in_pink_style"></View>
-
-                <LinearLayout
-                    style="@style/itemstyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        style="@style/app_text_ingreen"
-                        android:layout_width="@dimen/layout_60dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/data" />
-
-                    <TextView
-                        android:id="@+id/tv_date"
-                        style="@style/ser_text_ingreen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                      />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_post_material_order"
+                    style="@style/ser_text_ingreen"
+                    android:layout_width="@dimen/layout_0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null" />
             </LinearLayout>
-            <include layout="@layout/ryitem_common" />
+
+            <View style="@style/line_in_pink_style"></View>
+
+
+            <LinearLayout
+                style="@style/itemstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/app_text_ingreen"
+                    android:layout_width="@dimen/layout_60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/supplier" />
+
+                <TextView
+                    android:id="@+id/tv_supplier"
+                    style="@style/ser_text_ingreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View style="@style/line_in_pink_style"></View>
+
+            <LinearLayout
+                style="@style/itemstyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/app_text_ingreen"
+                    android:layout_width="@dimen/layout_60dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/data" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/ser_text_ingreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
+
+        <include layout="@layout/ryitem_common" />
+    </LinearLayout>
 
     <include layout="@layout/inclu_commit"></include>
 </RelativeLayout>

@@ -38,6 +38,7 @@ import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 
 /**
  * 扫码收货 汇总界面
+ *
  * @author 唐孟宇
  */
 public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
@@ -48,11 +49,11 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
     @BindView(R.id.toolbar_title)
     Toolbar toolbarTitle;
 
-    @BindViews({R.id.et_send_goods_order,R.id.et_barcode_no, R.id.et_provider,  R.id.et_date})
+    @BindViews({R.id.et_send_goods_order, R.id.et_barcode_no, R.id.et_provider, R.id.et_date})
     List<EditText> editTexts;
-    @BindViews({R.id.ll_send_goods_order,R.id.ll_barcode_no, R.id.ll_provider,  R.id.ll_date})
+    @BindViews({R.id.ll_send_goods_order, R.id.ll_barcode_no, R.id.ll_provider, R.id.ll_date})
     List<View> views;
-    @BindViews({R.id.tv_send_goods_order,R.id.tv_barcode_no, R.id.tv_provider,  R.id.tv_date})
+    @BindViews({R.id.tv_send_goods_order, R.id.tv_barcode_no, R.id.tv_provider, R.id.tv_date})
     List<TextView> textViews;
 
     /**
@@ -254,7 +255,7 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
     @Override
     protected void initNavigationTitle() {
         super.initNavigationTitle();
-        mName.setText(getString(R.string.title_purchase_goods_scan)+""+getString(R.string.list));
+        mName.setText(getString(R.string.title_purchase_goods_scan) + "" + getString(R.string.list));
         iv_title_setting.setVisibility(View.VISIBLE);
         iv_title_setting.setImageResource(R.drawable.search);
     }
@@ -269,7 +270,6 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
     public void upDateList() {
         FilterBean filterBean = new FilterBean();
         try {
-            Map<String, String> map = new HashMap<>();
             //供应商
             if (!StringUtils.isBlank(et_provider.getText().toString())) {
                 filterBean.setSupplier_no(et_provider.getText().toString());
@@ -304,27 +304,23 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
                         adapter.setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onItemClick(View itemView, int position) {
-                                itemClick(sumShowBeanList,position);
+                                itemClick(sumShowBeanList, position);
                             }
                         });
-                        if (autoSkip&&list.size() == 1) {
+                        if (autoSkip && list.size() == 1) {
                             itemClick(sumShowBeanList, 0);
                         }
-                        autoSkip=true;
+                        autoSkip = true;
                     }
                 }
 
                 @Override
                 public void onFailed(String error) {
                     dismissLoadingDialog();
-                    try {
-                        showFailedDialog(error);
-                        sumShowBeanList = new ArrayList<FilterResultOrderBean>();
-                        adapter = new PurchaseGoodsScanAdapter(pactivity, sumShowBeanList);
-                        ryList.setAdapter(adapter);
-                    } catch (Exception e) {
-                        LogUtils.e(TAG, "updateList--getSum--onFailed" + e);
-                    }
+                    showFailedDialog(error);
+                    sumShowBeanList = new ArrayList<FilterResultOrderBean>();
+                    adapter = new PurchaseGoodsScanAdapter(pactivity, sumShowBeanList);
+                    ryList.setAdapter(adapter);
                 }
             });
 
@@ -344,7 +340,7 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
         try {
 
             if (requestCode == SUMCODE) {
-                adapter = new PurchaseGoodsScanAdapter(pactivity,new ArrayList<FilterResultOrderBean>());
+                adapter = new PurchaseGoodsScanAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
                 ryList.setAdapter(adapter);
                 upDateList();
             }

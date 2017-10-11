@@ -1,171 +1,202 @@
 package digiwin.smartdepott100.module.activity.purchase.purchasegoodsscan;
 
-import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import digiwin.library.utils.LogUtils;
+import butterknife.OnClick;
+import digiwin.library.dialog.OnDialogClickListener;
+import digiwin.library.dialog.OnDialogTwoListener;
+import digiwin.library.utils.StringUtils;
+import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.smartdepott100.R;
+import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
-import digiwin.smartdepott100.core.modulecommon.ModuleViewPagerAdapter;
-import digiwin.smartdepott100.module.fragment.purchase.purchasegoodsscan.PurchaseGoodsScanFg;
-import digiwin.smartdepott100.module.fragment.purchase.purchasegoodsscan.PurchaseGoodsSumFg;
+import digiwin.smartdepott100.login.loginlogic.LoginLogic;
+import digiwin.smartdepott100.module.adapter.purchase.PurchaseGoodsSumAdapter;
+import digiwin.smartdepott100.module.bean.common.ClickItemPutBean;
+import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
+import digiwin.smartdepott100.module.bean.common.ListSumBean;
+import digiwin.smartdepott100.module.logic.common.CommonLogic;
+import digiwin.smartdepott100.module.logic.purchase.PurchaseGoodScanLogic;
 
 /**
  * @author 唐孟宇
  * @des 扫码收货 扫描/汇总页面
  */
 public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
-    /**
-     * 标题
-     */
+
     @BindView(R.id.toolbar_title)
     Toolbar toolbarTitle;
-    /**
-     * tab
-     */
-    @BindView(R.id.tl_tab)
-    TabLayout tlTab;
-    /**
-     * ViewPager
-     */
-    @BindView(R.id.module_vp)
-    public ViewPager mZXVp;
 
-    @BindView(R.id.un_com)
-    ImageView iv_un_com;
-
-//    /**
-//     * 未完事项
-//     */
-//    @OnClick(R.id.un_com)
-//    void unComplete(){
-//        Bundle bundle = new Bundle();
-//        bundle.putString(AddressContants.MODULEID_INTENT,mTimestamp.toString());
-//        bundle.putString(NoComeUnComActivity.MODULECODE, module);
-//        ActivityManagerUtils.startActivityForBundleData(activity, NoComeUnComActivity.class,bundle);
-//    }
+    @BindView(R.id.ry_list)
+    RecyclerView ryList;
 
     /**
-     * Fragment设置
+     * 送货单号
      */
-    private List<Fragment> fragments;
-    private List<String> titles;
-    private FragmentManager fragmentManager;
+    @BindView(R.id.tv_head_post_order)
+    TextView tvHeadPostOrder;
     /**
-     * 扫码
+     * 日期
      */
-    public PurchaseGoodsScanFg scanFg;
+    @BindView(R.id.tv_head_plan_date)
+    TextView tvHeadPlanDate;
     /**
-     * 汇总提交
+     * 供应商
      */
-    public PurchaseGoodsSumFg sumFg;
+    @BindView(R.id.tv_head_provider)
+    TextView tvHeadProvider;
 
-    ModuleViewPagerAdapter adapter;
-    /**
-     * 跳转明细使用
-     */
-    public final int DETAILCODE = 1234;
-
-    @Override
-    protected Toolbar toolbar() {
-        return toolbarTitle;
-    }
-
-    @Override
-    public String moduleCode() {
-        module = ModuleCode.PURCHASEGOODSSCAN;
-        return module;
-    }
-
-    @Override
-    protected void initNavigationTitle() {
-        super.initNavigationTitle();
-        mName.setText(R.string.title_purchase_goods_scan);
-        //iv_un_com.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected int bindLayoutId() {
-        return R.layout.activity_finished_storage;
-    }
-
-    @Override
-    protected void doBusiness() {
-        initFragment();
-    }
-
-    /**
-     * 初始化Fragment
-     */
-    private void initFragment() {
-        scanFg = new PurchaseGoodsScanFg();
-        sumFg = new PurchaseGoodsSumFg();
-        fragments = new ArrayList<>();
-        fragments.add(scanFg);
-        fragments.add(sumFg);
-        titles = new ArrayList<>();
-        titles.add(getResources().getString(R.string.ScanCode));
-        titles.add(getResources().getString(R.string.SumData));
-        fragmentManager = getSupportFragmentManager();
-        adapter = new ModuleViewPagerAdapter(fragmentManager, fragments, titles);
-        mZXVp.setAdapter(adapter);
-        tlTab.addTab(tlTab.newTab().setText(titles.get(0)));
-        tlTab.addTab(tlTab.newTab().setText(titles.get(1)));
-        //Tablayout和ViewPager关联起来
-        tlTab.setupWithViewPager(mZXVp);
-        tlTab.setTabsFromPagerAdapter(adapter);
-        select();
-    }
-
-    /**
-     * 滑动
-     */
-    private void select() {
-        mZXVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    @OnClick(R.id.commit)
+    void commit() {
+        showCommitSureDialog(new OnDialogTwoListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void onCallback1() {
+                sureCommit();
             }
 
             @Override
-            public void onPageSelected(int position) {
-                if (position == 1) {
-                    sumFg.upDateList();
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onCallback2() {
 
             }
         });
     }
 
+    PurchaseGoodsScanActivity pactivity;
+
+    PurchaseGoodScanLogic commonLogic;
+
+    private boolean upDateFlag;
+
+    PurchaseGoodsSumAdapter adapter;
+
+    List<ListSumBean> sumShowBeanList;
+
+    FilterResultOrderBean orderData;
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == DETAILCODE) {
-                sumFg.upDateList();
+    protected void initNavigationTitle() {
+        super.initNavigationTitle();
+        mName.setText(R.string.title_purchase_goods_scan);
+    }
+
+    @Override
+    protected int bindLayoutId() {
+        return R.layout.activity_purchase_goods_sum;
+    }
+
+    @Override
+    protected void doBusiness() {
+        pactivity = (PurchaseGoodsScanActivity) activity;
+        commonLogic = PurchaseGoodScanLogic.getInstance(pactivity, pactivity.module, pactivity.mTimestamp.toString());
+        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
+        ryList.setLayoutManager(linearLayoutManager);
+        upDateFlag = false;
+        Bundle bundle = getIntent().getExtras();
+        orderData = (FilterResultOrderBean) bundle.getSerializable(AddressContants.ORDERDATA);
+        tvHeadPlanDate.setText(orderData.getCreate_date());
+        tvHeadPostOrder.setText(orderData.getDoc_no());
+        tvHeadProvider.setText(orderData.getSupplier_name());
+        upDateList();
+    }
+
+    /**
+     * 汇总展示
+     */
+    public void upDateList() {
+        ClickItemPutBean clickItemPutData = new ClickItemPutBean();
+        clickItemPutData.setDoc_no(orderData.getDoc_no());
+        clickItemPutData.setWarehouse_no(LoginLogic.getWare());
+        showLoadingDialog();
+        commonLogic.getPGSSumData(clickItemPutData, new PurchaseGoodScanLogic.GetZSumListener() {
+            @Override
+            public void onSuccess(List<ListSumBean> list) {
+                dismissLoadingDialog();
+                sumShowBeanList = list;
+                if (list.size() > 0) {
+                    adapter = new PurchaseGoodsSumAdapter(pactivity, sumShowBeanList);
+                    ryList.setAdapter(adapter);
+                    upDateFlag = true;
+                }
             }
-        } catch (Exception e) {
-            LogUtils.e(TAG, "onActivityResult-->" + e);
+
+            @Override
+            public void onFailed(String error) {
+                dismissLoadingDialog();
+                upDateFlag = false;
+                showFailedDialog(error);
+                sumShowBeanList = new ArrayList<ListSumBean>();
+                adapter = new PurchaseGoodsSumAdapter(pactivity, sumShowBeanList);
+                ryList.setAdapter(adapter);
+            }
+        });
+    }
+
+
+    private void sureCommit() {
+        if (!upDateFlag) {
+            showFailedDialog(R.string.nodate);
+            return;
         }
+        float sum=0;
+        for (int i=0;i<sumShowBeanList.size();i++){
+            if (StringUtils.isBlank(sumShowBeanList.get(i).getScan_sumqty())){
+                showFailedDialog(sumShowBeanList.get(i).getItem_no()+getString(R.string.num_empty));
+                return;
+            }
+            float sub = StringUtils.sub(sumShowBeanList.get(i).getApply_qty(), sumShowBeanList.get(i).getScan_sumqty());
+            if (sub<0){
+                showFailedDialog(sumShowBeanList.get(i).getItem_no()+getString(R.string.num_big));
+                return;
+            }
+            sum+=StringUtils.string2Float(sumShowBeanList.get(i).getScan_sumqty());
+        }
+        if (sum==0){
+            showFailedDialog(R.string.num_all_zero);
+            return;
+        }
+        showLoadingDialog();
+        commonLogic.commitPGSData(sumShowBeanList, new CommonLogic.CommitListener() {
+            @Override
+            public void onSuccess(String msg) {
+                dismissLoadingDialog();
+                showCommitSuccessDialog(msg, new OnDialogClickListener() {
+                    @Override
+                    public void onCallback() {
+                        activity.finish();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String error) {
+                dismissLoadingDialog();
+                showCommitFailDialog(error);
+            }
+        });
+
     }
 
 
     @Override
     public ExitMode exitOrDel() {
         return ExitMode.EXITD;
+    }
+
+    @Override
+    public String moduleCode() {
+        return ModuleCode.PURCHASEGOODSSCAN;
+    }
+
+    @Override
+    protected Toolbar toolbar() {
+        return toolbarTitle;
     }
 }

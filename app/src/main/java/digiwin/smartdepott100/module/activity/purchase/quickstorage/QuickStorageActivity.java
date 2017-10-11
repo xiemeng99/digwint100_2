@@ -111,12 +111,6 @@ public class QuickStorageActivity extends BaseFirstModuldeActivity {
                                 checkedList.get(i).setQty(StringUtils.deleteZero(checkedList.get(i).getScan_sumqty()));
                                 commitList.add(checkedList.get(i));
                             }
-//                            if (!StringUtils.isBlank(checkedList.get(i).getMatch_qty()) ||
-//                                    StringUtils.string2Float(checkedList.get(i).getMatch_qty()) > 0) {
-//                                checkedList.get(i).setReceipt_qty(StringUtils.deleteZero(checkedList.get(i).getReq_qty()));
-//                                checkedList.get(i).setQty(StringUtils.deleteZero(checkedList.get(i).getMatch_qty()));
-//                                commitList.add(checkedList.get(i));
-//                            }
                         }
                         commitData(commitList);
                     }
@@ -276,6 +270,7 @@ public class QuickStorageActivity extends BaseFirstModuldeActivity {
             holder.setText(R.id.tv_unit, item.getUnit_no());
             holder.setText(R.id.tv_item_format, item.getItem_spec());
             holder.setText(R.id.tv_item_no, item.getItem_no());
+            holder.setText(R.id.tv_product_code,item.getProduct_no());
             holder.setText(R.id.tv_storage, item.getWarehouse_no());
             holder.setText(R.id.tv_in_storage_number, StringUtils.deleteZero(item.getApply_qty()));//入库量
             holder.setText(R.id.tv_match_number, StringUtils.deleteZero(item.getScan_sumqty()));//实际量
@@ -287,8 +282,7 @@ public class QuickStorageActivity extends BaseFirstModuldeActivity {
             wareHouseTv.setTag(position);
             final List<String> list = GetStorageLogic.getWareString();
 
-            final LinearLayout warehouse_img_ll = holder.findViewById(R.id.warehouse_img_ll);
-            warehouse_img_ll.setOnClickListener(new View.OnClickListener() {
+            wareHouseTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     StorageDialog.showStorageDialog(activity, LoginLogic.getWare(), list, new StorageDialog.StorageCallBack() {

@@ -12,9 +12,13 @@ public interface ModuleCode {
     public final String OTHER="OTHER";
 
     /**
-     * 扫码收货
+     * 快速收货
      */
     public final String PURCHASEGOODSSCAN = "A001";
+    /**
+     * 采购收货
+     */
+    public final String PURCHASERECEIVING="A002";
     /**
      * 扫码收货供应商
      */
@@ -52,10 +56,7 @@ public interface ModuleCode {
      * pqc 检验
      */
     public final String PQCCHECK="A060";
-    /**
-     * 采购收货
-     */
-    public final String PURCHASERECEIVING="A060";
+
     /**
      * PQC检验
      */

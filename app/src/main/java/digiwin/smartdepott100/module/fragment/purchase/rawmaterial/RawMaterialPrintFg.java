@@ -36,7 +36,7 @@ import digiwin.library.dialog.OnDialogClickListener;
 import digiwin.library.utils.SharedPreferencesUtils;
 import digiwin.library.utils.StringUtils;
 
-import static digiwin.smartdepott100.R.id.et_purchase_order;
+
 
 /**
  * @author xiemeng
@@ -52,10 +52,10 @@ public class RawMaterialPrintFg extends BaseFragment {
     LinearLayout llPurchaseOrder;
     @BindView(R.id.tv_purchase_order)
     TextView tvPurchaseOrder;
-    @BindView(et_purchase_order)
+    @BindView(R.id.et_purchase_order)
     EditText etPurchaseOrder;
 
-    @BindViews({et_purchase_order,})
+    @BindViews({R.id.et_purchase_order,})
     List<EditText> editTexts;
     @BindViews({R.id.tv_purchase_order,})
     List<TextView> textViews;
@@ -63,7 +63,7 @@ public class RawMaterialPrintFg extends BaseFragment {
     List<View> views;
 
     //工单单号
-    @OnFocusChange(et_purchase_order)
+    @OnFocusChange(R.id.et_purchase_order)
     void workOrderFocusChanage() {
         ModuleUtils.viewChange(llPurchaseOrder, views);
         ModuleUtils.etChange(activity, etPurchaseOrder, editTexts);

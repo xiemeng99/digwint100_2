@@ -317,7 +317,7 @@
     <string name="receipt_address">收货地址</string>
     <string name="purchase_goods_scan">采购收货扫描</string>
     <string name="purchase_receiving">采购收货</string>
-    <string name="title_purchase_goods_scan">采购收货</string>
+    <string name="title_purchase_goods_scan">快速收货</string>
     <string name="purchase_scan_supplier">扫码收货(供)</string>
     <string name="send_goods_num">发货量</string>
 
@@ -766,4 +766,7 @@
     <string name="having_date">产生日期</string>
     <string name="oqc_check_pad">OQC检验(平板)</string>
     <string name="oqc_change">OQC维护</string>
+    <string name="num_empty">数量为空，请检查</string>
+    <string name="num_big">数量超出，请检查</string>
+    <string name="num_all_zero">数量不可全部为0</string>
 </resources>

@@ -44,10 +44,6 @@ import digiwin.smartdepott100.module.bean.common.ScanBarcodeBackBean;
 import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 
-import static digiwin.library.utils.StringUtils.sum;
-import static digiwin.smartdepott100.R.id.et_input_num;
-import static digiwin.smartdepott100.R.id.et_scan_barocde;
-
 
 /**
  * @author 赵浩然
@@ -126,7 +122,7 @@ public class AccordingMaterialScanNewActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(et_scan_barocde)
+    @BindView(R.id.et_scan_barocde)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -146,12 +142,12 @@ public class AccordingMaterialScanNewActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_number)
     TextView tvNumber;
-    @BindView(et_input_num)
+    @BindView(R.id.et_input_num)
     EditText etInputNum;
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
 
-    @BindViews({et_scan_barocde, R.id.et_scan_locator, et_input_num})
+    @BindViews({R.id.et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -228,7 +224,7 @@ public class AccordingMaterialScanNewActivity extends BaseTitleActivity {
             public void onSuccess(SaveBackBean saveBackBean) {
                 dismissLoadingDialog();
                 showToast(getResources().getString(R.string.save_success));
-                float scan_sum = sum(etInputNum.getText().toString(),tv_actual_yield.getText().toString());
+                float scan_sum = StringUtils.sum(etInputNum.getText().toString(),tv_actual_yield.getText().toString());
                 tv_actual_yield.setText(StringUtils.deleteZero(String.valueOf(scan_sum)));
                 if(null != localFifoList){
                     if(localFifoList.size() > 0 && AddressContants.FIFOY.equals(saveBean.getFifo_check())){
@@ -265,7 +261,7 @@ public class AccordingMaterialScanNewActivity extends BaseTitleActivity {
         }
     }
 
-    @OnFocusChange(et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barocde)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -279,14 +275,14 @@ public class AccordingMaterialScanNewActivity extends BaseTitleActivity {
         ModuleUtils.tvChange(activity, tvLocator, textViews);
     }
 
-    @OnFocusChange(et_input_num)
+    @OnFocusChange(R.id.et_input_num)
     void numFocusChanage() {
         ModuleUtils.viewChange(llInputNum, views);
         ModuleUtils.etChange(activity, etInputNum, editTexts);
         ModuleUtils.tvChange(activity, tvNumber, textViews);
     }
 
-    @OnTextChanged(value = et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);

@@ -17,8 +17,6 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
 import digiwin.smartdepott100.core.modulecommon.ModuleViewPagerAdapter;
-import digiwin.smartdepott100.module.fragment.purchase.purchasegoodsscan.PurchaseGoodsScanFg;
-import digiwin.smartdepott100.module.fragment.purchase.purchasegoodsscan.PurchaseGoodsSumFg;
 import digiwin.smartdepott100.module.fragment.purchase.purchasescansupplier.PurChaseSupplierScanFg;
 import digiwin.smartdepott100.module.fragment.purchase.purchasescansupplier.PurChaseSupplierSumFg;
 

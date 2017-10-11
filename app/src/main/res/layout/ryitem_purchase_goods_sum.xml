@@ -5,8 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <LinearLayout
+        style="@style/ry_sum_itemstyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            style="@style/app_text_inwhite"
+            android:layout_width="@dimen/layout_60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/item_seq" />
 
+        <TextView
+            android:id="@+id/tv_item_seq"
+            style="@style/ry_ser_text_inwhite"
+            android:layout_width="@dimen/layout_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            style="@style/app_text_inwhite"
+            android:layout_width="@dimen/layout_60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unit" />
+
+        <TextView
+            android:id="@+id/tv_item_danwei"
+            style="@style/ry_ser_text_inwhite"
+            android:layout_width="@dimen/layout_0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View style="@style/ry_line_style" />
 
     <LinearLayout
         style="@style/ry_sum_itemstyle"
@@ -25,19 +57,12 @@
             android:id="@+id/tv_item_name"
             style="@style/ry_ser_text_inwhite"
             android:layout_width="@dimen/layout_0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_item_danwei"
-            style="@style/ry_ser_text_inwhite"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           />
+            android:layout_weight="1" />
+
     </LinearLayout>
 
-    <View
-        android:id="@+id/line_1"
-        style="@style/ry_line_style" />
+    <View style="@style/ry_line_style" />
 
     <LinearLayout
         style="@style/ry_sum_itemstyle"
@@ -60,9 +85,8 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/line_4"
-        style="@style/ry_line_style" />
+    <View style="@style/ry_line_style" />
+
     <LinearLayout
         style="@style/ry_sum_itemstyle"
         android:layout_width="match_parent"
@@ -81,11 +105,12 @@
             style="@style/ry_ser_text_inwhite"
             android:layout_width="@dimen/layout_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
     </LinearLayout>
-    <View
-        style="@style/ry_line_style" />
+
+    <View style="@style/ry_line_style" />
+
     <LinearLayout
         style="@style/ry_sum_itemstyle"
         android:layout_width="match_parent"
@@ -103,45 +128,49 @@
             style="@style/ry_ser_text_inwhite"
             android:layout_width="@dimen/layout_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_weight="3" />
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/line_2"
-        style="@style/ry_line_style" />
-        <LinearLayout
-            style="@style/ry_sum_itemstyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <View style="@style/ry_line_style" />
 
-            <TextView
-                android:id="@+id/tv_wait_recheck_numb_string"
-                style="@style/app_text_inwhite"
-                android:layout_width="@dimen/layout_60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/apply_number" />
+    <LinearLayout
+        style="@style/ry_sum_itemstyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_in_storage_number"
-                style="@style/ry_ser_text_inwhite"
-                android:layout_width="@dimen/layout_0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+        <TextView
+            android:id="@+id/tv_wait_recheck_numb_string"
+            style="@style/app_text_inwhite"
+            android:layout_width="@dimen/layout_60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/apply_number" />
 
-            <TextView
-                android:id="@+id/tv_act_send_numb_string"
-                style="@style/app_text_inwhite"
-                android:layout_width="@dimen/layout_60dp"
-                android:layout_height="wrap_content"
-                android:text="@string/actual_yield_num" />
+        <TextView
+            android:id="@+id/tv_in_storage_number"
+            style="@style/ry_ser_text_inwhite"
+            android:layout_width="@dimen/layout_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/tv_match_number"
-                style="@style/ry_ser_text_inwhite"
-                android:layout_width="@dimen/layout_0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_act_send_numb_string"
+            style="@style/app_text_inwhite"
+            android:layout_width="@dimen/layout_60dp"
+            android:layout_height="wrap_content"
+            android:text="@string/actual_yield_num" />
+
+        <EditText
+            android:id="@+id/tv_match_number"
+            android:layout_width="@dimen/layout_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@drawable/amend"
+            android:inputType="numberDecimal"
+            android:paddingLeft="@dimen/layout_2dp"
+            android:selectAllOnFocus="true"
+            android:textSize="@dimen/textSize_14sp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -100,11 +100,11 @@ public class MainLogic {
 //        ModuleBean storeReturnMaterial = new ModuleBean(R.string.store_return_material, R.mipmap.warehouse_return, ModuleCode.STORERETURNMATERIAL, "android.intent.actiont100.smartdepot.StoreReturnMaterialListActivity");
 //        ModuleBean quickstorage = new ModuleBean(R.string.title_quickstorage, R.mipmap.quickly_storage, ModuleCode.QUICKSTORAGE, "android.intent.actiont100.smartdepot.QuickStorageListActivity");
 //        ModuleBean purchaseCheck = new ModuleBean(R.string.purchase_check, R.mipmap.inspection_tests, ModuleCode.PURCHASECHECK, "android.intent.actiont100.smartdepot.PurchaseCheckActivity");
-//        ModuleBean purchaseReceiving = new ModuleBean(R.string.purchase_receiving, R.mipmap.material_receipt, ModuleCode.PQCCHECK, "android.intent.actiont100.smartdepot.PurchaseReceivingActivity");
 //        ModuleBean quickstorage = new ModuleBean(R.string.title_quickstorage, R.mipmap.quickly_storage, ModuleCode.QUICKSTORAGE, "android.intent.actiont100.smartdepot.QuickStorageListActivity");
         ModuleBean materialreceipt = new ModuleBean(R.string.title_material_receipt, R.mipmap.material_receipt, ModuleCode.MATERIALRECEIPTCODE, "android.intent.actiont100.smartdepot.MaterialReceiptActivity");
         ModuleBean quickstorage = new ModuleBean(R.string.title_quickstorage, R.mipmap.migo, ModuleCode.QUICKSTORAGE, "android.intent.actiont100.smartdepot.QuickStorageListActivity");
         ModuleBean purchaseGoodsScan = new ModuleBean(R.string.title_purchase_goods_scan, R.mipmap.purchase_receipt, ModuleCode.PURCHASEGOODSSCAN, "android.intent.actiont100.smartdepot.PurchaseGoodsScanListActivity");
+        ModuleBean purchaseReceiving = new ModuleBean(R.string.purchase_receiving, R.mipmap.material_receipt, ModuleCode.PURCHASERECEIVING, "android.intent.actiont100.smartdepot.PurchaseReceivingActivity");
         ModuleBean purchasesupplier = new ModuleBean(R.string.purchase_scan_supplier, R.mipmap.scan_inapection, ModuleCode.PURCHASESUPPLIERSCAN, "android.intent.actiont100.smartdepot.PurhcaseSupplierListActivity");
         ModuleBean purchaseInStore = new ModuleBean(R.string.purchase_in_store, R.mipmap.saomaruku, ModuleCode.PURCHASEINSTORE, "android.intent.actiont100.smartdepot.PurchaseInStoreListActivity");
         ModuleBean iqcCheck = new ModuleBean(R.string.iqc_check, R.mipmap.inspection_tests, ModuleCode.PURCHASECHECK, "android.intent.actiont100.smartdepot.IQCListActivity");
@@ -114,9 +114,10 @@ public class MainLogic {
         purchaseItems.add(materialreceipt);
         purchaseItems.add(quickstorage);
         purchaseItems.add(purchaseGoodsScan);
+        purchaseItems.add(purchaseReceiving);
         purchaseItems.add(purchasesupplier);
         purchaseItems.add(purchaseInStore);
-        purchaseItems.add(iqcCheck);
+//        purchaseItems.add(iqcCheck);
         purchaseItems.add(purchasestore);
         purchaseItems.add(iqcInspect);
 
@@ -235,7 +236,7 @@ public class MainLogic {
 //        dailyworkItems.add(proceduremoveout);
 
         // TODO: 2017/3/14 暂时屏蔽测试用
-        showDetailModule();
+//        showDetailModule();
         ModuleList.addAll(purchaseItems);
         ModuleList.addAll(produceItems);
         ModuleList.addAll(storageItems);

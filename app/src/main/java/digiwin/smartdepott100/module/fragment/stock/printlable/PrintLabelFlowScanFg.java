@@ -38,7 +38,6 @@ import digiwin.library.dialog.OnDialogClickListener;
 import digiwin.library.utils.SharedPreferencesUtils;
 import digiwin.library.utils.StringUtils;
 
-import static digiwin.smartdepott100.R.id.et_resource_barcode;
 
 /**
  * Created by qGod on 2017/5/28
@@ -53,7 +52,7 @@ public class PrintLabelFlowScanFg extends BaseFragment {
     LinearLayout llWorkOrderNo;
     @BindView(R.id.tv_resource_barcode)
     TextView tvWorkOrderNo;
-    @BindView(et_resource_barcode)
+    @BindView(R.id.et_resource_barcode)
     EditText etWorkOrderNo;
     /**
      * 设备编号
@@ -83,7 +82,7 @@ public class PrintLabelFlowScanFg extends BaseFragment {
     @BindView(R.id.et_work_people)
     EditText etWorkPeople;
 
-    @BindViews({et_resource_barcode, R.id.et_device_number, R.id.et_mould_no, R.id.et_work_people})
+    @BindViews({R.id.et_resource_barcode, R.id.et_device_number, R.id.et_mould_no, R.id.et_work_people})
     List<EditText> editTexts;
     @BindViews({R.id.tv_resource_barcode, R.id.tv_device_number, R.id.tv_mould_no, R.id.tv_work_people})
     List<TextView> textViews;
@@ -91,7 +90,7 @@ public class PrintLabelFlowScanFg extends BaseFragment {
     List<View> views;
 
     //工单单号
-    @OnFocusChange(et_resource_barcode)
+    @OnFocusChange(R.id.et_resource_barcode)
     void workOrderFocusChanage() {
         ModuleUtils.viewChange(llWorkOrderNo, views);
         ModuleUtils.etChange(activity, etWorkOrderNo, editTexts);

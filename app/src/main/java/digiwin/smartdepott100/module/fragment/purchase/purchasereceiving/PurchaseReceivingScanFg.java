@@ -37,12 +37,6 @@ import digiwin.smartdepott100.module.logic.common.CommonLogic;
 
 public class PurchaseReceivingScanFg extends BaseFragment {
 
-    @BindView(R.id.tv_purchase)
-    TextView tvPurchase;
-    @BindView(R.id.et_scan_purchase)
-    EditText etScanPurchase;
-    @BindView(R.id.ll_purchase)
-    LinearLayout llPurchase;
 
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
@@ -50,14 +44,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
-
-    @BindView(R.id.tv_furnace)
-    TextView tvFurnace;
-    @BindView(R.id.et_scan_furnace)
-    EditText etScanFurnace;
-    @BindView(R.id.ll_scan_furnace)
-    LinearLayout llScanFurnace;
-    Unbinder unbinder;
 
     @BindView(R.id.tv_number)
     TextView tvNumber;
@@ -76,33 +62,20 @@ public class PurchaseReceivingScanFg extends BaseFragment {
     @BindView(R.id.tv_scan_hasScan)
     TextView tvScanHasScan;
 
-    @BindViews({R.id.et_scan_purchase, R.id.et_scan_barocde, R.id.et_scan_furnace, R.id.et_input_num})
+    @BindViews({ R.id.et_scan_barocde, R.id.et_input_num})
     List<EditText> editTexts;
-    @BindViews({R.id.ll_purchase, R.id.ll_scan_barcode, R.id.ll_scan_furnace, R.id.ll_input_num})
+    @BindViews({R.id.ll_scan_barcode,R.id.ll_input_num})
     List<View> views;
-    @BindViews({R.id.tv_purchase, R.id.tv_barcode, R.id.tv_furnace, R.id.tv_number})
+    @BindViews({ R.id.tv_barcode, R.id.tv_number})
     List<TextView> textViews;
 
 
-    @OnFocusChange(R.id.et_scan_purchase)
-    void purchaseFocusChanage() {
-        ModuleUtils.viewChange(llPurchase, views);
-        ModuleUtils.etChange(activity, etScanPurchase, editTexts);
-        ModuleUtils.tvChange(activity, tvPurchase, textViews);
-    }
 
     @OnFocusChange(R.id.et_scan_barocde)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
         ModuleUtils.tvChange(activity, tvBarcode, textViews);
-    }
-
-    @OnFocusChange(R.id.et_scan_furnace)
-    void furnaceFocusChanage() {
-        ModuleUtils.viewChange(llScanFurnace, views);
-        ModuleUtils.etChange(activity, etScanFurnace, editTexts);
-        ModuleUtils.tvChange(activity, tvFurnace, textViews);
     }
 
     @OnFocusChange(R.id.et_input_num)
@@ -112,13 +85,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
         ModuleUtils.tvChange(activity, tvNumber, textViews);
     }
 
-    @OnTextChanged(value = R.id.et_scan_purchase, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void purchaseChange(CharSequence s) {
-        if (!StringUtils.isBlank(s.toString())) {
-            mHandler.removeMessages(PURCAHSEWHAT);
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(PURCAHSEWHAT, s.toString()), AddressContants.DELAYTIME);
-        }
-    }
 
     @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
@@ -128,13 +94,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
         }
     }
 
-    @OnTextChanged(value = R.id.et_scan_furnace, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
-    void locatorChange(CharSequence s) {
-        if (!StringUtils.isBlank(s.toString())) {
-            mHandler.removeMessages(FURNACEWHAT);
-            mHandler.sendMessageDelayed(mHandler.obtainMessage(FURNACEWHAT, s.toString()), AddressContants.DELAYTIME);
-        }
-    }
 
     @OnClick(R.id.save)
     void save() {
@@ -147,7 +106,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
             return;
         }
         showLoadingDialog();
-        saveBean.setQty(etInputNum.getText().toString());
+        saveBean.setQty(etInputNum.getText().toString().trim());
         commonLogic.scanSave(saveBean, new CommonLogic.SaveListener() {
             @Override
             public void onSuccess(SaveBackBean saveBackBean) {
@@ -165,17 +124,9 @@ public class PurchaseReceivingScanFg extends BaseFragment {
 
     }
     /**
-     * 采购单号
-     */
-    final int PURCAHSEWHAT = 1000;
-    /**
      * 物料条码
      */
     final int BARCODEWHAT = 1001;
-    /**
-     * 炉号
-     */
-    final int FURNACEWHAT = 1002;
 
     PurchaseReceivingActivity pactivity;
 
@@ -185,14 +136,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
      * 条码展示
      */
     String barcodeShow;
-    /**
-     * 库位展示
-     */
-    String locatorShow;
-    /**
-     * 采购单扫描
-     */
-    boolean purchaseflag;
     /**
      * 条码扫描
      */
@@ -215,11 +158,14 @@ public class PurchaseReceivingScanFg extends BaseFragment {
                             tvScanHasScan.setText(barcodeBackBean.getScan_sumqty());
                             barcodeFlag = true;
                             show();
-                            saveBean.setAvailable_in_qty(barcodeBackBean.getAvailable_in_qty());
+                            saveBean.setProduct_no(barcodeBackBean.getProduct_no());
                             saveBean.setBarcode_no(barcodeBackBean.getBarcode_no());
                             saveBean.setItem_no(barcodeBackBean.getItem_no());
                             saveBean.setUnit_no(barcodeBackBean.getUnit_no());
                             saveBean.setLot_no(barcodeBackBean.getLot_no());
+                            saveBean.setScan_sumqty(barcodeBackBean.getScan_sumqty());
+                            saveBean.setAvailable_in_qty(barcodeBackBean.getAvailable_in_qty());
+                            saveBean.setItem_barcode_type(barcodeBackBean.getItem_barcode_type());
                             etInputNum.requestFocus();
                         }
 
@@ -230,30 +176,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
                                 @Override
                                 public void onCallback() {
                                     etScanBarocde.setText("");
-                                }
-                            });
-                        }
-                    });
-                    break;
-                case FURNACEWHAT:
-                    HashMap<String, String> locatorMap = new HashMap<>();
-                    locatorMap.put(AddressContants.STORAGE_SPACES_BARCODE, String.valueOf(msg.obj));
-                    commonLogic.scanLocator(locatorMap, new CommonLogic.ScanLocatorListener() {
-                        @Override
-                        public void onSuccess(ScanLocatorBackBean locatorBackBean) {
-                            locatorShow = locatorBackBean.getShowing();
-                            show();
-                            saveBean.setStorage_spaces_in_no(locatorBackBean.getStorage_spaces_no());
-                            saveBean.setWarehouse_in_no(locatorBackBean.getWarehouse_no());
-                            etScanBarocde.requestFocus();
-                        }
-
-                        @Override
-                        public void onFailed(String error) {
-                            showFailedDialog(error, new OnDialogClickListener() {
-                                @Override
-                                public void onCallback() {
-                                    etScanFurnace.setText("");
                                 }
                             });
                         }
@@ -280,7 +202,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
      * 公共区域展示
      */
     private void show() {
-        tvDetailShow.setText(StringUtils.lineChange(barcodeShow + "\\n" + locatorShow));
+        tvDetailShow.setText(StringUtils.lineChange(barcodeShow));
         if (!StringUtils.isBlank(tvDetailShow.getText().toString())) {
             includeDetail.setVisibility(View.VISIBLE);
         } else {
@@ -298,8 +220,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
         etScanBarocde.setText("");
         barcodeShow = "";
         etScanBarocde.requestFocus();
-        etScanFurnace.setText("");
-        locatorShow = "";
         show();
     }
 
@@ -308,7 +228,6 @@ public class PurchaseReceivingScanFg extends BaseFragment {
      */
     public void initData() {
         barcodeShow = "";
-        locatorShow = "";
         barcodeFlag = false;
         saveBean = new SaveBean();
         etScanBarocde.setText("");

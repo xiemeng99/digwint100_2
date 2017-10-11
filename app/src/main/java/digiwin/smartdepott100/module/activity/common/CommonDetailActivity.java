@@ -30,7 +30,6 @@ import digiwin.smartdepott100.core.base.BaseTitleActivity;
 import digiwin.smartdepott100.core.coreutil.AlertDialogUtils;
 import digiwin.smartdepott100.module.adapter.common.CommonDetailAdapter;
 import digiwin.smartdepott100.module.adapter.produce.WipStorageDetailAdapter;
-import digiwin.smartdepott100.module.adapter.purchase.PurchaseGoodsDetailAdapter;
 import digiwin.smartdepott100.module.adapter.stock.storeallot.StoreAllotDetailAdapter;
 import digiwin.smartdepott100.module.bean.common.DeleteUpdateBean;
 import digiwin.smartdepott100.module.bean.common.DetailShowBean;
@@ -145,9 +144,6 @@ public class CommonDetailActivity extends BaseTitleActivity {
         switch (module) {
             case ModuleCode.NOCOMESTOREALLOT:
                 adapter = new StoreAllotDetailAdapter(activity, mDetailShowBeen);
-                break;
-            case ModuleCode.PURCHASEGOODSSCAN:
-                adapter = new PurchaseGoodsDetailAdapter(activity, mDetailShowBeen);
                 break;
             case ModuleCode.POSTALLOCATE:
                 adapter = new StoreAllotDetailAdapter(activity, mDetailShowBeen);
