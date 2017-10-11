@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'com.github.dcendents.android-maven'
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+def name() {
+    return "T100智能物流"
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    aaptOptions{
+        cruncherEnabled false
+        useNewCruncher false
+    }
+    defaultConfig {
+        applicationId "digiwin.smartdepott100"
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.11"
+        resConfigs "en"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+//    signingConfigs{
+//        release{
+//            def Properties  localProps=new Properties()
+//            localProps.load(new FileInputStream(file('../local.properties')))//读取本地配置文件
+//            def Properties  keyProps=new Properties()
+//            //读取自定义的配置文件,这里的(keystore.props.file)是自定义配置文件的绝对路径
+//            assert localProps['keystore.props.file'];
+//            keyProps.load(new FileInputStream(file(localProps['keystore.props.file'])))
+//            storeFile file(keyProps["storeFile"])
+//            keyAlias keyProps["keyAlias"]
+//            storePassword keyProps["storePssword"]
+//            keyPassword keyProps["keyPassword"]
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false//去掉不用资源
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors{
+        dev{}
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('release.apk')) {
+                //这里修改apk文件名
+             //   def fileName = "${variant.productFlavors[0].name}-${releaseTime() }"+"-v"+"${defaultConfig.versionName}.apk"
+                def fileName = "${name()}-${releaseTime() }-v${defaultConfig.versionName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.android.support:design:23.4.0'
+    //litepal数据库
+    compile 'org.litepal.android:core:1.4.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+//     compile 'com.github.xiemeng99.digiwint100:dgwlibrary:1.2'
+//     compile 'com.github.xiemeng99.digiwint100:pulltorefreshlibrary:1.2'
+    //65535问题
+    compile 'com.android.support:multidex:1.0.0'
+    compile project(':dgwlibrary')
+    compile project(':pulltorefreshlibrary')
+}
+
+//指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+//打包源码
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError  false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// 制作文档(Javadoc)
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

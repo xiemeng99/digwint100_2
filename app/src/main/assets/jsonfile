@@ -1,0 +1,23 @@
+{
+    "srvver": "1.0",
+    "srvcode": "000",
+    "payload": {
+        "std_data": {
+            "execution": {
+                "code": "0",
+                "sqlcode": "0",
+                "description": ""
+            },
+            "parameter": {
+                "list": [
+                    {
+                        "reason_code_no": "201",
+                        "reason_code_name": "客户产品呆滞",
+                        "show": "201   理由码名称 客户产品呆滞"
+                    }
+                ]
+            }
+        }
+    }
+}
+
