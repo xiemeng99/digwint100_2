@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +34,8 @@ import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.StringUtils;
 import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
+
+import static digiwin.smartdepott100.R.id.scrollview;
 
 /**
  * @author xiemeng
@@ -179,10 +180,8 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
     RecyclerView ryList;
 
     @BindView(R.id.ll_search_dialog)
-    LinearLayout ll_search_dialog;
+    LinearLayout llSearchDialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     /**
      * 跳转明细使用
@@ -195,8 +194,8 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(getString(R.string.put_in_store) + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     /**
@@ -204,14 +203,14 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
      */
     @OnClick(R.id.iv_title_setting)
     void searchDialog() {
-        if (ll_search_dialog.getVisibility() == View.VISIBLE) {
+        if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != dataList && dataList.size() > 0) {
-                ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                llSearchDialog.setVisibility(View.GONE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
-            ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            llSearchDialog.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -219,7 +218,7 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
      * 点击确定，筛选
      */
     @OnClick(R.id.btn_search_sure)
-    void Search() {
+    void search() {
         upDateList();
     }
 
@@ -300,9 +299,9 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
                 public void onSuccess(List<FilterResultOrderBean> list) {
                     if (null != list && list.size() > 0) {
                         dismissLoadingDialog();
-                        ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        llSearchDialog.setVisibility(View.GONE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         dataList.clear();
                         dataList = list;
                         adapter = new ZPutInStoreFilterResultAdapter(pactivity, dataList);
@@ -323,14 +322,9 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
                 @Override
                 public void onFailed(String error) {
                     dismissLoadingDialog();
-                    try {
-                        showFailedDialog(error);
-                        //TODO setAdapter
-                        dataList = new ArrayList<FilterResultOrderBean>();
-                        adapter = new ZPutInStoreFilterResultAdapter(pactivity, dataList);
-                    } catch (Exception e) {
-                        LogUtils.e(TAG, "updateList--getSum--onFailed" + e);
-                    }
+                    showFailedDialog(error);
+                    dataList = new ArrayList<FilterResultOrderBean>();
+                    adapter = new ZPutInStoreFilterResultAdapter(pactivity, dataList);
                 }
             });
 
@@ -342,14 +336,10 @@ public class ZPutInStoreActivity extends BaseTitleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == SUMCODE) {
-                adapter = new ZPutInStoreFilterResultAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
-                ryList.setAdapter(adapter);
-                upDateList();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SUMCODE) {
+            adapter = new ZPutInStoreFilterResultAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
+            ryList.setAdapter(adapter);
+            upDateList();
         }
     }
 }

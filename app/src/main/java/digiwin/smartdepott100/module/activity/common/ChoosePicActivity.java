@@ -98,7 +98,7 @@ public class ChoosePicActivity extends BaseTitleActivity {
         super.initNavigationTitle();
         mName.setText(R.string.choose_pic);
         ivScan.setVisibility(View.GONE);
-        iv_title_setting.setImageResource(R.drawable.check_num_on);
+        ivTitleSetting.setImageResource(R.drawable.check_num_on);
     }
 
     @Override

@@ -769,4 +769,10 @@
     <string name="num_empty">数量为空，请检查</string>
     <string name="num_big">数量超出，请检查</string>
     <string name="num_all_zero">数量不可全部为0</string>
+    
+    
+    <string name="main_purchase">收货</string>
+    <string name="main_instock">入库</string>
+    <string name="main_check">检验</string>
+    <string name="main_return">退货</string>
 </resources>

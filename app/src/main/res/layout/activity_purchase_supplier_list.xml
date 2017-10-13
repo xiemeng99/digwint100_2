@@ -168,24 +168,15 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollview"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ry_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_title"
         android:layout_marginTop="@dimen/layout_6dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/ryitem_common" />
-        </LinearLayout>
-
-    </ScrollView>
+        android:visibility="gone" />
 
 </RelativeLayout>

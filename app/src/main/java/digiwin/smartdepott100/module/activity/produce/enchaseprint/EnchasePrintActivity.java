@@ -257,7 +257,7 @@ public class EnchasePrintActivity extends BaseActivity {
     private void print() {
         boolean isOpen = BlueToothManager.getManager(activity).isOpen();
         if (!isOpen) {
-            ToSettingLogic.showToSetdialog(activity, R.string.title_set_bluttooth);
+            ToSettingLogic.showToSetdialog(activity, R.string.title_set_bluttooth,null);
         } else {
             BlueToothManager.getManager(activity).printBarocde(String.valueOf(printCout + 1));
         }

@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white_ff">
+    android:background="@color/white_ff"
+    android:orientation="vertical">
 
     <include layout="@layout/activity_title_toolbar_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_0dp"
-        android:layout_weight="1"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_weight="1">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -39,19 +39,19 @@
 
                     <TextView
                         android:id="@+id/tv_gongDan_no"
+                        style="@style/app_text_inwhite"
                         android:layout_width="@dimen/layout_70dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/gongDan_no"
-                        style="@style/app_text_inwhite"/>
+                        android:text="@string/gongDan_no" />
 
                     <EditText
                         android:id="@+id/et_gongDan"
                         android:layout_width="@dimen/layout_0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:singleLine="true"
                         android:background="@null"
+                        android:singleLine="true"
                         android:textColor="@color/black_32"
                         android:textCursorDrawable="@drawable/et_cursor_yellow"
                         android:textSize="@dimen/textSize_14sp" />
@@ -67,11 +67,11 @@
 
                     <TextView
                         android:id="@+id/tv_locator"
+                        style="@style/app_text_inwhite"
                         android:layout_width="@dimen/layout_70dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/label_storage"
-                        style="@style/app_text_inwhite"/>
+                        android:text="@string/label_storage" />
 
                     <TextView
                         android:id="@+id/tv_warehouse"
@@ -86,6 +86,7 @@
                 </LinearLayout>
 
                 <View style="@style/fg_line_style" />
+
                 <LinearLayout
                     android:id="@+id/ll_input_num"
                     style="@style/itemstyle"
@@ -94,11 +95,11 @@
 
                     <TextView
                         android:id="@+id/tv_number"
+                        style="@style/app_text_inwhite"
                         android:layout_width="@dimen/layout_70dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="@string/num"
-                        style="@style/app_text_inwhite" />
+                        android:text="@string/num" />
 
                     <EditText
                         android:id="@+id/et_input_num"
@@ -109,15 +110,19 @@
                         android:hint="@string/input_num"
                         android:inputType="numberDecimal"
                         android:singleLine="true"
-                        android:textColorHint="@color/text_hint_color"
                         android:textColor="@color/orangeYellow"
+                        android:textColorHint="@color/text_hint_color"
                         android:textCursorDrawable="@drawable/et_cursor_yellow"
                         android:textSize="@dimen/textSize_14sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <include  android:id="@+id/includedetail"  android:visibility="gone" layout="@layout/show_playdetail_layout"></include>
+            <include
+                android:id="@+id/includedetail"
+                layout="@layout/show_playdetail_layout"
+                android:visibility="gone"/>
         </RelativeLayout>
     </ScrollView>
-    <include layout="@layout/inclu_commit"/>
+
+    <include layout="@layout/inclu_commit" />
 </LinearLayout>

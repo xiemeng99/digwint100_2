@@ -18,11 +18,15 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
+import digiwin.smartdepott100.core.printer.BlueToothManager;
 import digiwin.smartdepott100.login.loginlogic.LoginLogic;
+import digiwin.smartdepott100.main.logic.ToSettingLogic;
 import digiwin.smartdepott100.module.adapter.purchase.PurchaseGoodsSumAdapter;
 import digiwin.smartdepott100.module.bean.common.ClickItemPutBean;
 import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.bean.common.ListSumBean;
+import digiwin.smartdepott100.module.bean.purchase.PurchaseGoodsScanBackBean;
+import digiwin.smartdepott100.module.bean.stock.PrintBarcodeBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.purchase.PurchaseGoodScanLogic;
 
@@ -69,7 +73,6 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
         });
     }
 
-    PurchaseGoodsScanActivity pactivity;
 
     PurchaseGoodScanLogic commonLogic;
 
@@ -94,8 +97,7 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
 
     @Override
     protected void doBusiness() {
-        pactivity = (PurchaseGoodsScanActivity) activity;
-        commonLogic = PurchaseGoodScanLogic.getInstance(pactivity, pactivity.module, pactivity.mTimestamp.toString());
+        commonLogic = PurchaseGoodScanLogic.getInstance(activity, module, mTimestamp.toString());
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
         ryList.setLayoutManager(linearLayoutManager);
         upDateFlag = false;
@@ -105,6 +107,24 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
         tvHeadPostOrder.setText(orderData.getDoc_no());
         tvHeadProvider.setText(orderData.getSupplier_name());
         upDateList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        boolean isOpen = BlueToothManager.getManager(activity).isOpen();
+        if (!isOpen){
+            ToSettingLogic.showToSetdialog(activity, R.string.title_set_bluttooth, new OnDialogTwoListener() {
+                @Override
+                public void onCallback1() {
+
+                }
+                @Override
+                public void onCallback2() {
+                    activity.finish();
+                }
+            });
+        }
     }
 
     /**
@@ -121,7 +141,7 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
                 dismissLoadingDialog();
                 sumShowBeanList = list;
                 if (list.size() > 0) {
-                    adapter = new PurchaseGoodsSumAdapter(pactivity, sumShowBeanList);
+                    adapter = new PurchaseGoodsSumAdapter(activity, sumShowBeanList);
                     ryList.setAdapter(adapter);
                     upDateFlag = true;
                 }
@@ -133,7 +153,7 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
                 upDateFlag = false;
                 showFailedDialog(error);
                 sumShowBeanList = new ArrayList<ListSumBean>();
-                adapter = new PurchaseGoodsSumAdapter(pactivity, sumShowBeanList);
+                adapter = new PurchaseGoodsSumAdapter(activity, sumShowBeanList);
                 ryList.setAdapter(adapter);
             }
         });
@@ -163,14 +183,14 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
             return;
         }
         showLoadingDialog();
-        commonLogic.commitPGSData(sumShowBeanList, new CommonLogic.CommitListener() {
+        commonLogic.commitPGSData(sumShowBeanList, new PurchaseGoodScanLogic.CommitPurchaseListener() {
             @Override
-            public void onSuccess(String msg) {
+            public void onSuccess(String docNo,final List<PurchaseGoodsScanBackBean> scanBackBeen) {
                 dismissLoadingDialog();
-                showCommitSuccessDialog(msg, new OnDialogClickListener() {
+                showCommitSuccessDialog(docNo, new OnDialogClickListener() {
                     @Override
                     public void onCallback() {
-                        activity.finish();
+                        showPrint(scanBackBeen);
                     }
                 });
             }
@@ -184,6 +204,31 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
 
     }
 
+    /**
+     * 打印
+     * @param scanBackBeen
+     */
+    private void showPrint(final  List<PurchaseGoodsScanBackBean> scanBackBeen){
+        PrintDialog.showRePrinterDailog(this, new PrintDialog.PrinterFlowListener() {
+            @Override
+            public void bindByDevice(String lableNumber) {
+                boolean isOpen = BlueToothManager.getManager(activity).isOpen();
+                if (!isOpen){
+                    ToSettingLogic.showToSetdialog(activity,R.string.title_set_bluttooth,null);
+                    return;
+                }else {
+                    BlueToothManager.getManager(activity).printPurchaseScan(scanBackBeen,lableNumber);
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+
 
     @Override
     public ExitMode exitOrDel() {
@@ -192,7 +237,8 @@ public class PurchaseGoodsScanActivity extends BaseFirstModuldeActivity {
 
     @Override
     public String moduleCode() {
-        return ModuleCode.PURCHASEGOODSSCAN;
+        module=ModuleCode.PURCHASEGOODSSCAN;
+        return module;
     }
 
     @Override

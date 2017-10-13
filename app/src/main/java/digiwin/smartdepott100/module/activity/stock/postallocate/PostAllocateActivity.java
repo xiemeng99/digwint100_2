@@ -2,6 +2,7 @@ package digiwin.smartdepott100.module.activity.stock.postallocate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -180,8 +181,6 @@ public class PostAllocateActivity extends BaseTitleActivity {
     @BindView(R.id.ll_search_dialog)
     LinearLayout ll_search_dialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     /**
      * 跳转扫描使用
@@ -204,12 +203,12 @@ public class PostAllocateActivity extends BaseTitleActivity {
         if (ll_search_dialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
                 ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
 
             }
         } else {
             ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -245,8 +244,7 @@ public class PostAllocateActivity extends BaseTitleActivity {
         etDate.setKeyListener(null);
         pactivity = (PostAllocateActivity) activity;
         commonLogic = PostAllocateLogic.getInstance(pactivity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(activity));
       //  showOutOrIn();
     }
 
@@ -287,8 +285,8 @@ public class PostAllocateActivity extends BaseTitleActivity {
 //            mName.setText(getString(R.string.allocate_in) + getString(R.string.list));
 //        }
         mName.setText(getString(R.string.title_post_allocate) + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     PostAllocateOrderAdapter adapter;
@@ -329,8 +327,8 @@ public class PostAllocateActivity extends BaseTitleActivity {
                     if (null != list && list.size() > 0) {
                         //查询成功隐藏筛选界面，展示汇总信息
                         ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
                         adapter = new PostAllocateOrderAdapter(pactivity, sumShowBeanList);

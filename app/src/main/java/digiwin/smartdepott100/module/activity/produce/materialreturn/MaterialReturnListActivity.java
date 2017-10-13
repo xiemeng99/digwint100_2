@@ -213,6 +213,8 @@ public class MaterialReturnListActivity extends BaseTitleActivity {
 
     @Override
     protected void doBusiness() {
+        startDate="";
+        endDate="";
         etDate.setKeyListener(null);
         list = new ArrayList<>();
         ryList.setLayoutManager(new LinearLayoutManager(activity));

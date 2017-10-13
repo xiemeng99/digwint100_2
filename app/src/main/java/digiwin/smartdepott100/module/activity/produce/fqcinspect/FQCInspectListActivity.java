@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -25,7 +24,6 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
-import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.library.utils.ActivityManagerUtils;
 import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.WeakRefHandler;
@@ -35,6 +33,7 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseTitleHActivity;
+import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
 import digiwin.smartdepott100.module.adapter.produce.FQCInspectScanAdapter;
 import digiwin.smartdepott100.module.bean.purchase.QCScanData;
@@ -58,8 +57,6 @@ public class FQCInspectListActivity extends BaseTitleHActivity {
     EditText etDeliveryNoteNo;
     @BindView(R.id.ll_delivery_note_no)
     LinearLayout llDeliveryNoteNo;
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     @OnFocusChange(R.id.et_delivery_note_no)
     void deliveryNoteNoFocusChanage() {
@@ -159,11 +156,11 @@ public class FQCInspectListActivity extends BaseTitleHActivity {
         if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != qcList && qcList.size() > 0) {
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -205,31 +202,31 @@ public class FQCInspectListActivity extends BaseTitleHActivity {
             switch (message.what) {
                 case GETLISTWHAT:
                     HashMap<String, String> map = new HashMap<>();
-                    if(!StringUtils.isBlank(etDeliveryNoteNo.getText().toString().trim())){
-                        map.put(AddressContants.WO_NO,etDeliveryNoteNo.getText().toString().trim());
+                    if (!StringUtils.isBlank(etDeliveryNoteNo.getText().toString().trim())) {
+                        map.put(AddressContants.WO_NO, etDeliveryNoteNo.getText().toString().trim());
                     }
-                    if(!StringUtils.isBlank(etPurchaseOrder.getText().toString().trim())){
-                        map.put(AddressContants.STOCKINNO,etPurchaseOrder.getText().toString().trim());
+                    if (!StringUtils.isBlank(etPurchaseOrder.getText().toString().trim())) {
+                        map.put(AddressContants.STOCKINNO, etPurchaseOrder.getText().toString().trim());
                     }
-                    if(!StringUtils.isBlank(etMaterialNumber.getText().toString().trim())){
-                        map.put(AddressContants.BARCODE_NO,etMaterialNumber.getText().toString().trim());
+                    if (!StringUtils.isBlank(etMaterialNumber.getText().toString().trim())) {
+                        map.put(AddressContants.BARCODE_NO, etMaterialNumber.getText().toString().trim());
                     }
-                    if(!StringUtils.isBlank(etSupplier.getText().toString().trim())){
-                        map.put(AddressContants.DEPARTMENTNO,etSupplier.getText().toString().trim());
+                    if (!StringUtils.isBlank(etSupplier.getText().toString().trim())) {
+                        map.put(AddressContants.DEPARTMENTNO, etSupplier.getText().toString().trim());
                     }
-                    if(!StringUtils.isBlank(etDate.getText().toString().trim())){
-                        map.put(AddressContants.DATEBEGIN,startDate);
-                        map.put(AddressContants.DATEEND,endDate);
+                    if (!StringUtils.isBlank(etDate.getText().toString().trim())) {
+                        map.put(AddressContants.DATEBEGIN, startDate);
+                        map.put(AddressContants.DATEEND, endDate);
                     }
                     qcList.clear();
-                    adapter = new FQCInspectScanAdapter(activity,qcList);
+                    adapter = new FQCInspectScanAdapter(activity, qcList);
                     ryList.setAdapter(adapter);
                     showLoadingDialog();
                     logic.getFQCScanDatas(map, new FQCInspectLogic.GetScanListener() {
                         @Override
                         public void onSuccess(List<QCScanData> datas) {
                             llSearchDialog.setVisibility(View.GONE);
-                            scrollview.setVisibility(View.VISIBLE);
+                            ryList.setVisibility(View.VISIBLE);
                             qcList.clear();
                             qcList.addAll(datas);
                             adapter = new FQCInspectScanAdapter(activity, qcList);
@@ -259,16 +256,16 @@ public class FQCInspectListActivity extends BaseTitleHActivity {
 
     private final int REQUESTCODE = 1234;
 
-    private void itemClick(QCScanData qcScanData){
+    private void itemClick(QCScanData qcScanData) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(DATA,qcScanData);
-        ActivityManagerUtils.startActivityBundleForResult(activity,FQCInspectItemActivity.class,bundle,REQUESTCODE);
+        bundle.putSerializable(DATA, qcScanData);
+        ActivityManagerUtils.startActivityBundleForResult(activity, FQCInspectItemActivity.class, bundle, REQUESTCODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE){
+        if (requestCode == REQUESTCODE) {
             mHandler.removeMessages(GETLISTWHAT);
             mHandler.sendMessageDelayed(mHandler.obtainMessage(GETLISTWHAT), AddressContants.DELAYTIME);
         }
@@ -290,10 +287,10 @@ public class FQCInspectListActivity extends BaseTitleHActivity {
 
     @Override
     protected void initNavigationTitle() {
-        mName.setText(getString(R.string.fqc_check_pad)+getString(R.string.list));
+        mName.setText(getString(R.string.fqc_check_pad) + getString(R.string.list));
         ivScan.setVisibility(View.VISIBLE);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override

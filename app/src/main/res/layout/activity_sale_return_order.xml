@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_distribute"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="digiwin.smartdepott100.module.activity.produce.distribute.DistributeActivity">
+    android:orientation="vertical">
 
-    <include layout="@layout/activity_title_toolbar_bar"></include>
+    <include layout="@layout/activity_title_toolbar_bar" />
 
     <LinearLayout
         android:id="@+id/ll_search_dialog"
@@ -38,10 +36,10 @@
 
                 <TextView
                     android:id="@+id/tv_return_order_no"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/return_order_no"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/return_order_no" />
 
                 <EditText
                     android:id="@+id/et_return_order_no"
@@ -66,10 +64,10 @@
 
                 <TextView
                     android:id="@+id/tv_customer_no"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/custom"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/custom" />
 
                 <EditText
                     android:id="@+id/et_customer_no"
@@ -94,10 +92,10 @@
 
                 <TextView
                     android:id="@+id/tv_applicant"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/applicant"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/applicant" />
 
                 <EditText
                     android:id="@+id/et_applicant"
@@ -122,10 +120,10 @@
 
                 <TextView
                     android:id="@+id/tv_department"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/department"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/department" />
 
                 <EditText
                     android:id="@+id/et_department"
@@ -150,11 +148,11 @@
 
                 <TextView
                     android:id="@+id/tv_date"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/data"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/data" />
 
                 <EditText
                     android:id="@+id/et_date"
@@ -192,24 +190,14 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ry_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_title"
         android:layout_marginTop="@dimen/layout_6dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/ryitem_common" />
-        </LinearLayout>
-
-    </ScrollView>
+        android:visibility="gone" />
 
 </RelativeLayout>

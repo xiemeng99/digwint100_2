@@ -94,7 +94,7 @@ public class SaveBean {
     /**
      * 是否检查fifo
      */
-    private  String fifo_check;
+    private String fifo_check;
 
     /**
      * 批次日期
@@ -103,11 +103,7 @@ public class SaveBean {
     /**
      * 仓库
      */
-    private  String warehouse_no;
-    /**
-     * 炉号
-     */
-    private  String furnace_no;
+    private String warehouse_no;
     /**
      * 是否允许仓负库存
      */
@@ -120,17 +116,9 @@ public class SaveBean {
 
     private String barcode_qty;
 
-    public String getProduct_no() {
-        return product_no;
-    }
-
-    public void setProduct_no(String product_no) {
-        this.product_no = product_no;
-    }
 
     /**
      * 产品特征码
-
      */
     private String product_no;
 
@@ -138,6 +126,34 @@ public class SaveBean {
      * 数量
      */
     public String req_qty;
+
+
+    /**
+     * 项次/项序/分批序
+     */
+    public String seq;
+    /**
+     * #项次
+     */
+    public String purchase_seq;
+    /**
+     * #项序
+     */
+    public String purchase_line_seq;
+    /**
+     * #分批序
+     */
+    public String purchase_batch_seq;
+
+
+
+    public String getProduct_no() {
+        return product_no;
+    }
+
+    public void setProduct_no(String product_no) {
+        this.product_no = product_no;
+    }
 
     public String getStorage_spaces_no() {
         return storage_spaces_no;
@@ -339,27 +355,6 @@ public class SaveBean {
         this.allow_negative_stock = allow_negative_stock;
     }
 
-    public String getFurnace_no() {
-        return furnace_no;
-    }
-
-    public void setFurnace_no(String furnace_no) {
-        this.furnace_no = furnace_no;
-    }
-
-    /**
-     * 储位
-     */
-    private String warehouse_storage;
-
-    public String getWarehouse_storage() {
-        return warehouse_storage;
-    }
-
-    public void setWarehouse_storage(String warehouse_storage) {
-        this.warehouse_storage = warehouse_storage;
-    }
-
 
     public String getReq_qty() {
         return req_qty;
@@ -383,5 +378,37 @@ public class SaveBean {
 
     public void setBarcode_qty(String barcode_qty) {
         this.barcode_qty = barcode_qty;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public void setSeq(String seq) {
+        this.seq = seq;
+    }
+
+    public String getPurchase_seq() {
+        return purchase_seq;
+    }
+
+    public void setPurchase_seq(String purchase_seq) {
+        this.purchase_seq = purchase_seq;
+    }
+
+    public String getPurchase_line_seq() {
+        return purchase_line_seq;
+    }
+
+    public void setPurchase_line_seq(String purchase_line_seq) {
+        this.purchase_line_seq = purchase_line_seq;
+    }
+
+    public String getPurchase_batch_seq() {
+        return purchase_batch_seq;
+    }
+
+    public void setPurchase_batch_seq(String purchase_batch_seq) {
+        this.purchase_batch_seq = purchase_batch_seq;
     }
 }

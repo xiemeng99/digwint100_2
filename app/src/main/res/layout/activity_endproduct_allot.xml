@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_title_toolbar_bar"></include>
+    <include layout="@layout/activity_title_toolbar_bar" />
 
 
     <LinearLayout
@@ -53,13 +53,15 @@
                     android:textColor="@color/black_32"
                     android:textCursorDrawable="@drawable/et_cursor_yellow"
                     android:textSize="@dimen/textSize_14sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/asterisk"/>
+                    android:background="@drawable/asterisk" />
             </LinearLayout>
 
             <View style="@style/fg_line_style" />
+
             <LinearLayout
                 android:id="@+id/ll_target_store"
                 style="@style/itemstyle"
@@ -85,10 +87,11 @@
                     android:textColor="@color/black_32"
                     android:textCursorDrawable="@drawable/et_cursor_yellow"
                     android:textSize="@dimen/textSize_14sp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/asterisk"/>
+                    android:background="@drawable/asterisk" />
             </LinearLayout>
 
 
@@ -142,8 +145,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/ll_search_dialog"
-        android:visibility="gone"
-       >
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -152,23 +154,23 @@
 
             <LinearLayout
                 android:id="@+id/ll_head"
+                style="@style/ry_style_ep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/ry_style_ep"
                 android:layout_marginTop="@dimen/layout_6dp"
-                android:paddingBottom="@dimen/layout_6dp"
-                android:paddingTop="@dimen/layout_6dp"
                 android:background="@drawable/accordingmaterialtop_pink_sharp"
                 android:focusable="true"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/layout_6dp"
+                android:paddingTop="@dimen/layout_6dp">
 
                 <LinearLayout
                     style="@style/itemstyle"
-                    android:paddingLeft="@dimen/layout_0dp"
-                    android:paddingRight="@dimen/layout_0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/layout_0dp"
+                    android:paddingRight="@dimen/layout_0dp">
 
                     <TextView
                         style="@style/app_text_ingreen"
@@ -190,11 +192,11 @@
 
                 <LinearLayout
                     style="@style/itemstyle"
-                    android:paddingLeft="@dimen/layout_0dp"
-                    android:paddingRight="@dimen/layout_0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/layout_0dp"
+                    android:paddingRight="@dimen/layout_0dp">
 
                     <TextView
                         style="@style/app_text_ingreen"
@@ -216,12 +218,12 @@
 
                 <LinearLayout
                     style="@style/itemstyle"
-                    android:paddingLeft="@dimen/layout_0dp"
-                    android:paddingRight="@dimen/layout_0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/layout_0dp"
+                    android:paddingRight="@dimen/layout_0dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -273,7 +275,8 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/inclu_commit"
-        android:visibility="gone"/>
+    <include
+        layout="@layout/inclu_commit"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -100,7 +100,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
      */
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -141,7 +141,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         ModuleUtils.tvChange(activity, tvTray, textViews);
     }
 
-    @BindViews({R.id.et_tray, R.id.et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
+    @BindViews({R.id.et_tray, R.id.et_scan_barcode, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_tray, R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -313,7 +313,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         ModuleUtils.tvChange(activity, tvLocator, textViews);
     }
 
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -335,7 +335,7 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
         }
     }
 
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);
@@ -562,8 +562,8 @@ public class WorkOrderScanActivity extends BaseTitleActivity {
     @Override
     protected void initNavigationTitle() {
         super.initNavigationTitle();
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.dankeliao);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.dankeliao);
         activity = this;
         mName.setText(getResources().getString(R.string.title_work_order_scan));
     }

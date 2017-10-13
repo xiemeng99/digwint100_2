@@ -31,45 +31,49 @@
         android:layout_height="@dimen/layout_50dp"
         android:layout_marginTop="@dimen/layout_30dp"
         android:orientation="horizontal">
+
         <RelativeLayout
-            android:layout_weight="1"
             android:layout_width="@dimen/layout_0dp"
-            android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_sure"
-            android:background="@drawable/sure_dialog_button_bg"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/layout_20dp"
-            android:layout_marginRight="@dimen/layout_20dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingTop="@dimen/layout_5dp"
-            android:gravity="center"
-            android:paddingBottom="@dimen/layout_5dp"
-            android:paddingLeft="@dimen/layout_10dp"
-            android:paddingRight="@dimen/layout_10dp"
-            android:text="@string/label_sure"
-            android:textColor="@color/red50" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_cancle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/layout_20dp"
+                android:layout_marginRight="@dimen/layout_20dp"
+                android:background="@drawable/sure_dialog_button_bg"
+                android:gravity="center"
+                android:paddingBottom="@dimen/layout_5dp"
+                android:paddingLeft="@dimen/layout_10dp"
+                android:paddingRight="@dimen/layout_10dp"
+                android:paddingTop="@dimen/layout_5dp"
+                android:text="@string/label_cancel"
+                android:textColor="@color/graybb" />
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_weight="1"
             android:layout_width="@dimen/layout_0dp"
-            android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_cancle"
-            android:background="@drawable/sure_dialog_button_bg"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/layout_20dp"
-            android:layout_marginRight="@dimen/layout_20dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingTop="@dimen/layout_5dp"
-            android:gravity="center"
-            android:paddingBottom="@dimen/layout_5dp"
-            android:paddingLeft="@dimen/layout_10dp"
-            android:paddingRight="@dimen/layout_10dp"
-            android:text="@string/label_cancel"
-            android:textColor="@color/red50" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/layout_20dp"
+                android:layout_marginRight="@dimen/layout_20dp"
+                android:background="@drawable/sure_dialog_button_bg"
+                android:gravity="center"
+                android:paddingBottom="@dimen/layout_5dp"
+                android:paddingLeft="@dimen/layout_10dp"
+                android:paddingRight="@dimen/layout_10dp"
+                android:paddingTop="@dimen/layout_5dp"
+                android:text="@string/label_sure"
+                android:textColor="?attr/Base_color" />
         </RelativeLayout>
     </LinearLayout>
 

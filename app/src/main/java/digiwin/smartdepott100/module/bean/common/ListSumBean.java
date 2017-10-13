@@ -103,7 +103,7 @@ public class ListSumBean implements Serializable {
     /**
      * 物料条码类型
      */
-    private String item_barcode_type="";
+    private String item_barcode_type = "";
     /**
      * 先进先出管控否
      */
@@ -230,15 +230,15 @@ public class ListSumBean implements Serializable {
 
     private String item_lot_no;
     /**
-     *展示
+     * 展示
      */
     private String show;
     /**
-     *人员
+     * 人员
      */
     private String employee_no;
     /**
-     *备注
+     * 备注
      */
     private String remark;
 
@@ -253,7 +253,7 @@ public class ListSumBean implements Serializable {
     /**
      * 线边仓库存
      */
-    private String  w_stock_qty;
+    private String w_stock_qty;
     /**
      * iqc是否ok
      * 1,ok
@@ -293,6 +293,19 @@ public class ListSumBean implements Serializable {
      * 物料特征
      */
     private String product_no;
+    /**
+     * #项次
+     */
+    private String purchase_seq;
+    /**
+     * #项序
+     */
+    private String purchase_line_seq;
+    /**
+     * #分批序
+     */
+    private String purchase_batch_seq;
+
 
     public String getProduct_no() {
         return product_no;
@@ -302,10 +315,6 @@ public class ListSumBean implements Serializable {
         this.product_no = product_no;
     }
 
-    /**
-     * 物料特征说明
-     */
-    private String signcode_instruction;
 
     public String getSigncode() {
         return signcode;
@@ -315,13 +324,6 @@ public class ListSumBean implements Serializable {
         this.signcode = signcode;
     }
 
-    public String getSigncode_instruction() {
-        return signcode_instruction;
-    }
-
-    public void setSigncode_instruction(String signcode_instruction) {
-        this.signcode_instruction = signcode_instruction;
-    }
 
     public String getEmployee_no() {
         return employee_no;
@@ -837,6 +839,30 @@ public class ListSumBean implements Serializable {
 
     public void setQc_qty(String qc_qty) {
         this.qc_qty = qc_qty;
+    }
+
+    public String getPurchase_seq() {
+        return purchase_seq;
+    }
+
+    public void setPurchase_seq(String purchase_seq) {
+        this.purchase_seq = purchase_seq;
+    }
+
+    public String getPurchase_line_seq() {
+        return purchase_line_seq;
+    }
+
+    public void setPurchase_line_seq(String purchase_line_seq) {
+        this.purchase_line_seq = purchase_line_seq;
+    }
+
+    public String getPurchase_batch_seq() {
+        return purchase_batch_seq;
+    }
+
+    public void setPurchase_batch_seq(String purchase_batch_seq) {
+        this.purchase_batch_seq = purchase_batch_seq;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package digiwin.smartdepott100.module.fragment.purchase.purchasereceiving;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -73,8 +74,7 @@ public class PurchaseReceivingSumFg extends BaseFragment{
     protected void doBusiness() {
         sumShowBeanList=new ArrayList<>();
         pactivity = (PurchaseReceivingActivity) activity;
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(pactivity));
         initData();
     }
 

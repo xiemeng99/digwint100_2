@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import digiwin.library.utils.StringUtils;
 import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
 
+
 /**
  * 扫码入库 筛选界面
  *
@@ -53,18 +53,18 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
      * 筛选框 供应商代码
      */
     @BindView(R.id.et_provider)
-    EditText et_provider;
+    EditText etProvider;
 
     /**
      * 筛选框 供应商代码
      */
     @BindView(R.id.ll_provider)
-    LinearLayout ll_provider;
+    LinearLayout llProvider;
     /**
      * 筛选框 供应商代码
      */
     @BindView(R.id.tv_provider)
-    TextView tv_provider;
+    TextView tvProvider;
     @BindView(R.id.toolbar_title)
     Toolbar toolbarTitle;
     @BindView(R.id.tv_purchase_order)
@@ -83,40 +83,40 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
 
     @OnFocusChange(R.id.et_provider)
     void prividerFocusChanage() {
-        ModuleUtils.viewChange(ll_provider, views);
-        ModuleUtils.etChange(activity, et_provider, editTexts);
-        ModuleUtils.tvChange(activity, tv_provider, textViews);
+        ModuleUtils.viewChange(llProvider, views);
+        ModuleUtils.etChange(activity, etProvider, editTexts);
+        ModuleUtils.tvChange(activity, tvProvider, textViews);
     }
 
     @OnFocusChange(R.id.et_date)
     void planDateFocusChanage() {
-        ModuleUtils.viewChange(ll_date, views);
-        ModuleUtils.etChange(activity, et_date, editTexts);
-        ModuleUtils.tvChange(activity, tv_date, textViews);
+        ModuleUtils.viewChange(llDate, views);
+        ModuleUtils.etChange(activity, etDate, editTexts);
+        ModuleUtils.tvChange(activity, tvDate, textViews);
     }
 
     /**
      * 筛选框 日期
      */
     @BindView(R.id.et_date)
-    EditText et_date;
+    EditText etDate;
 
     /**
      * 筛选框 日期
      */
     @BindView(R.id.ll_date)
-    LinearLayout ll_date;
+    LinearLayout llDate;
     /**
      * 筛选框 日期
      */
     @BindView(R.id.tv_date)
-    TextView tv_date;
+    TextView tvDate;
 
     /**
      * 筛选框 日期
      */
     @BindView(R.id.iv_date)
-    ImageView iv_date;
+    ImageView ivDate;
 
     String startDate = "";
     String endDate = "";
@@ -126,10 +126,10 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
         DatePickerUtils.getDoubleDate(pactivity, new DatePickerUtils.GetDoubleDateListener() {
             @Override
             public void getTime(String mStartDate, String mEndDate, String showDate) {
-                et_date.requestFocus();
+                etDate.requestFocus();
                 startDate = mStartDate;
                 endDate = mEndDate;
-                et_date.setText(showDate);
+                etDate.setText(showDate);
             }
         });
     }
@@ -139,10 +139,8 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
     RecyclerView ryList;
 
     @BindView(R.id.ll_search_dialog)
-    LinearLayout ll_search_dialog;
+    LinearLayout llSearchDialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     /**
      * 跳转扫描使用
@@ -159,14 +157,14 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
      */
     @OnClick(R.id.iv_title_setting)
     void searchDialog() {
-        if (ll_search_dialog.getVisibility() == View.VISIBLE) {
+        if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
-                ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                llSearchDialog.setVisibility(View.GONE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
-            ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            llSearchDialog.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -196,7 +194,9 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
 
     @Override
     protected void doBusiness() {
-        et_date.setKeyListener(null);
+        startDate = "";
+        endDate = "";
+        etDate.setKeyListener(null);
         pactivity = (PurchaseInStoreListActivity) activity;
         commonLogic = PurchaseInStoreLogic.getInstance(pactivity, module, mTimestamp.toString());
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
@@ -221,8 +221,8 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(getString(R.string.purchase_in_store) + "" + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     PurchaseInStorageAdapter adapter;
@@ -239,11 +239,11 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
             filterBean.setWarehouse_no(LoginLogic.getWare());
             filterBean.setDoc_no(etPurchaseOrder.getText().toString());
             //供应商
-            if (!StringUtils.isBlank(et_provider.getText().toString())) {
-                filterBean.setSupplier_no(et_provider.getText().toString());
+            if (!StringUtils.isBlank(etProvider.getText().toString())) {
+                filterBean.setSupplier_no(etProvider.getText().toString());
             }
             //日期
-            if (!StringUtils.isBlank(et_date.getText().toString())) {
+            if (!StringUtils.isBlank(etDate.getText().toString())) {
                 filterBean.setDate_begin(startDate);
                 filterBean.setDate_end(endDate);
             }
@@ -254,9 +254,9 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
                     if (null != list && list.size() > 0) {
                         dismissLoadingDialog();
                         //查询成功隐藏筛选界面，展示汇总信息
-                        ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        llSearchDialog.setVisibility(View.GONE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
                         adapter = new PurchaseInStorageAdapter(pactivity, sumShowBeanList);
@@ -264,27 +264,23 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
                         adapter.setOnItemClickListener(new OnItemClickListener() {
                             @Override
                             public void onItemClick(View itemView, int position) {
-                                itemClick(sumShowBeanList,position);
+                                itemClick(sumShowBeanList, position);
                             }
                         });
-                        if (autoSkip&&sumShowBeanList.size()==1){
-                            itemClick(sumShowBeanList,0);
+                        if (autoSkip && sumShowBeanList.size() == 1) {
+                            itemClick(sumShowBeanList, 0);
                         }
-                        autoSkip=true;
+                        autoSkip = true;
                     }
                 }
 
                 @Override
                 public void onFailed(String error) {
                     dismissLoadingDialog();
-                    try {
-                        showFailedDialog(error);
-                        sumShowBeanList = new ArrayList<FilterResultOrderBean>();
-                        adapter = new PurchaseInStorageAdapter(pactivity, sumShowBeanList);
-                        ryList.setAdapter(adapter);
-                    } catch (Exception e) {
-                        LogUtils.e(TAG, "updateList--getSum--onFailed" + e);
-                    }
+                    showFailedDialog(error);
+                    sumShowBeanList = new ArrayList<FilterResultOrderBean>();
+                    adapter = new PurchaseInStorageAdapter(pactivity, sumShowBeanList);
+                    ryList.setAdapter(adapter);
                 }
             });
 
@@ -301,16 +297,12 @@ public class PurchaseInStoreListActivity extends BaseTitleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == SUMCODE) {
-                adapter = new PurchaseInStorageAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
-                ryList.setAdapter(adapter);
-                upDateList();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SUMCODE) {
+            adapter = new PurchaseInStorageAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
+            ryList.setAdapter(adapter);
+            upDateList();
         }
+
     }
 
 }

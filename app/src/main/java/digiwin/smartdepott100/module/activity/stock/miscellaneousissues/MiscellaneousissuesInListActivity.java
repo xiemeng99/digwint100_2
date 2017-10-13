@@ -2,6 +2,7 @@ package digiwin.smartdepott100.module.activity.stock.miscellaneousissues;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -34,11 +35,12 @@ import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.library.utils.ActivityManagerUtils;
 import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.SharedPreferencesUtils;
-import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
+
 
 /**
  * 杂项收料  前置页面
+ *
  * @author wangyu
  */
 public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
@@ -176,9 +178,6 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
     @BindView(R.id.ll_search_dialog)
     LinearLayout ll_search_dialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
-
 
     @Override
     protected Toolbar toolbar() {
@@ -199,11 +198,10 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
     @Override
     protected void doBusiness() {
         etDate.setKeyListener(null);
-        sumShowBeanList=new ArrayList<>();
+        sumShowBeanList = new ArrayList<>();
         mactivity = (MiscellaneousissuesInListActivity) activity;
         commonLogic = MiscellaneousissuesInLogic.getInstance(mactivity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
@@ -230,17 +228,17 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
      * 弹出筛选对话框
      */
     @OnClick(R.id.iv_title_setting)
-    void SearchDialog() {
+    void searchDialog() {
         if (ll_search_dialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
                 ivScan.setVisibility(View.INVISIBLE);
                 ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             ivScan.setVisibility(View.VISIBLE);
             ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -251,15 +249,15 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
         FilterResultOrderBean orderData = clickBeen.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(AddressContants.ORDERDATA, orderData);
-        ActivityManagerUtils.startActivityBundleForResult(mactivity,MiscellaneousissuesInActivity.class, bundle, SUMCODE);
+        ActivityManagerUtils.startActivityBundleForResult(mactivity, MiscellaneousissuesInActivity.class, bundle, SUMCODE);
     }
 
     @Override
     protected void initNavigationTitle() {
         super.initNavigationTitle();
-        mName.setText(getString(R.string.miscellaneous_issues_in)+getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        mName.setText(getString(R.string.miscellaneous_issues_in) + getString(R.string.list));
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     /**
@@ -273,10 +271,7 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
         FilterBean filterBean = new FilterBean();
         try {
             //仓库
-            filterBean.setWarehouse_no(LoginLogic.getWare());
             //页数
-            String o = (String) SharedPreferencesUtils.get(activity, SharePreKey.PAGE_SETTING, "10");
-            filterBean.setPagesize(o);
             //杂收单号
             filterBean.setDoc_no(etMiscellaneousInNo.getText().toString());
             //日期
@@ -310,7 +305,7 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
                 }
             });
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             LogUtils.e(TAG, "updateList--getSum--Exception" + e);
         }
     }
@@ -323,20 +318,20 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
             //查询成功隐藏筛选界面，展示清单信息
             ivScan.setVisibility(View.INVISIBLE);
             ll_search_dialog.setVisibility(View.GONE);
-            scrollview.setVisibility(View.VISIBLE);
-            iv_title_setting.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.VISIBLE);
+            ivTitleSetting.setVisibility(View.VISIBLE);
             adapter = new MiscellaneousissuesInAdapter(mactivity, sumShowBeanList);
             ryList.setAdapter(adapter);
             adapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(View itemView, int position) {
-                    itemClick(sumShowBeanList,position);
+                    itemClick(sumShowBeanList, position);
                 }
             });
-            if (autoSkip&&sumShowBeanList.size() == 1) {
+            if (autoSkip && sumShowBeanList.size() == 1) {
                 itemClick(sumShowBeanList, 0);
             }
-            autoSkip=true;
+            autoSkip = true;
         } catch (Exception e) {
             LogUtils.e(TAG, "showDates---Exception>" + e);
         }
@@ -349,6 +344,7 @@ public class MiscellaneousissuesInListActivity extends BaseTitleActivity {
 
     /**
      * 返回时刷新数据
+     *
      * @param requestCode
      * @param resultCode
      * @param data

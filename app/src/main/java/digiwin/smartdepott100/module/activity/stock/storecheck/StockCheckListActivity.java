@@ -232,8 +232,8 @@ public class StockCheckListActivity extends BaseTitleActivity {
         super.initNavigationTitle();
         activity = this;
         mName.setText(R.string.store_check);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override

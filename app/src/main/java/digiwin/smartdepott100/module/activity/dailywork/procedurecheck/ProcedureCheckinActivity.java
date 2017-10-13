@@ -333,8 +333,8 @@ public class ProcedureCheckinActivity extends BaseTitleActivity {
     @Override
     protected void initNavigationTitle() {
         super.initNavigationTitle();
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.procedure_set);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.procedure_set);
         mName.setText(R.string.procedure_checkin);
     }
 

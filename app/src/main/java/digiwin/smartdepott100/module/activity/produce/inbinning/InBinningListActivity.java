@@ -32,6 +32,8 @@ import digiwin.smartdepott100.module.bean.common.ListSumBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.produce.InBinningLogic;
 
+import static digiwin.smartdepott100.R.id.scrollview;
+
 /**
  * @author 孙长权
  * @module 装箱入库 清单列表
@@ -53,11 +55,6 @@ public class InBinningListActivity extends BaseTitleActivity {
      */
     @BindView(R.id.ll_search_dialog)
     LinearLayout llSearchDialog;
-    /**
-     * 列表布局
-     */
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     InBinningListAdapter adapter;
 
@@ -151,7 +148,7 @@ public class InBinningListActivity extends BaseTitleActivity {
             public void onSuccess(final List<ListSumBean> list) {
                 dismissLoadingDialog();
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
                 dataList = list;
                 adapter = new InBinningListAdapter(activity, false, dataList);
                 ryList.setAdapter(adapter);
@@ -184,10 +181,10 @@ public class InBinningListActivity extends BaseTitleActivity {
     void searchDialog() {
         if (isVis) {
             llSearchDialog.setVisibility(View.GONE);
-            scrollview.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.VISIBLE);
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
         isVis = !isVis;
     }
@@ -209,8 +206,8 @@ public class InBinningListActivity extends BaseTitleActivity {
         super.initNavigationTitle();
         activity = this;
         mName.setText(getString(R.string.title_in_binning) + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override

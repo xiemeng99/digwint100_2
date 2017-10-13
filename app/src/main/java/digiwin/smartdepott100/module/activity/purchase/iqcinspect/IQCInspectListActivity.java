@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,8 +57,6 @@ public class IQCInspectListActivity extends BaseTitleHActivity {
     EditText etDeliveryNoteNo;
     @BindView(R.id.ll_delivery_note_no)
     LinearLayout llDeliveryNoteNo;
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     @OnFocusChange(R.id.et_delivery_note_no)
     void deliveryNoteNoFocusChanage() {
@@ -159,11 +156,11 @@ public class IQCInspectListActivity extends BaseTitleHActivity {
         if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != qcList && qcList.size() > 0) {
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -209,7 +206,7 @@ public class IQCInspectListActivity extends BaseTitleHActivity {
                         map.put("delivery_bill_no",etDeliveryNoteNo.getText().toString().trim());
                     }
                     if(!StringUtils.isBlank(etPurchaseOrder.getText().toString().trim())){
-                        map.put("receipt_no",etPurchaseOrder.getText().toString().trim());
+                        map.put(AddressContants.RECEIPT_NO,etPurchaseOrder.getText().toString().trim());
                     }
                     if(!StringUtils.isBlank(etMaterialNumber.getText().toString().trim())){
                         map.put(AddressContants.BARCODE_NO,etMaterialNumber.getText().toString().trim());
@@ -229,7 +226,7 @@ public class IQCInspectListActivity extends BaseTitleHActivity {
                         @Override
                         public void onSuccess(List<QCScanData> datas) {
                             llSearchDialog.setVisibility(View.GONE);
-                            scrollview.setVisibility(View.VISIBLE);
+                            ryList.setVisibility(View.VISIBLE);
                             qcList.clear();
                             qcList.addAll(datas);
                             adapter = new IQCInspectScanAdapter(activity, qcList);
@@ -292,8 +289,8 @@ public class IQCInspectListActivity extends BaseTitleHActivity {
     protected void initNavigationTitle() {
         mName.setText(getString(R.string.iqc_check_pad)+getString(R.string.list));
         ivScan.setVisibility(View.VISIBLE);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override

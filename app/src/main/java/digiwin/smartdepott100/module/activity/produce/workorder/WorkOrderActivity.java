@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.method.TextKeyListener;
@@ -193,8 +194,7 @@ public class WorkOrderActivity extends BaseFirstModuldeActivity {
     @Override
     protected void doBusiness() {
         commonLogic = WorkOrderlLogic.getInstance(activity,activity.module,activity.mTimestamp.toString());
-        FullyLinearLayoutManager fullyLinearLayoutManager = new FullyLinearLayoutManager(activity);
-        mRcList.setLayoutManager(fullyLinearLayoutManager);
+        mRcList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

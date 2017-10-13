@@ -2,6 +2,7 @@ package digiwin.smartdepott100.module.activity.produce.worksupplement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -9,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import butterknife.OnFocusChange;
 import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.library.utils.ActivityManagerUtils;
 import digiwin.library.utils.StringUtils;
-import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
@@ -35,6 +34,8 @@ import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.produce.WorkSupplementLogic;
 
+import static digiwin.smartdepott100.R.id.scrollview;
+
 /**
  * @author 赵浩然
  * @module 依工单补料-补料清单
@@ -45,21 +46,16 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
     private WorkSupplementListActivity activity;
 
     @BindView(R.id.toolbar_title)
-    Toolbar toolbar_title;
+    Toolbar toolbarTitle;
 
     @BindView(R.id.ry_list)
-    RecyclerView ry_list;
+    RecyclerView ryList;
 
     /**
      * 筛选布局
      */
     @BindView(R.id.ll_search_dialog)
-    LinearLayout ll_search_dialog;
-    /**
-     * 列表布局
-     */
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
+    LinearLayout llSearchDialog;
 
     WorkSupplementListAdapter adapter;
 
@@ -153,13 +149,13 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
     @BindView(R.id.tv_plan_date)
     TextView tv_plan_date;
     @BindView(R.id.et_plan_date)
-    EditText et_plan_date;
+    EditText etPlanDate;
 
     @OnFocusChange(R.id.et_plan_date)
     void plan_dateFocusChanage() {
         ModuleUtils.viewChange(ll_plan_date, views);
         ModuleUtils.tvChange(activity, tv_plan_date, textViews);
-        ModuleUtils.etChange(activity, et_plan_date, editTexts);
+        ModuleUtils.etChange(activity, etPlanDate, editTexts);
     }
 
 
@@ -171,10 +167,10 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
         DatePickerUtils.getDoubleDate(activity, new DatePickerUtils.GetDoubleDateListener() {
             @Override
             public void getTime(String mStartDate, String mEndDate, String showDate) {
-                et_plan_date.requestFocus();
+                etPlanDate.requestFocus();
                 startDate = mStartDate;
                 endDate = mEndDate;
-                et_plan_date.setText(showDate);
+                etPlanDate.setText(showDate);
             }
         });
     }
@@ -208,7 +204,7 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
             filterBean.setDepartment_no(et_apply_branch.getText().toString().trim());
         }
 
-        if (!StringUtils.isBlank(et_plan_date.getText().toString())) {
+        if (!StringUtils.isBlank(etPlanDate.getText().toString())) {
             filterBean.setDate_begin(startDate);
             filterBean.setDate_end(endDate);
         }
@@ -218,22 +214,22 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
             public void onSuccess(final List<FilterResultOrderBean> list) {
                 dismissLoadingDialog();
                 if (list.size() > 0) {
-                    ll_search_dialog.setVisibility(View.GONE);
-                    scrollview.setVisibility(View.VISIBLE);
+                    llSearchDialog.setVisibility(View.GONE);
+                    ryList.setVisibility(View.VISIBLE);
                     dataList = new ArrayList<FilterResultOrderBean>();
                     dataList = list;
                     adapter = new WorkSupplementListAdapter(activity, list);
-                    ry_list.setAdapter(adapter);
+                    ryList.setAdapter(adapter);
                     adapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View itemView, int position) {
-                            itemClick(list,position);
+                            itemClick(list, position);
                         }
                     });
-                    if (autoSkip&&list.size() == 1) {
+                    if (autoSkip && list.size() == 1) {
                         itemClick(dataList, 0);
                     }
-                    autoSkip=true;
+                    autoSkip = true;
                 } else {
                     showFailedDialog(getResources().getString(R.string.nodate));
                 }
@@ -245,7 +241,7 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
                 showFailedDialog(error);
                 ArrayList dataList = new ArrayList<FilterResultOrderBean>();
                 adapter = new WorkSupplementListAdapter(activity, dataList);
-                ry_list.setAdapter(adapter);
+                ryList.setAdapter(adapter);
             }
         });
     }
@@ -259,25 +255,26 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
 
     @Override
     protected void doBusiness() {
-        et_plan_date.setKeyListener(null);
+        startDate="";
+        endDate="";
+        etPlanDate.setKeyListener(null);
         commonLogic = WorkSupplementLogic.getInstance(activity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ry_list.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(this));
     }
 
     /**
      * 弹出筛选对话框
      */
     @OnClick(R.id.iv_title_setting)
-    void SearchDialog() {
-        if (ll_search_dialog.getVisibility() == View.VISIBLE) {
+    void searchDialog() {
+        if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != dataList && dataList.size() > 0) {
-                ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                llSearchDialog.setVisibility(View.GONE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
-            ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            llSearchDialog.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -288,7 +285,7 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
 
     @Override
     protected Toolbar toolbar() {
-        return toolbar_title;
+        return toolbarTitle;
     }
 
     @Override
@@ -307,22 +304,18 @@ public class WorkSupplementListActivity extends BaseTitleActivity {
         super.initNavigationTitle();
         activity = this;
         mName.setText(getString(R.string.title_worksupplement) + "" + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == SCANCODE) {
-                dataList.clear();
-                adapter = new WorkSupplementListAdapter(activity, dataList);
-                ry_list.setAdapter(adapter);
-                search();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SCANCODE) {
+            dataList.clear();
+            adapter = new WorkSupplementListAdapter(activity, dataList);
+            ryList.setAdapter(adapter);
+            search();
         }
     }
 }

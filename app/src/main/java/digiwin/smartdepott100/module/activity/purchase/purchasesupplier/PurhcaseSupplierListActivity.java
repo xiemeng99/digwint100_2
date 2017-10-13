@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,6 +35,8 @@ import digiwin.smartdepott100.module.bean.common.FilterBean;
 import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.logic.purchase.PurchaseGoodScanLogic;
 import digiwin.smartdepott100.module.logic.purchase.PurchaseSupplierLogic;
+
+
 
 /**
  * @author xiemeng
@@ -182,9 +183,6 @@ public class PurhcaseSupplierListActivity extends BaseTitleActivity {
     @BindView(R.id.ll_search_dialog)
     LinearLayout llSearchDialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
-
     /**
      * 跳转扫描使用
      */
@@ -201,14 +199,14 @@ public class PurhcaseSupplierListActivity extends BaseTitleActivity {
         if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
                 adapter = new PurchaseSupplierAdapter(activity, sumShowBeanList);
                 ryList.setAdapter(adapter);
                 onItemClick();
             }
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -265,8 +263,8 @@ public class PurhcaseSupplierListActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(getString(R.string.purchase_scan_supplier)+getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     PurchaseSupplierAdapter adapter;
@@ -305,8 +303,8 @@ public class PurhcaseSupplierListActivity extends BaseTitleActivity {
                     if (null != list && list.size() > 0) {
                         //查询成功隐藏筛选界面，展示汇总信息
                         llSearchDialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
                         adapter = new PurchaseSupplierAdapter(activity, sumShowBeanList);

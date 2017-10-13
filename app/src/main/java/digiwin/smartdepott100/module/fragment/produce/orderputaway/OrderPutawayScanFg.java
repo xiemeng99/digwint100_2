@@ -2,8 +2,6 @@ package digiwin.smartdepott100.module.fragment.produce.orderputaway;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.TextKeyListener;
 import android.view.View;
 import android.widget.CheckBox;
@@ -11,9 +9,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,22 +19,16 @@ import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
 import digiwin.library.dialog.OnDialogClickListener;
-import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.WeakRefHandler;
-import digiwin.pulltorefreshlibrary.recyclerviewAdapter.BaseRecyclerAdapter;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.base.BaseFragment;
 import digiwin.smartdepott100.core.coreutil.CommonUtils;
-import digiwin.smartdepott100.core.coreutil.FiFoCheckUtils;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
 import digiwin.smartdepott100.login.loginlogic.LoginLogic;
 import digiwin.smartdepott100.module.activity.produce.orderputaway.OrderPutawayActivity;
 import digiwin.smartdepott100.module.activity.produce.suitpicking.SuitPickingActivity;
-import digiwin.smartdepott100.module.adapter.common.CommonDocNoFifoAdapter;
-import digiwin.smartdepott100.module.bean.common.ClickItemPutBean;
-import digiwin.smartdepott100.module.bean.common.FifoCheckBean;
 import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.bean.common.SaveBackBean;
 import digiwin.smartdepott100.module.bean.common.SaveBean;
@@ -47,7 +36,6 @@ import digiwin.smartdepott100.module.bean.common.ScanBarcodeBackBean;
 import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.produce.OrderPutawayLogic;
-import digiwin.smartdepott100.module.logic.produce.SuitPickingLogic;
 
 /**
  * @author maoehng
@@ -56,7 +44,7 @@ import digiwin.smartdepott100.module.logic.produce.SuitPickingLogic;
  */
 
 public class OrderPutawayScanFg extends BaseFragment {
-    @BindViews({R.id.et_scan_locator, R.id.et_scan_barocde, R.id.et_input_num})
+    @BindViews({R.id.et_scan_locator, R.id.et_scan_barcode, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -73,7 +61,7 @@ public class OrderPutawayScanFg extends BaseFragment {
     LinearLayout llScanLocator;
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -115,7 +103,7 @@ public class OrderPutawayScanFg extends BaseFragment {
         ModuleUtils.tvChange(activity, tvLocator, textViews);
     }
 
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -137,7 +125,7 @@ public class OrderPutawayScanFg extends BaseFragment {
     }
 
 
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);

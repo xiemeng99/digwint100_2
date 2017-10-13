@@ -7,6 +7,7 @@ import android.view.View;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import digiwin.library.utils.ActivityManagerUtils;
@@ -26,21 +27,23 @@ import digiwin.smartdepott100.main.bean.ModuleBean;
 
 public class DetailFragment extends BaseFragment {
 
-    private static DetailFragment instance;
-
-    public static DetailFragment getInstance(List<ModuleBean> beans){
-        instance=new DetailFragment();
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("beans",(Serializable)beans);
-        instance.setArguments(bundle);
-        return instance;
-    }
 
     @BindView(R.id.main_recyclerview)
     RecyclerView recyclerView;
 
     private List<ModuleBean> beanLists;
     private CustomRecyclerAdapter adapter;
+
+    private static DetailFragment instance;
+
+    public static DetailFragment getInstance(List<ModuleBean> beans) {
+        instance=new DetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("beans", (Serializable) beans);
+        instance.setArguments(bundle);
+        return instance;
+    }
+
 
 
     @Override

@@ -42,10 +42,10 @@ import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
 
 
-import static digiwin.smartdepott100.login.loginlogic.LoginLogic.getUserInfo;
 
 /**
  * 杂项发料  前置页面
+ *
  * @author sj
  */
 public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
@@ -183,9 +183,6 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
     @BindView(R.id.ll_search_dialog)
     LinearLayout ll_search_dialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
-
 
     @Override
     protected Toolbar toolbar() {
@@ -229,7 +226,7 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
      * 点击确定，筛选
      */
     @OnClick(R.id.btn_search_sure)
-    void Search() {
+    void search() {
         upDateList();
     }
 
@@ -241,12 +238,12 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
         if (ll_search_dialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
                 ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             ivScan.setVisibility(View.VISIBLE);
             ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -257,15 +254,15 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
         final FilterResultOrderBean orderData = clickBeen.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable(AddressContants.ORDERDATA, orderData);
-        ActivityManagerUtils.startActivityBundleForResult(mactivity,MiscellaneousissuesOutActivity.class, bundle, SUMCODE);
+        ActivityManagerUtils.startActivityBundleForResult(mactivity, MiscellaneousissuesOutActivity.class, bundle, SUMCODE);
     }
 
     @Override
     protected void initNavigationTitle() {
         super.initNavigationTitle();
-        mName.setText(getString(R.string.miscellaneous_issues_out_list)+getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        mName.setText(getString(R.string.miscellaneous_issues_out_list) + getString(R.string.list));
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
         ivScan.setVisibility(View.VISIBLE);
     }
 
@@ -274,16 +271,7 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
      */
     public void upDateList() {
         FilterBean filterBean = new FilterBean();
-        Map<String,String> map=new HashMap<>();
         try {
-            AccoutBean accoutBean = getUserInfo();
-            if (null == accoutBean) {
-                return;
-            }
-            //仓库
-            filterBean.setWarehouse_no(accoutBean.getWare());
-            //页数
-            String o = (String) SharedPreferencesUtils.get(activity, SharePreKey.PAGE_SETTING, "10");
             //杂发单号
             if (!StringUtils.isBlank(et_miscellaneous_in_no.getText().toString())) {
                 filterBean.setDoc_no(et_miscellaneous_in_no.getText().toString());
@@ -294,24 +282,23 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
                 filterBean.setDate_end(endDate);
             }
             //申请人
-            if (!StringUtils.isBlank(et_person.getText().toString())){
+            if (!StringUtils.isBlank(et_person.getText().toString())) {
                 filterBean.setEmployee_no(et_person.getText().toString());
             }
             //部门
-            if (!StringUtils.isBlank(et_department.getText().toString())){
+            if (!StringUtils.isBlank(et_department.getText().toString())) {
                 filterBean.setDepartment_no(et_department.getText().toString());
             }
-            map= ObjectAndMapUtils.getValueMap(filterBean);
             showLoadingDialog();
-            commonLogic.getMIIListData(map, new CommonLogic.GetDataListListener() {
+            commonLogic.getMIIListData(filterBean, new CommonLogic.GetDataListListener() {
                 @Override
                 public void onSuccess(List<FilterResultOrderBean> list) {
                     dismissLoadingDialog();
                     if (null != list && list.size() > 0) {
                         //查询成功隐藏筛选界面，展示清单信息
                         ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         ivScan.setVisibility(View.INVISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
@@ -323,28 +310,24 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
                                 itemClick(sumShowBeanList, position);
                             }
                         });
-                        if (autoSkip&&list.size() == 1) {
+                        if (autoSkip && list.size() == 1) {
                             itemClick(sumShowBeanList, 0);
                         }
-                        autoSkip=true;
+                        autoSkip = true;
                     }
                 }
 
                 @Override
                 public void onFailed(String error) {
                     dismissLoadingDialog();
-                    try {
-                        showFailedDialog(error);
-                        sumShowBeanList = new ArrayList<FilterResultOrderBean>();
-                        adapter = new MiscellaneousissuesOutAdapter(mactivity, sumShowBeanList);
-                        ryList.setAdapter(adapter);
-                    } catch (Exception e) {
-                        LogUtils.e(TAG, "updateList--getSum--onFailed" + e);
-                    }
+                    showFailedDialog(error);
+                    sumShowBeanList = new ArrayList<FilterResultOrderBean>();
+                    adapter = new MiscellaneousissuesOutAdapter(mactivity, sumShowBeanList);
+                    ryList.setAdapter(adapter);
                 }
             });
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             LogUtils.e(TAG, "updateList--getSum--Exception" + e);
         }
     }
@@ -357,15 +340,11 @@ public class MiscellaneousissuesOutListActivity extends BaseTitleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == SUMCODE) {
-                adapter = new MiscellaneousissuesOutAdapter(mactivity,new ArrayList<FilterResultOrderBean>());
-                ryList.setAdapter(adapter);
-                upDateList();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SUMCODE) {
+            adapter = new MiscellaneousissuesOutAdapter(mactivity, new ArrayList<FilterResultOrderBean>());
+            ryList.setAdapter(adapter);
+            upDateList();
         }
+
     }
 }

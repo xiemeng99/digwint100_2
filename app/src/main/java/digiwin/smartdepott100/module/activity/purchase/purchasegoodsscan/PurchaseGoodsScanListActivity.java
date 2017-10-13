@@ -2,19 +2,17 @@ package digiwin.smartdepott100.module.activity.purchase.purchasegoodsscan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -25,7 +23,6 @@ import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.library.utils.ActivityManagerUtils;
 import digiwin.library.utils.LogUtils;
 import digiwin.library.utils.StringUtils;
-import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
 import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
@@ -177,10 +174,8 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
     RecyclerView ryList;
 
     @BindView(R.id.ll_search_input)
-    LinearLayout ll_search_dialog;
+    LinearLayout llSearchDialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     /**
      * 跳转扫描使用
@@ -196,14 +191,14 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
      */
     @OnClick(R.id.iv_title_setting)
     void searchDialog() {
-        if (ll_search_dialog.getVisibility() == View.VISIBLE) {
+        if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
-                ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                llSearchDialog.setVisibility(View.GONE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
-            ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            llSearchDialog.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -237,8 +232,7 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
         et_date.setKeyListener(null);
         pactivity = (PurchaseGoodsScanListActivity) activity;
         commonLogic = PurchaseGoodScanLogic.getInstance(pactivity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(this));
         searchDialog();
     }
 
@@ -256,8 +250,8 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(getString(R.string.title_purchase_goods_scan) + "" + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     PurchaseGoodsScanAdapter adapter;
@@ -294,9 +288,9 @@ public class PurchaseGoodsScanListActivity extends BaseTitleActivity {
                     if (null != list && list.size() > 0) {
                         dismissLoadingDialog();
                         //查询成功隐藏筛选界面，展示汇总信息
-                        ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        llSearchDialog.setVisibility(View.GONE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
                         adapter = new PurchaseGoodsScanAdapter(pactivity, sumShowBeanList);

@@ -2,6 +2,7 @@ package digiwin.smartdepott100.module.activity.sale.salereturn;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -204,8 +205,6 @@ public class SaleReturnActivity extends BaseTitleActivity {
     @BindView(R.id.ll_search_dialog)
     LinearLayout ll_search_dialog;
 
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     /**
      * 跳转扫描使用
@@ -224,11 +223,11 @@ public class SaleReturnActivity extends BaseTitleActivity {
         if (ll_search_dialog.getVisibility() == View.VISIBLE) {
             if (null != sumShowBeanList && sumShowBeanList.size() > 0) {
                 ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -261,8 +260,7 @@ public class SaleReturnActivity extends BaseTitleActivity {
         etDate.setKeyListener(null);
         pactivity = (SaleReturnActivity) activity;
         logic = SaleReturnLogic.getInstance(pactivity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(activity));
         searchDialog();
     }
 
@@ -280,8 +278,8 @@ public class SaleReturnActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(getString(R.string.title_sale_return) + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     SaleReturnAdapter adapter;
@@ -317,7 +315,6 @@ public class SaleReturnActivity extends BaseTitleActivity {
                 filterBean.setDate_begin(startDate);
                 filterBean.setDate_end(endDate);
             }
-            filterBean.setPagesize((String) SharedPreferencesUtils.get(activity, SharePreKey.PAGE_SETTING, "10"));
             showLoadingDialog();
             logic.getSOLListData(filterBean, new SaleReturnLogic.GetSaleRetrunListDataListener() {
                 @Override
@@ -326,8 +323,8 @@ public class SaleReturnActivity extends BaseTitleActivity {
                     if (null != list && list.size() > 0) {
                         //查询成功隐藏筛选界面，展示汇总信息
                         ll_search_dialog.setVisibility(View.GONE);
-                        scrollview.setVisibility(View.VISIBLE);
-                        iv_title_setting.setVisibility(View.VISIBLE);
+                        ryList.setVisibility(View.VISIBLE);
+                        ivTitleSetting.setVisibility(View.VISIBLE);
                         sumShowBeanList = new ArrayList<FilterResultOrderBean>();
                         sumShowBeanList = list;
                         adapter = new SaleReturnAdapter(pactivity, sumShowBeanList);
@@ -348,14 +345,10 @@ public class SaleReturnActivity extends BaseTitleActivity {
                 @Override
                 public void onFailed(String errmsg) {
                     dismissLoadingDialog();
-                    try {
-                        showFailedDialog(errmsg);
-                        sumShowBeanList = new ArrayList<FilterResultOrderBean>();
-                        adapter = new SaleReturnAdapter(pactivity, sumShowBeanList);
-                        ryList.setAdapter(adapter);
-                    } catch (Exception e) {
-                        LogUtils.e(TAG, "updateList--getSum--onFailed" + e);
-                    }
+                    showFailedDialog(errmsg);
+                    sumShowBeanList = new ArrayList<FilterResultOrderBean>();
+                    adapter = new SaleReturnAdapter(pactivity, sumShowBeanList);
+                    ryList.setAdapter(adapter);
                 }
             });
 
@@ -372,16 +365,12 @@ public class SaleReturnActivity extends BaseTitleActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
 
-            if (requestCode == SUMCODE) {
-                adapter = new SaleReturnAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
-                ryList.setAdapter(adapter);
-                upDateList();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SUMCODE) {
+            adapter = new SaleReturnAdapter(pactivity, new ArrayList<FilterResultOrderBean>());
+            ryList.setAdapter(adapter);
+            upDateList();
         }
+
     }
 }

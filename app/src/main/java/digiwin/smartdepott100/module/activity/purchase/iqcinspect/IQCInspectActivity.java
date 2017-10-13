@@ -2,16 +2,12 @@ package digiwin.smartdepott100.module.activity.purchase.iqcinspect;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,16 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import digiwin.smartdepott100.R;
-import digiwin.smartdepott100.core.appcontants.ModuleCode;
-import digiwin.smartdepott100.core.base.BaseActivity;
 import digiwin.smartdepott100.core.base.BaseTitleHActivity;
 import digiwin.smartdepott100.core.modulecommon.ModuleViewPagerAdapter;
 import digiwin.smartdepott100.module.bean.purchase.QCScanData;
-import digiwin.smartdepott100.module.fragment.produce.materialreturn.MaterialReturnScanFg;
-import digiwin.smartdepott100.module.fragment.produce.materialreturn.MaterialReturnSumFg;
 import digiwin.smartdepott100.module.fragment.purchase.iqcinspect.IQCBadReasonFg;
 import digiwin.smartdepott100.module.fragment.purchase.iqcinspect.IQCDefectFg;
 
@@ -123,8 +114,8 @@ public class IQCInspectActivity extends BaseTitleHActivity {
         String title = bundle.getString("title");
         mName.setText(title);
         ivScan.setVisibility(View.VISIBLE);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.mipmap.check_pic);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.mipmap.check_pic);
         ivScan.setImageResource(R.mipmap.take_photo);
     }
 

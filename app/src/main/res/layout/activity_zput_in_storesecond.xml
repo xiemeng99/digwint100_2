@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="digiwin.smartdepott100.module.activity.produce.finishstorage.FinishedStorageActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/activity_title_toolbar_bar"></include>
 

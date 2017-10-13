@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_title_toolbar_bar"></include>
+    <include layout="@layout/activity_title_toolbar_bar"/>
 
     <LinearLayout
         android:id="@+id/ll_search_input"
@@ -141,7 +141,16 @@
 
         <View style="@style/fg_line_style" />
 
-        <Button             android:id="@+id/btn_search_sure"             android:layout_width="match_parent"             android:layout_height="@dimen/layout_60dp"             android:layout_marginLeft="@dimen/layout_10dp"             android:layout_marginRight="@dimen/layout_10dp"             android:background="?attr/click_bg"             android:text="@string/label_sure"             android:textColor="@color/WHITE"             android:textSize="@dimen/textSize_18sp" />
+        <Button
+            android:id="@+id/btn_search_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_60dp"
+            android:layout_marginLeft="@dimen/layout_10dp"
+            android:layout_marginRight="@dimen/layout_10dp"
+            android:background="?attr/click_bg"
+            android:text="@string/label_sure"
+            android:textColor="@color/WHITE"
+            android:textSize="@dimen/textSize_18sp" />
 
     </LinearLayout>
 

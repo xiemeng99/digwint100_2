@@ -373,7 +373,7 @@ public class PrintLabelFillActivity extends BaseTitleActivity {
 //        }
         boolean isOpen = BlueToothManager.getManager(activity).isOpen();
         if (!isOpen){
-            ToSettingLogic.showToSetdialog(activity,R.string.title_set_bluttooth);
+            ToSettingLogic.showToSetdialog(activity,R.string.title_set_bluttooth,null);
             return;
         }else {
 //            BlueToothManager.getManager(activity).printMaterialCode(printBarcodeBean,StringUtils.parseInt(printBarcodeBean.getSum_qty()));

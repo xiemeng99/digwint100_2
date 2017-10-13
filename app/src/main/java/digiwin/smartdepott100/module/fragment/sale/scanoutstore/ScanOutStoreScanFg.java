@@ -38,7 +38,6 @@ import digiwin.smartdepott100.module.bean.common.SaveBean;
 import digiwin.smartdepott100.module.bean.stock.ProductBinningBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.smartdepott100.module.logic.sale.scanout.ScanOutLogic;
-import digiwin.smartdepott100.module.logic.sale.scanoutstore.ScanOutStoreLogic;
 
 /**
  * @author maoheng
@@ -50,9 +49,9 @@ public class ScanOutStoreScanFg extends BaseFragment {
 
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);

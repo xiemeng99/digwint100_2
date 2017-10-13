@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -52,18 +51,16 @@ public class ProductionLeaderListActivity extends BaseTitleActivity {
     Toolbar toolbar;
 
     @BindView(R.id.ry_list)
-    RecyclerView ry_list;
+    RecyclerView ryList;
 
     /**
      * 筛选布局
      */
     @BindView(R.id.ll_search_dialog)
-    LinearLayout ll_search_dialog;
+    LinearLayout llSearchDialog;
     /**
      * 列表布局
      */
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     ProductionLeaderListAdapter adapter;
 
@@ -203,22 +200,22 @@ public class ProductionLeaderListActivity extends BaseTitleActivity {
             public void onSuccess(final List<FilterResultOrderBean> list) {
                 dismissLoadingDialog();
                 if (list.size() > 0) {
-                    ll_search_dialog.setVisibility(View.GONE);
-                    scrollview.setVisibility(View.VISIBLE);
+                    llSearchDialog.setVisibility(View.GONE);
+                    ryList.setVisibility(View.VISIBLE);
                     dataList = new ArrayList<FilterResultOrderBean>();
                     dataList = list;
                     adapter = new ProductionLeaderListAdapter(activity, list);
-                    ry_list.setAdapter(adapter);
+                    ryList.setAdapter(adapter);
                     adapter.setOnItemClickListener(new OnItemClickListener() {
                         @Override
                         public void onItemClick(View itemView, int position) {
-                            itemClick(list,position);
+                            itemClick(list, position);
                         }
                     });
-                    if (autoSkip&&list.size() == 1) {
+                    if (autoSkip && list.size() == 1) {
                         itemClick(dataList, 0);
                     }
-                    autoSkip=true;
+                    autoSkip = true;
                 } else {
                     showFailedDialog(getResources().getString(R.string.nodate));
                 }
@@ -230,43 +227,47 @@ public class ProductionLeaderListActivity extends BaseTitleActivity {
                 showFailedDialog(error, new OnDialogClickListener() {
                     @Override
                     public void onCallback() {
-                        SearchDialog();
+                        searchDialog();
                     }
                 });
                 ArrayList dataList = new ArrayList<FilterResultOrderBean>();
                 adapter = new ProductionLeaderListAdapter(activity, dataList);
-                ry_list.setAdapter(adapter);
+                ryList.setAdapter(adapter);
             }
         });
     }
-private void  itemClick(List<FilterResultOrderBean> clickBeen, int position){
-    Bundle bundle = new Bundle();
-    FilterResultOrderBean data = clickBeen.get(position);
-    bundle.putSerializable(DATA, data);
-    ActivityManagerUtils.startActivityBundleForResult(activity, ProductionLeaderActivity.class, bundle, SCANCODE);
-}
+
+    private void itemClick(List<FilterResultOrderBean> clickBeen, int position) {
+        Bundle bundle = new Bundle();
+        FilterResultOrderBean data = clickBeen.get(position);
+        bundle.putSerializable(DATA, data);
+        ActivityManagerUtils.startActivityBundleForResult(activity, ProductionLeaderActivity.class, bundle, SCANCODE);
+    }
+
     /**
      * 弹出筛选对话框
      */
     @OnClick(R.id.iv_title_setting)
-    void SearchDialog() {
-        if (ll_search_dialog.getVisibility() == View.VISIBLE) {
+    void searchDialog() {
+        if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != dataList && dataList.size() > 0) {
-                ll_search_dialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                llSearchDialog.setVisibility(View.GONE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
-            ll_search_dialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            llSearchDialog.setVisibility(View.VISIBLE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
     @Override
     protected void doBusiness() {
+        startDate = "";
+        endDate = "";
         etPlanDate.setKeyListener(null);
-        commonLogic = ProductionLeaderLogic.getInstance(activity, ModuleCode.PRODUCTIONLEADER, mTimestamp.toString());
+        commonLogic = ProductionLeaderLogic.getInstance(activity, module, mTimestamp.toString());
         LinearLayoutManager linearlayoutmanager = new LinearLayoutManager(activity);
-        ry_list.setLayoutManager(linearlayoutmanager);
+        ryList.setLayoutManager(linearlayoutmanager);
     }
 
     @Override
@@ -291,8 +292,8 @@ private void  itemClick(List<FilterResultOrderBean> clickBeen, int position){
         super.initNavigationTitle();
         activity = this;
         mName.setText(getString(R.string.title_production_leader) + "" + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override

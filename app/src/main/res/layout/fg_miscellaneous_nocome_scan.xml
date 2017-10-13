@@ -147,7 +147,7 @@
                         style="@style/app_text_inwhite"/>
 
                     <EditText
-                        android:id="@+id/et_scan_barocde"
+                        android:id="@+id/et_scan_barcode"
                         android:layout_width="@dimen/layout_0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/layout_10dp"

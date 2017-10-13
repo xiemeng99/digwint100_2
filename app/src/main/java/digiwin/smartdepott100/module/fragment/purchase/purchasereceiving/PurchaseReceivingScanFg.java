@@ -15,7 +15,6 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import butterknife.OnTextChanged;
-import butterknife.Unbinder;
 import digiwin.library.dialog.OnDialogClickListener;
 import digiwin.library.utils.StringUtils;
 import digiwin.smartdepott100.R;
@@ -26,7 +25,6 @@ import digiwin.smartdepott100.module.activity.purchase.purchasereceiving.Purchas
 import digiwin.smartdepott100.module.bean.common.SaveBackBean;
 import digiwin.smartdepott100.module.bean.common.SaveBean;
 import digiwin.smartdepott100.module.bean.common.ScanBarcodeBackBean;
-import digiwin.smartdepott100.module.bean.common.ScanLocatorBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 
 /**
@@ -40,7 +38,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
 
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -62,7 +60,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
     @BindView(R.id.tv_scan_hasScan)
     TextView tvScanHasScan;
 
-    @BindViews({ R.id.et_scan_barocde, R.id.et_input_num})
+    @BindViews({ R.id.et_scan_barcode, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_scan_barcode,R.id.ll_input_num})
     List<View> views;
@@ -71,7 +69,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
 
 
 
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -86,7 +84,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
     }
 
 
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);
@@ -166,6 +164,11 @@ public class PurchaseReceivingScanFg extends BaseFragment {
                             saveBean.setScan_sumqty(barcodeBackBean.getScan_sumqty());
                             saveBean.setAvailable_in_qty(barcodeBackBean.getAvailable_in_qty());
                             saveBean.setItem_barcode_type(barcodeBackBean.getItem_barcode_type());
+                            saveBean.setDoc_no(barcodeBackBean.getCol1());
+                            saveBean.setPurchase_seq(barcodeBackBean.getCol2());
+                            saveBean.setPurchase_line_seq(barcodeBackBean.getCol3());
+                            saveBean.setPurchase_batch_seq(barcodeBackBean.getCol4());
+                            saveBean.setCustomer_no(barcodeBackBean.getCol5());
                             etInputNum.requestFocus();
                         }
 

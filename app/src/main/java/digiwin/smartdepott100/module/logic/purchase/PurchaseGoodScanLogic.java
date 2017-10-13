@@ -17,6 +17,7 @@ import digiwin.smartdepott100.module.bean.common.ClickItemPutBean;
 import digiwin.smartdepott100.module.bean.common.FilterBean;
 import digiwin.smartdepott100.module.bean.common.FilterResultOrderBean;
 import digiwin.smartdepott100.module.bean.common.ListSumBean;
+import digiwin.smartdepott100.module.bean.purchase.PurchaseGoodsScanBackBean;
 import digiwin.smartdepott100.module.logic.common.CommonLogic;
 import digiwin.library.json.JsonResp;
 import digiwin.library.utils.LogUtils;
@@ -114,10 +115,20 @@ public class PurchaseGoodScanLogic extends CommonLogic {
 
     /**
      * 提交
+     */
+    public interface CommitPurchaseListener {
+        void onSuccess(String docNo,List<PurchaseGoodsScanBackBean> scanBackBeen);
+
+        void onFailed(String msg);
+    }
+
+
+    /**
+     * 提交
      *
      * @param map map可以直接为空
      */
-    public void commitPGSData(final List<ListSumBean> sumShowBeanList, final CommitListener listener) {
+    public void commitPGSData(final List<ListSumBean> sumShowBeanList, final CommitPurchaseListener listener) {
         ThreadPoolManager.getInstance().executeTask(new Runnable() {
             @Override
             public void run() {
@@ -132,8 +143,9 @@ public class PurchaseGoodScanLogic extends CommonLogic {
                             String error = mContext.getString(R.string.unknow_error);
                             if (null != string) {
                                 if (ReqTypeName.SUCCCESSCODE.equals(JsonResp.getCode(string))) {
-                                    String doc_no = JsonResp.getParaString(string, AddressContants.DOC_NO);
-                                    listener.onSuccess(doc_no);
+                                    String docNo = JsonResp.getParaString(string, AddressContants.DOC_NO);
+                                    List<PurchaseGoodsScanBackBean> scanBackBeen = JsonResp.getParaDatas(string, "data", PurchaseGoodsScanBackBean.class);
+                                    listener.onSuccess(docNo,scanBackBeen);
                                     return;
                                 } else {
                                     error = JsonResp.getDescription(string);

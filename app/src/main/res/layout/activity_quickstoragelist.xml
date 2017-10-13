@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="digiwin.smartdepott100.module.activity.produce.distribute.DistributeActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/activity_title_toolbar_bar" />
 
@@ -39,10 +38,10 @@
 
                 <TextView
                     android:id="@+id/tv_provider_code"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/provider_code"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/provider_code" />
 
                 <EditText
                     android:id="@+id/et_provider_code"
@@ -69,11 +68,11 @@
 
                 <TextView
                     android:id="@+id/tv_barcode_no"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/barcode_no"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/barcode_no" />
 
                 <EditText
                     android:id="@+id/et_barcode_no"
@@ -99,11 +98,11 @@
 
                 <TextView
                     android:id="@+id/tv_item_name"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/item_name"
-                    style="@style/app_text_inwhite"/>
+                    android:text="@string/item_name" />
 
                 <EditText
                     android:id="@+id/et_item_name"
@@ -129,11 +128,11 @@
 
                 <TextView
                     android:id="@+id/tv_plan_date"
+                    style="@style/app_text_inwhite"
                     android:layout_width="@dimen/layout_70dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/data"
-                    style="@style/app_text_inwhite" />
+                    android:text="@string/data" />
 
                 <EditText
                     android:id="@+id/et_plan_date"
@@ -171,17 +170,13 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ry_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_title"
-        android:layout_marginTop="@dimen/layout_10dp"
-        android:visibility="gone">
-
-        <include layout="@layout/ryitem_common" />
-
-    </ScrollView>
+        android:layout_marginTop="@dimen/layout_6dp"
+        android:visibility="gone" />
 </RelativeLayout>

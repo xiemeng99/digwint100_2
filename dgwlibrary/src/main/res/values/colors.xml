@@ -14,18 +14,18 @@
     <color name="BLACK">#000000</color>
     <color name="BtnBackground">#2b3133</color>
     <color name="BLUELINE">#00789f</color>
-   <!-- <color name="BUTTON_BACKGROUND">#2b887d</color>-->
+    <!-- <color name="BUTTON_BACKGROUND">#2b887d</color>-->
     <color name="BLUETOOTHGROUND">#00789f</color>
 
     <color name="BUTTON_BACKGROUND">#e50150</color>
 
     <!-- 字体颜色 文本标题 -->
     <color name="DEEPBUlETEXTCOLOR">#232323</color>
-    
-	<!-- 字体颜色 扫码后-->
+
+    <!-- 字体颜色 扫码后-->
     <color name="DEEPBUlETEXT">#00789f</color>
-    
-    
+
+
     <!-- 主背景色 -->
     <color name="BG_ALL">#f0f0f0</color>
     <color name="DEEPBUlE">#00789f</color>
@@ -58,17 +58,17 @@
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
     <color name="possible_result_points">#c0ffbd21</color>
- <!-- Android standard ICS color -->
+    <!-- Android standard ICS color -->
     <color name="result_minor_text">#ffc0c0c0</color>
     <color name="result_points">#c099cc00</color>
- <!-- Android standard ICS color -->
+    <!-- Android standard ICS color -->
     <color name="result_text">#ffffffff</color>
     <color name="result_view">#b0000000</color>
     <color name="status_text">#ffffffff</color>
     <color name="viewfinder_laser">#ffcc0000</color>
- <!-- Android standard ICS color -->
- 
- <color name="system_background_color">#D6E6F1</color>
+    <!-- Android standard ICS color -->
+
+    <color name="system_background_color">#D6E6F1</color>
     <color name="qihoo_accounts_white">#ffffffff</color>
     <color name="qihoo_accounts_btn_shadow">#ffffffff</color>
     <color name="qihoo_accounts_top_title_text">#ff2e3236</color>
@@ -159,7 +159,7 @@
     <color name="result_image_border">#ffffffff</color>
     <color name="result_pointss">#c000ff00</color>
     <color name="viewfinder_frame">#ff000000</color>
-   <!--  <color name="viewfinder_laser">#ffff0000</color> -->
+    <!--  <color name="viewfinder_laser">#ffff0000</color> -->
     <color name="lucensy">#00000001</color>
     <color name="translucency">#e0000000</color>
     <!-- <color name="orange">#ffffa500</color> -->
@@ -195,8 +195,8 @@
 
     <!--<drawable name="text_white">#ffffffff</drawable>-->
     <!--<drawable name="text_black">#ff000000</drawable>-->
-    
-     <color name="color_ptz_blue">#ff0044aa</color>
+
+    <color name="color_ptz_blue">#ff0044aa</color>
     <color name="color_bg">#ff666666</color>
     <color name="button_bg_no">#60ffffff</color>
     <color name="blur_bg">#fffaf0</color>
@@ -227,9 +227,9 @@
     <color name="Base_yellow_color">#f3981d</color><!--主色调-->
     <color name="Base_Blue_color">#29a3ff</color><!--主色调-->
     <color name="Base_Green_color">#2b887d</color><!--主色调-->
-    <color name="Assist_color">#ffc400 </color><!--辅助色调-->
-    <color name="Text_color">#323232 </color><!--主字体颜色-->
-    <color name="Login_line_color">#515252 </color>
+    <color name="Assist_color">#ffc400</color><!--辅助色调-->
+    <color name="Text_color">#323232</color><!--主字体颜色-->
+    <color name="Login_line_color">#515252</color>
     <color name="Login_littleText_color">#90908f</color><!--主字体颜色-->
 
     <color name="red_normal">#FF0000</color>
@@ -305,4 +305,5 @@
     <color name="line_in_blue">#52b4fe</color>
     <color name="line_in_green">#36c6b6</color>
     <color name="line_in_pink_ve">#f8276f</color>
+    <color name="main_bg">#f8f7f7</color>
 </resources>

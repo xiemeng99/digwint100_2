@@ -2,6 +2,7 @@ package digiwin.smartdepott100.module.activity.sale.pickupshipment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -58,11 +59,6 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
      */
     @BindView(R.id.ll_search_dialog)
     LinearLayout llSearchDialog;
-    /**
-     * 列表布局
-     */
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     @BindViews({R.id.ll_shipping_order, R.id.ll_item_no, R.id.ll_custom,
             R.id.ll_salesman, R.id.ll_operating_department, R.id.ll_plan_date})
@@ -211,11 +207,9 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
         //待办事项展示
         FilterBean filterBean = new FilterBean();
         showLoadingDialog();
-        filterBean.setWarehouse_no(LoginLogic.getWare());
         if (!StringUtils.isBlank(etShippingOrder.getText().toString().trim())) {
             filterBean.setDoc_no(etShippingOrder.getText().toString().trim());
         }
-        filterBean.setPagesize((String) SharedPreferencesUtils.get(activity, SharePreKey.PAGE_SETTING, AddressContants.PAGE_NUM));
         if (!StringUtils.isBlank(etItemNo.getText().toString().trim())) {
             filterBean.setItem_no(etItemNo.getText().toString().trim());
         }
@@ -235,14 +229,13 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
             filterBean.setDate_begin(startDate);
             filterBean.setDate_end(endDate);
         }
-        filterBean.setPagesize((String) SharedPreferencesUtils.get(activity, SharePreKey.PAGE_SETTING, "10"));
         logic.getSearchListData(filterBean, new PickUpShipmentLogic.GetSearchListDataListener() {
             @Override
             public void onSuccess(final List<FilterResultOrderBean> list) {
                 dismissLoadingDialog();
                 if (null != list && list.size() > 0) {
                     llSearchDialog.setVisibility(View.GONE);
-                    scrollview.setVisibility(View.VISIBLE);
+                    ryList.setVisibility(View.VISIBLE);
                     dataList = new ArrayList<FilterResultOrderBean>();
                     dataList = list;
                     adapter = new PickUpShipmentListAdapter(activity, list);
@@ -282,8 +275,7 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
     protected void doBusiness() {
         etPlanDate.setKeyListener(null);
         logic = PickUpShipmentLogic.getInstance(activity, module, mTimestamp.toString());
-        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(linearLayoutManager);
+        ryList.setLayoutManager(new LinearLayoutManager(activity));
     }
 
     @Override
@@ -307,8 +299,8 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
         super.initNavigationTitle();
         activity = this;
         mName.setText(getString(R.string.title_pickupshipment_list) + getString(R.string.list));
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     /**
@@ -319,26 +311,22 @@ public class PickUpShipmentListActivity extends BaseTitleActivity {
         if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != dataList && dataList.size() > 0) {
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            if (requestCode == SCANCODE) {
-                dataList.clear();
-                adapter = new PickUpShipmentListAdapter(activity, dataList);
-                ryList.setAdapter(adapter);
-                search();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (requestCode == SCANCODE) {
+            dataList.clear();
+            adapter = new PickUpShipmentListAdapter(activity, dataList);
+            ryList.setAdapter(adapter);
+            search();
         }
     }
 }

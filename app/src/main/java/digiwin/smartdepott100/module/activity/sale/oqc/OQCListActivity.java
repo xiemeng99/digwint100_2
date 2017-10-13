@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +19,6 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,7 +26,6 @@ import butterknife.BindViews;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 import digiwin.library.utils.ActivityManagerUtils;
-import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.WeakRefHandler;
 import digiwin.pulltorefreshlibrary.recyclerview.FullyLinearLayoutManager;
 import digiwin.pulltorefreshlibrary.recyclerviewAdapter.OnItemClickListener;
@@ -36,11 +35,9 @@ import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseTitleHActivity;
 import digiwin.smartdepott100.core.dialog.datepicker.DatePickerUtils;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
-import digiwin.smartdepott100.module.activity.produce.fqcinspect.FQCInspectItemActivity;
 import digiwin.smartdepott100.module.adapter.sale.OQCListAdapter;
 import digiwin.smartdepott100.module.bean.purchase.QCScanData;
 import digiwin.smartdepott100.module.bean.sale.OQCReqBean;
-import digiwin.smartdepott100.module.logic.produce.FQCInspectLogic;
 import digiwin.smartdepott100.module.logic.sale.oqc.OQCInspectLogic;
 
 /**
@@ -63,8 +60,6 @@ public class OQCListActivity extends BaseTitleHActivity {
     EditText etDeliveryNoteNo;
     @BindView(R.id.ll_delivery_note_no)
     LinearLayout llDeliveryNoteNo;
-    @BindView(R.id.scrollview)
-    ScrollView scrollview;
 
     @OnFocusChange(R.id.et_delivery_note_no)
     void deliveryNoteNoFocusChanage() {
@@ -164,11 +159,11 @@ public class OQCListActivity extends BaseTitleHActivity {
         if (llSearchDialog.getVisibility() == View.VISIBLE) {
             if (null != qcList && qcList.size() > 0) {
                 llSearchDialog.setVisibility(View.GONE);
-                scrollview.setVisibility(View.VISIBLE);
+                ryList.setVisibility(View.VISIBLE);
             }
         } else {
             llSearchDialog.setVisibility(View.VISIBLE);
-            scrollview.setVisibility(View.GONE);
+            ryList.setVisibility(View.GONE);
         }
     }
 
@@ -224,7 +219,7 @@ public class OQCListActivity extends BaseTitleHActivity {
                         @Override
                         public void onSuccess(List<QCScanData> datas) {
                             llSearchDialog.setVisibility(View.GONE);
-                            scrollview.setVisibility(View.VISIBLE);
+                            ryList.setVisibility(View.VISIBLE);
                             qcList.clear();
                             qcList.addAll(datas);
                             adapter = new OQCListAdapter(activity, qcList);
@@ -287,8 +282,8 @@ public class OQCListActivity extends BaseTitleHActivity {
     protected void initNavigationTitle() {
         mName.setText(getString(R.string.oqc_check_pad) + getString(R.string.list));
         ivScan.setVisibility(View.VISIBLE);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
     }
 
     @Override
@@ -303,8 +298,7 @@ public class OQCListActivity extends BaseTitleHActivity {
         logic = OQCInspectLogic.getInstance(activity, module, mTimestamp.toString());
         qcList = new ArrayList<>();
         adapter = new OQCListAdapter(activity, qcList);
-        FullyLinearLayoutManager manager = new FullyLinearLayoutManager(activity);
-        ryList.setLayoutManager(manager);
+        ryList.setLayoutManager(new LinearLayoutManager(activity));
         ryList.setAdapter(adapter);
         etDate.setKeyListener(null);
     }

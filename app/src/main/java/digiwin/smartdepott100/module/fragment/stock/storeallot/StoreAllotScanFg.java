@@ -43,7 +43,7 @@ public class StoreAllotScanFg extends BaseFragment {
 
     @BindView(R.id.tv_barcode)
     TextView tvBarcode;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
@@ -81,7 +81,7 @@ public class StoreAllotScanFg extends BaseFragment {
     @BindView(R.id.tv_scaned_num)
     TextView tv_scaned_num;
 
-    @BindViews({R.id.et_tray,R.id.et_scan_barocde, R.id.et_scan_inlocator, R.id.et_scan_outlocator, R.id.et_input_num})
+    @BindViews({R.id.et_tray,R.id.et_scan_barcode, R.id.et_scan_inlocator, R.id.et_scan_outlocator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_tray,R.id.ll_scan_barcode, R.id.ll_scan_inlocator, R.id.ll_scan_outlocator, R.id.ll_input_num})
     List<View> views;
@@ -124,7 +124,7 @@ public class StoreAllotScanFg extends BaseFragment {
         ModuleUtils.etChange(activity, etTray, editTexts);
         ModuleUtils.tvChange(activity, tvTray, textViews);
     }
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -152,7 +152,7 @@ public class StoreAllotScanFg extends BaseFragment {
         ModuleUtils.tvChange(activity, tvNumber, textViews);
     }
 
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             mHandler.removeMessages(BARCODEWHAT);

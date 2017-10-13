@@ -77,7 +77,7 @@ public class MiscellaneousNocomeInScanFg extends BaseFragment {
     /**
      * 条码
      */
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
 
     /**
@@ -130,7 +130,7 @@ public class MiscellaneousNocomeInScanFg extends BaseFragment {
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
 
-    @BindViews({R.id.et_reason_code,R.id.et_department,R.id.et_scan_barocde, R.id.et_scan_locator, R.id.et_input_num})
+    @BindViews({R.id.et_reason_code,R.id.et_department,R.id.et_scan_barcode, R.id.et_scan_locator, R.id.et_input_num})
     List<EditText> editTexts;
     @BindViews({R.id.ll_reason_code,R.id.ll_department,R.id.ll_scan_barcode, R.id.ll_scan_locator, R.id.ll_input_num})
     List<View> views;
@@ -252,7 +252,7 @@ public class MiscellaneousNocomeInScanFg extends BaseFragment {
         ModuleUtils.etChange(activity, et_department, editTexts);
         ModuleUtils.tvChange(activity, tv_department, textViews);
     }
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void barcodeFocusChanage() {
         ModuleUtils.viewChange(ll_scan_barcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
@@ -287,7 +287,7 @@ public class MiscellaneousNocomeInScanFg extends BaseFragment {
             mHandler.sendMessageDelayed(mHandler.obtainMessage(DEPARTMENTWHAT, s.toString().trim()), AddressContants.DELAYTIME);
         }
     }
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void barcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString().trim())) {
             mHandler.removeMessages(BARCODEWHAT);

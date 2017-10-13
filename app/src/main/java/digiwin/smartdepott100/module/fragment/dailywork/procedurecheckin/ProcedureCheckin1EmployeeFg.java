@@ -66,24 +66,24 @@ public class ProcedureCheckin1EmployeeFg extends BaseFragment {
     LinearLayout itemLl;
     @BindView(R.id.ry_list)
     SwipeMenuRecyclerView ryList;
-    @BindView(R.id.et_scan_barocde)
+    @BindView(R.id.et_scan_barcode)
     EditText etScanBarocde;
     @BindView(R.id.ll_scan_barcode)
     LinearLayout llScanBarcode;
     private List<ProcedureEmployeeBean> employeeBeen;
 
-    @BindViews({R.id.et_scan_barocde})
+    @BindViews({R.id.et_scan_barcode})
     List<EditText> editTexts;
     @BindViews({R.id.ll_scan_barcode})
     List<View> views;
 
-    @OnFocusChange(R.id.et_scan_barocde)
+    @OnFocusChange(R.id.et_scan_barcode)
     void etScanBarcodeFocusChange() {
         ModuleUtils.viewChange(llScanBarcode, views);
         ModuleUtils.etChange(activity, etScanBarocde, editTexts);
     }
 
-    @OnTextChanged(value = R.id.et_scan_barocde, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void etScanBarcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
             Connector.getDatabase();

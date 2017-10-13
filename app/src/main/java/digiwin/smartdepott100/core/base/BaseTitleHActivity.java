@@ -32,7 +32,7 @@ import digiwin.smartdepott100.main.activity.SettingActivity;
 public abstract class BaseTitleHActivity extends BaseActivity {
 
     @BindView(R.id.iv_title_setting)
-    public ImageView iv_title_setting;
+    public ImageView ivTitleSetting;
     @BindView(R.id.tv_title_name)
     public TextView mName;
 

@@ -222,8 +222,8 @@ public class PostMaterialActivity extends BaseTitleActivity {
     protected void initNavigationTitle() {
         super.initNavigationTitle();
         mName.setText(R.string.post_material);
-        iv_title_setting.setVisibility(View.VISIBLE);
-        iv_title_setting.setImageResource(R.drawable.search);
+        ivTitleSetting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setImageResource(R.drawable.search);
         iv_un_com.setVisibility(View.VISIBLE);
     }
 
@@ -353,7 +353,7 @@ public class PostMaterialActivity extends BaseTitleActivity {
                     //查询成功隐藏筛选界面，展示汇总信息
                     ll_search_dialog.setVisibility(View.GONE);
                     scrollview.setVisibility(View.VISIBLE);
-                    iv_title_setting.setVisibility(View.VISIBLE);
+                    ivTitleSetting.setVisibility(View.VISIBLE);
                     iv_un_com.setVisibility(View.VISIBLE);
                     //TODO setAdapter
                     dataList.clear();

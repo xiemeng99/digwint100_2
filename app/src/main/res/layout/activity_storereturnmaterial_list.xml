@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/activity_title_toolbar_bar"></include>
+    <include layout="@layout/activity_title_toolbar_bar"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ry_list"

@@ -55,6 +55,7 @@ import digiwin.smartdepott100.login.bean.AppVersionBean;
 import digiwin.smartdepott100.login.bean.EntSiteBean;
 import digiwin.smartdepott100.login.loginlogic.LoginLogic;
 import digiwin.smartdepott100.main.activity.MainActivity;
+import digiwin.smartdepott100.main.activity.MainActivity2;
 import digiwin.smartdepott100.main.activity.versions.VersionsSettingDialog;
 import digiwin.smartdepott100.main.bean.StorageBean;
 
@@ -380,7 +381,7 @@ public class LoginActivity extends BaseActivity {
                     DataSupport.deleteAll(AccoutBean.class);
                     DataSupport.saveAll(storageList);
                     accoutBean.save();
-                    ActivityManagerUtils.startActivityForBundleDataFinish(activity, MainActivity.class, bundle);
+                    ActivityManagerUtils.startActivityForBundleDataFinish(activity, MainActivity2.class, bundle);
                     JPushManager.login(TelephonyUtils.getDeviceId(activity), TelephonyUtils.getDeviceId(activity));
 //                    dismissLoadingDialog();
                 }

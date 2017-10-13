@@ -66,6 +66,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.activity.MainActivity" />
+        <activity android:name=".main.activity.MainActivity2" />
         <activity
             android:name=".login.activity.LoginActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

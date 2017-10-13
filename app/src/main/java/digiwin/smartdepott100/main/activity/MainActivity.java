@@ -1,7 +1,6 @@
 package digiwin.smartdepott100.main.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,23 +15,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.iflytek.cloud.util.UserWords;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import digiwin.smartdepott100.main.bean.DeviceInfoBean;
-import digiwin.smartdepott100.main.logic.DeviceLogic;
-import digiwin.smartdepott100.main.logic.MainLogic;
-import digiwin.library.utils.StringUtils;
-import digiwin.smartdepott100.main.bean.VoiceWord;
 import digiwin.library.constant.SharePreKey;
 import digiwin.library.utils.ActivityManagerUtils;
 import digiwin.library.utils.SharedPreferencesUtils;
+import digiwin.library.utils.StringUtils;
 import digiwin.library.utils.ToastUtils;
 import digiwin.library.voiceutils.VoiceUtils;
 import digiwin.smartdepott100.R;
@@ -41,6 +32,7 @@ import digiwin.smartdepott100.core.base.BaseApplication;
 import digiwin.smartdepott100.core.base.BaseTitleActivity;
 import digiwin.smartdepott100.main.bean.ModuleBean;
 import digiwin.smartdepott100.main.bean.TotalMode;
+import digiwin.smartdepott100.main.bean.VoiceWord;
 import digiwin.smartdepott100.main.fragment.DetailFragment;
 import digiwin.smartdepott100.main.logic.MainLogic;
 
@@ -56,11 +48,6 @@ public class MainActivity extends BaseTitleActivity {
     LinearLayout linearLayoutPoints;
     @BindView(R.id.tb_title)
     TabLayout tablayout;
-    /**
-     * 未完事项
-     */
-    @BindView(R.id.un_com)
-    ImageView iv_un_com;
     //    @BindView(R.id.tv_title)
 //    public TextView mTitleName;
     //两秒内按返回键两次退出程序
@@ -94,15 +81,15 @@ public class MainActivity extends BaseTitleActivity {
             @Override
             public String getVoiceText(String str) {
                 command = str.toUpperCase();
-                Log.d(TAG,"command:"+command);
+                Log.d(TAG, "command:" + command);
                 if (list.size() > 0) {
                     for (int i = 0; i < list.size(); i++) {
                         String name = getResources().getString(list.get(i).getNameRes()).toUpperCase();
-                        if(command.length() == name.length()) {
+                        if (command.length() == name.length()) {
                             if (command.equals(name)) {
                                 ActivityManagerUtils.startActivity(MainActivity.this, list.get(i).getIntent());
-                            }else{
-                                if(StringUtils.getPingYin(command).equals(StringUtils.getPingYin(name))){
+                            } else {
+                                if (StringUtils.getPingYin(command).equals(StringUtils.getPingYin(name))) {
                                     ActivityManagerUtils.startActivity(MainActivity.this, list.get(i).getIntent());
                                 }
                             }
@@ -119,13 +106,13 @@ public class MainActivity extends BaseTitleActivity {
 
     @OnClick(R.id.iv_title_setting)
     public void goSetting() {
-        ActivityManagerUtils.startActivityForResult(activity, SettingActivity.class,REQUESTCODE);
+        ActivityManagerUtils.startActivityForResult(activity, SettingActivity.class, REQUESTCODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE){
+        if (requestCode == REQUESTCODE) {
             recreate();
         }
     }
@@ -180,7 +167,7 @@ public class MainActivity extends BaseTitleActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
         mBack.setVisibility(View.GONE);
-        iv_title_setting.setVisibility(View.VISIBLE);
+        ivTitleSetting.setVisibility(View.VISIBLE);
 
         Toolbar.LayoutParams tl = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT);
         tl.gravity = Gravity.CENTER;
@@ -202,19 +189,20 @@ public class MainActivity extends BaseTitleActivity {
         initModule();
         submitUserWords();
     }
+
     /**
      * 上传用户此表，用于精准识别语音录入
      */
     private void submitUserWords() {
         List<ModuleBean> modlueList = mainLogic.ModuleList;
-        Log.d(TAG,"moduleList.size():"+modlueList.size());
+        Log.d(TAG, "moduleList.size():" + modlueList.size());
         List<String> voiceWordList = new ArrayList<>();
         VoiceWord defaultWord = new VoiceWord();
         defaultWord.setName("default");
         defaultWord.setWord(getResources().getString(R.string.purchase_check));
         voiceWordList.add(defaultWord.toString());
-        if(modlueList.size()>0){
-            for (ModuleBean module:modlueList) {
+        if (modlueList.size() > 0) {
+            for (ModuleBean module : modlueList) {
                 String moduleName = getResources().getString(module.getNameRes());
                 VoiceWord voiceWord = new VoiceWord();
                 voiceWord.setName(moduleName);
@@ -222,11 +210,11 @@ public class MainActivity extends BaseTitleActivity {
                 voiceWordList.add(voiceWord.toString());
             }
             StringBuffer userword = new StringBuffer();
-            String head =  "{"+"\"" + "userword" +"\"" + ":";
+            String head = "{" + "\"" + "userword" + "\"" + ":";
             userword.append(head);
             userword.append(voiceWordList.toString());
             userword.append("}");
-            Log.d(TAG,"voiceWord.toArray():"+userword.toString());
+            Log.d(TAG, "voiceWord.toArray():" + userword.toString());
             VoiceUtils.getInstance(getApplicationContext(), SharePreKey.VOICER_SELECTED).submitUserWords(userword.toString());
         }
     }
@@ -234,7 +222,7 @@ public class MainActivity extends BaseTitleActivity {
     //初始化各个模块
     private void initModule() {
         //正式发布版本时在解开
-        access=getIntent().getExtras().getString("access");
+        access = getIntent().getExtras().getString("access");
         powerItems = StringUtils.split(access);
         //模拟测试
 //        powerItems = new ArrayList<>();
@@ -270,7 +258,7 @@ public class MainActivity extends BaseTitleActivity {
         boolean speechInput = (boolean) SharedPreferencesUtils.get(activity, SharePreKey.SPEECH_INPUT, true);
         if (speechInput) {
             voiceGuide.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             voiceGuide.setVisibility(View.GONE);
         }
     }

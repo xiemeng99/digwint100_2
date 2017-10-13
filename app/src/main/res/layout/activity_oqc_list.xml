@@ -178,31 +178,25 @@
 
         <View style="@style/ry_line_style" />
 
-        <Button             android:id="@+id/btn_search_sure"             android:layout_width="match_parent"             android:layout_height="@dimen/layout_60dp"             android:layout_margin="@dimen/layout_10dp"             android:background="?attr/click_bg"             android:text="@string/label_sure"             android:textColor="@color/WHITE"             android:textSize="@dimen/textSize_18sp" />
+        <Button
+            android:id="@+id/btn_search_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_60dp"
+            android:layout_margin="@dimen/layout_10dp"
+            android:background="?attr/click_bg"
+            android:text="@string/label_sure"
+            android:textColor="@color/WHITE"
+            android:textSize="@dimen/textSize_18sp" />
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ry_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar_title"
-        android:paddingTop="@dimen/digiwin_top"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/ry_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-
-    </ScrollView>
+        android:layout_marginTop="@dimen/layout_6dp"
+        android:visibility="gone" />
 </RelativeLayout>
