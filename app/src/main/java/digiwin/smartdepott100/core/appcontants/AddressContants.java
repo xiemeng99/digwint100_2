@@ -97,9 +97,9 @@ public class AddressContants {
      */
     public static  final  String PROCESSCARD="process_card";
     /**
-     * 工序报工
+     * 作业序号
      */
-    public static  final  String PROCESSNO="process_no";
+    public static  final  String PROCESSNO="pack_no";
     /**
      * 时间
      */

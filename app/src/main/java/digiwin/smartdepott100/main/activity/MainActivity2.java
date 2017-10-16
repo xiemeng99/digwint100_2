@@ -404,6 +404,8 @@ public class MainActivity2 extends BaseTitleActivity {
         salesItems.add(saleReturnActivity);
         salesItems.add(oqc);
 
+        ModuleBean palletreport = new ModuleBean(R.string.title_pallet_report, R.mipmap.pallet_report, ModuleCode.ORDERDAILYWORK, "android.intent.actiont100.smartdepot.ProcessReportActivity");
+        dailyworkItems.add(palletreport);
 
         mainLogic.initModule(activity, powerItems, purchaseItems, produceItems, storageItems, salesItems, dailyworkItems, boardItems);
         showTitle();
@@ -455,6 +457,9 @@ public class MainActivity2 extends BaseTitleActivity {
         }
         if (salesItems.size() > 0) {
             fgs.add(OtherFragment.getInstance(salesItems,salesmaps));
+        }
+        if (dailyworkItems.size() > 0) {
+            fgs.add(OtherFragment.getInstance(dailyworkItems,salesmaps));
         }
 
         viewPager.setAdapter(new MyFragmentAdapter(getSupportFragmentManager()));

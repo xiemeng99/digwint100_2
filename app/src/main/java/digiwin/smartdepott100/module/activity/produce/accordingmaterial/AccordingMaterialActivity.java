@@ -303,7 +303,7 @@ public class AccordingMaterialActivity extends BaseFirstModuldeActivity {
 
             @Override
             public void onFailed(String error) {
-                showToast(error);
+                showFailedDialog(error);
             }
         });
     }

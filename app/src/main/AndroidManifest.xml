@@ -309,10 +309,10 @@
 
         <!-- 工序报工 -->
         <activity
-            android:name=".module.activity.dailywork.processreporting.ProcessReportingActivity"
+            android:name=".module.activity.dailywork.processreporting.ProcessReportActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
-                <action android:name="android.intent.actiont100.smartdepot.ProcessReportingActivity" />
+                <action android:name="android.intent.actiont100.smartdepot.ProcessReportActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -603,16 +603,6 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.actiont100.smartdepot.FinishWorkActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <!-- 扫出扫描 -->
-        <activity
-            android:name=".module.activity.dailywork.dailworkscan.StockRemovalActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.actiont100.smartdepot.StockRemovalActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>

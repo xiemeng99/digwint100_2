@@ -8,17 +8,22 @@ import java.io.Serializable;
  * @date 2017/3/15
  */
 
-public class WorkerPerson implements Serializable{
+public class WorkerPerson implements Serializable {
 
     /**
      * 姓名
      */
     private String employee_name;
+    /**
+     * 编号
+     */
+    private String employee_no;
 
     /**
      * app展示
      */
     private String showing;
+
 
     public String getEmployee_name() {
         return employee_name;
@@ -26,6 +31,14 @@ public class WorkerPerson implements Serializable{
 
     public void setEmployee_name(String employee_name) {
         this.employee_name = employee_name;
+    }
+
+    public String getEmployee_no() {
+        return employee_no;
+    }
+
+    public void setEmployee_no(String employee_no) {
+        this.employee_no = employee_no;
     }
 
     public String getShowing() {

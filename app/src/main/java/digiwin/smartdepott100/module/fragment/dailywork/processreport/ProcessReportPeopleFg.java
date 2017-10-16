@@ -1,12 +1,12 @@
-package digiwin.smartdepott100.module.fragment.dailywork.procedurecheckin;
+package digiwin.smartdepott100.module.fragment.dailywork.processreport;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.method.TextKeyListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -19,9 +19,6 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-
-import org.litepal.crud.DataSupport;
-import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,61 +38,57 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.base.BaseFragment;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
-import digiwin.smartdepott100.module.activity.dailywork.procedurecheck.ProcedureCheckinSetActivity;
-import digiwin.smartdepott100.module.bean.dailywork.ProcedureCheckinCommitBean;
+import digiwin.smartdepott100.module.activity.dailywork.processreporting.ProcessReportActivity;
 import digiwin.smartdepott100.module.bean.dailywork.ProcedureEmployeeBean;
-import digiwin.smartdepott100.module.logic.dailywok.ProcedureCheckLogic;
+import digiwin.smartdepott100.module.bean.dailywork.WorkerPerson;
+import digiwin.smartdepott100.module.logic.dailywok.ProcessReportLogic;
 
 /**
  * @author xiemeng
- * @des 生产报工checkin 扫描人员信息
- * @date 2017/5/18 17:27
+ * @des 扫描人员
+ * @date 2017-10-16 09:51
  */
 
-public class ProcedureCheckin1EmployeeFg extends BaseFragment {
+public class ProcessReportPeopleFg extends BaseFragment {
 
-    @BindView(R.id.tv_procedure_no)
-    TextView tvProcedureNo;
-    @BindView(R.id.tv_procedure_name)
-    TextView tvProcedureName;
-    @BindView(R.id.tv_circulation_no)
-    TextView tvCirculationNo;
-    @BindView(R.id.tv_order_number)
-    TextView tvOrderNumber;
-    @BindView(R.id.item_ll)
-    LinearLayout itemLl;
+
     @BindView(R.id.ry_list)
     SwipeMenuRecyclerView ryList;
-    @BindView(R.id.et_scan_barcode)
-    EditText etScanBarocde;
-    @BindView(R.id.ll_scan_barcode)
+    @BindView(R.id.tv_scan_employee)
+    TextView tvScanEmployee;
+    @BindView(R.id.et_scan_employee)
+    EditText etScanEmployee;
+    @BindView(R.id.ll_scan_employee)
     LinearLayout llScanBarcode;
-    private List<ProcedureEmployeeBean> employeeBeen;
+    public List<WorkerPerson> employeeBeen;
 
-    @BindViews({R.id.et_scan_barcode})
+    @BindViews({R.id.tv_scan_employee})
+    List<TextView> textviews;
+    @BindViews({R.id.et_scan_employee})
     List<EditText> editTexts;
-    @BindViews({R.id.ll_scan_barcode})
+    @BindViews({R.id.ll_scan_employee})
     List<View> views;
 
-    @OnFocusChange(R.id.et_scan_barcode)
+    @OnFocusChange(R.id.et_scan_employee)
     void etScanBarcodeFocusChange() {
+        ModuleUtils.tvChange(activity, tvScanEmployee, textviews);
         ModuleUtils.viewChange(llScanBarcode, views);
-        ModuleUtils.etChange(activity, etScanBarocde, editTexts);
+        ModuleUtils.etChange(activity, etScanEmployee, editTexts);
     }
 
-    @OnTextChanged(value = R.id.et_scan_barcode, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    @OnTextChanged(value = R.id.et_scan_employee, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     void etScanBarcodeChange(CharSequence s) {
         if (!StringUtils.isBlank(s.toString())) {
-            Connector.getDatabase();
-            int count = DataSupport.where("employee_no = ?", s.toString()).count(ProcedureEmployeeBean.class);
-            if(count>0){
-                showFailedDialog(R.string.employee_scaned, new OnDialogClickListener() {
-                    @Override
-                    public void onCallback() {
-                        etScanBarocde.setText("");
-                    }
-                });
-                return;
+            for (int j = 0; j < employeeBeen.size(); j++) {
+                if (s.toString().equals(employeeBeen.get(j).getEmployee_no())) {
+                    showFailedDialog(R.string.employee_scaned, new OnDialogClickListener() {
+                        @Override
+                        public void onCallback() {
+                            etScanEmployee.setText("");
+                        }
+                    });
+                    return;
+                }
             }
             mHandler.removeMessages(EMPLOYEEWHAT);
             mHandler.sendMessageDelayed(mHandler.obtainMessage(EMPLOYEEWHAT, s.toString()), AddressContants.DELAYTIME);
@@ -107,36 +100,33 @@ public class ProcedureCheckin1EmployeeFg extends BaseFragment {
      */
     private final int EMPLOYEEWHAT = 1001;
 
-    private Handler.Callback mCallback= new Handler.Callback() {
+    private Handler.Callback mCallback = new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             switch (msg.what) {
                 case EMPLOYEEWHAT:
                     HashMap<String, String> map = new HashMap<>();
-                    map.put(AddressContants.EMPLOYEENO,etScanBarocde.getText().toString());
-//                    map.put(AddressContants.RESOURCE_TYPE,"1");
-//                    map.put(AddressContants.SUBOP_NO,tvProcedureNo.getText().toString());
-//                    map.put(AddressContants.WO_NO,tvOrderNumber.getText().toString());
-                    map.put(AddressContants.CHECK_STATUS,AddressContants.CHECKIN);
-                    procedureCheckLogic.scanPerson(map, new ProcedureCheckLogic.ScanPersonListener() {
+                    map.put(AddressContants.EMPLOYEENO, etScanEmployee.getText().toString());
+                    etScanEmployee.setKeyListener(null);
+                    processReportLogic.scanPerson(map, new ProcessReportLogic.ScanPersonListener() {
                         @Override
-                        public void onSuccess(ProcedureEmployeeBean employeebackBean) {
+                        public void onSuccess(WorkerPerson employeebackBean) {
+                            etScanEmployee.setKeyListener(new TextKeyListener(TextKeyListener.Capitalize.CHARACTERS, true));
                             ProcedureEmployeeBean employeeBean = new ProcedureEmployeeBean();
-                            employeeBean.setResource_type("2");
-                            employeeBean.setEmployee_no(etScanBarocde.getText().toString());
+                            employeeBean.setEmployee_no(etScanEmployee.getText().toString());
                             employeeBean.setEmployee_name(employeebackBean.getEmployee_name());
-                            Connector.getDatabase();
-                            employeeBean.save();
-                            employeeBeen.add(employeeBean);
-                            etScanBarocde.setText("");
+                            etScanEmployee.setText("");
+                            employeeBeen.add(employeebackBean);
                             showList();
                         }
+
                         @Override
                         public void onFailed(String error) {
+                            etScanEmployee.setKeyListener(new TextKeyListener(TextKeyListener.Capitalize.CHARACTERS, true));
                             showFailedDialog(error, new OnDialogClickListener() {
                                 @Override
                                 public void onCallback() {
-                                    etScanBarocde.setText("");
+                                    etScanEmployee.setText("");
                                 }
                             });
                         }
@@ -149,32 +139,26 @@ public class ProcedureCheckin1EmployeeFg extends BaseFragment {
 
     private Handler mHandler = new WeakRefHandler(mCallback);
 
-    private BaseSwipeMenuAdapter<ProcedureEmployeeBean> adapter;
-    private ProcedureCheckinSetActivity pactivity;
-    ProcedureCheckLogic procedureCheckLogic;
+    private BaseSwipeMenuAdapter<WorkerPerson> adapter;
+    private ProcessReportActivity pactivity;
+    ProcessReportLogic processReportLogic;
 
     @Override
     protected int bindLayoutId() {
-        return R.layout.fg_procedure_checkin1_employee;
+        return R.layout.fg_processreport_people;
     }
 
     @Override
     protected void doBusiness() {
-        employeeBeen = new ArrayList<>();
-        SQLiteDatabase db = Connector.getDatabase();
-        List<ProcedureEmployeeBean> employeeBeensql = DataSupport.findAll(ProcedureEmployeeBean.class);
-       if(null!=employeeBeensql) employeeBeen = employeeBeensql;
-        pactivity = (ProcedureCheckinSetActivity) activity;
-        procedureCheckLogic = ProcedureCheckLogic.getInstance(context, pactivity.module, pactivity.mTimestamp.toString());
+        init();
+    }
 
-        Bundle bundle = pactivity.getIntent().getExtras();
-        ProcedureCheckinCommitBean commitBean = (ProcedureCheckinCommitBean) bundle.getSerializable(pactivity.GETHEAD);
-        tvProcedureNo.setText(commitBean.getSubop_no());
-        tvProcedureName.setText(commitBean.getSubop_name());
-        tvCirculationNo.setText(commitBean.getPlot_no());
-        tvOrderNumber.setText(commitBean.getWo_no());
+    public void init(){
+        employeeBeen = new ArrayList<>();
+        pactivity = (ProcessReportActivity) activity;
+        processReportLogic = ProcessReportLogic.getInstance(context, pactivity.module, pactivity.mTimestamp.toString());
         showList();
-        etScanBarocde.requestFocus();
+
     }
 
 
@@ -182,14 +166,14 @@ public class ProcedureCheckin1EmployeeFg extends BaseFragment {
      * 显示数据
      */
     private void showList() {
-        adapter = new BaseSwipeMenuAdapter<ProcedureEmployeeBean>(context, employeeBeen) {
+        adapter = new BaseSwipeMenuAdapter<WorkerPerson>(context, employeeBeen) {
             @Override
             protected int getItemLayout(int viewType) {
                 return R.layout.ryitem_processreport_people;
             }
 
             @Override
-            protected void bindData(RecyclerViewHolder holder, int position, ProcedureEmployeeBean item) {
+            protected void bindData(RecyclerViewHolder holder, int position, WorkerPerson item) {
                 holder.setText(R.id.tv_employee_no, item.getEmployee_no());
                 holder.setText(R.id.tv_employee_name, item.getEmployee_name());
             }
@@ -216,10 +200,7 @@ public class ProcedureCheckin1EmployeeFg extends BaseFragment {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
             // TODO 推荐调用Adapter.notifyItemRemoved(position)，也可以Adapter.notifyDataSetChanged();
             if (menuPosition == 0) {// 删除按钮被点击。
-                ProcedureEmployeeBean employeeBean = employeeBeen.get(adapterPosition);
-                SQLiteDatabase db = Connector.getDatabase();
-                DataSupport.deleteAll(ProcedureEmployeeBean.class,
-                        "resource_type=? and employee_no=?", employeeBean.getResource_type(), employeeBean.getEmployee_no());
+                WorkerPerson employeeBean = employeeBeen.get(adapterPosition);
                 employeeBeen.remove(adapterPosition);
                 adapter.notifyDataSetChanged();
             }

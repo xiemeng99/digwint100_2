@@ -107,7 +107,7 @@ public class MainPurchaseFragment extends BaseMainFg {
                             beanLists.get(position).getId().equals(ModuleCode.PROCESSREPORTING)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCECHECK)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCEMOVE)) {
-                        ActivityManagerUtils.startActivity(activity, beanLists.get(position).getIntent());
+                        ActivityManagerUtils.startActivity(activity, maps.get("1").get(position).getIntent());
                     } else {
                         showFailedDialog(R.string.system_warehouse_null);
                     }
@@ -126,7 +126,7 @@ public class MainPurchaseFragment extends BaseMainFg {
                             beanLists.get(position).getId().equals(ModuleCode.PROCESSREPORTING)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCECHECK)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCEMOVE)) {
-                        ActivityManagerUtils.startActivity(activity, beanLists.get(position).getIntent());
+                        ActivityManagerUtils.startActivity(activity, maps.get("2").get(position).getIntent());
                     } else {
                         showFailedDialog(R.string.system_warehouse_null);
                     }
@@ -145,7 +145,7 @@ public class MainPurchaseFragment extends BaseMainFg {
                             beanLists.get(position).getId().equals(ModuleCode.PROCESSREPORTING)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCECHECK)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCEMOVE)) {
-                        ActivityManagerUtils.startActivity(activity, beanLists.get(position).getIntent());
+                        ActivityManagerUtils.startActivity(activity, maps.get("3").get(position).getIntent());
                     } else {
                         showFailedDialog(R.string.system_warehouse_null);
                     }
@@ -163,7 +163,7 @@ public class MainPurchaseFragment extends BaseMainFg {
                             beanLists.get(position).getId().equals(ModuleCode.PROCESSREPORTING)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCECHECK)
                             || beanLists.get(position).getId().equals(ModuleCode.PROCEDUCEMOVE)) {
-                        ActivityManagerUtils.startActivity(activity, beanLists.get(position).getIntent());
+                        ActivityManagerUtils.startActivity(activity, maps.get("4").get(position).getIntent());
                     } else {
                         showFailedDialog(R.string.system_warehouse_null);
                     }

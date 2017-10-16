@@ -208,8 +208,8 @@ public class MainLogic {
         salesItems.add(oqc);
 
 
-//        ModuleBean palletreport = new ModuleBean(R.string.title_pallet_report, R.mipmap.pallet_report, ModuleCode.PROCESSREPORTING, "android.intent.actiont100.smartdepot.ProcessReportingActivity");
-//        dailyworkItems.add(palletreport);
+        ModuleBean palletreport = new ModuleBean(R.string.title_pallet_report, R.mipmap.pallet_report, ModuleCode.ORDERDAILYWORK, "android.intent.actiont100.smartdepot.ProcessReportActivity");
+        dailyworkItems.add(palletreport);
 //        //开工扫描
 //        ModuleBean startwork = new ModuleBean(R.string.start_scan, R.mipmap.start_working, ModuleCode.STARTWORKSCAN, "android.intent.actiont100.smartdepot.StartWorkActivity");
 //        dailyworkItems.add(startwork);
@@ -219,9 +219,6 @@ public class MainLogic {
 //        //扫入扫描
 //        ModuleBean entrance = new ModuleBean(R.string.scanin_scan, R.mipmap.entrance, ModuleCode.SCANINSCAN, "android.intent.actiont100.smartdepot.EntranceActivity");
 //        dailyworkItems.add(entrance);
-//        //扫出扫描
-//        ModuleBean stockremoval = new ModuleBean(R.string.scanout_scan, R.mipmap.stock_removal, ModuleCode.SCANOUTSCAN, "android.intent.actiont100.smartdepot.StockRemovalActivity");
-//        dailyworkItems.add(stockremoval);
 
         //工序转移movein
 //        ModuleBean proceduremovein = new ModuleBean(R.string.procedure_movein, R.mipmap.procedure_movein, ModuleCode.PROCEDUCEMOVE, "android.intent.actiont100.smartdepot.ProcedureMoveinActivity");

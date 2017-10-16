@@ -29,8 +29,6 @@
                 android:padding="@dimen/layout_5dp">
 
 
-                <View style="@style/fg_line_style" />
-
                 <LinearLayout
                     android:id="@+id/ll_pack_boxno"
                     style="@style/itemstyle"

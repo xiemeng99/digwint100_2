@@ -1,4 +1,4 @@
-package digiwin.smartdepott100.module.activity.dailywork.dailworkscan;
+package digiwin.smartdepott100.module.activity.dailywork.processreporting;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,21 +14,16 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.ModuleCode;
 import digiwin.smartdepott100.core.base.BaseFirstModuldeActivity;
 import digiwin.smartdepott100.core.modulecommon.ModuleViewPagerAdapter;
-import digiwin.smartdepott100.module.fragment.dailywork.stockremoval.StockRemovalaDetailFg;
-import digiwin.smartdepott100.module.fragment.dailywork.stockremoval.StockRemovalaScanFg;
+import digiwin.smartdepott100.module.fragment.dailywork.processreport.ProcessReportCommitFg;
+import digiwin.smartdepott100.module.fragment.dailywork.processreport.ProcessReportPeopleFg;
 
 /**
- * @author maoheng
- * @des 扫出扫描
- * @date 2017/4/1
+ * @author 赵浩然
+ * @module 工序报工
+ * @date 2017/3/15
  */
 
-public class StockRemovalActivity extends BaseFirstModuldeActivity{
-    /**
-     * 作业号
-     */
-    private String mode;
-
+public class ProcessReportActivity extends BaseFirstModuldeActivity {
     /**
      * 标题
      */
@@ -43,7 +38,7 @@ public class StockRemovalActivity extends BaseFirstModuldeActivity{
      * ViewPager
      */
     @BindView(R.id.module_vp)
-    public ViewPager mZXVp;
+    public ViewPager moduleVp;
     /**
      * Fragment设置
      */
@@ -51,21 +46,19 @@ public class StockRemovalActivity extends BaseFirstModuldeActivity{
     private List<String> titles;
     private FragmentManager fragmentManager;
     /**
-     * 扫码
+     *扫描提交
      */
-    public StockRemovalaScanFg scanFg;
+    public ProcessReportCommitFg scanFg;
     /**
-     * 明细提交
+     * 人员
      */
-    public StockRemovalaDetailFg detailFg;
+    public  ProcessReportPeopleFg peopleFg;
 
     ModuleViewPagerAdapter adapter;
-
-    @Override
-    protected void initNavigationTitle() {
-        super.initNavigationTitle();
-        mName.setText(R.string.scanout_scan);
-    }
+    /**
+     * 跳转明细使用
+     */
+    public final int DETAILCODE = 1234;
 
     @Override
     protected Toolbar toolbar() {
@@ -74,63 +67,62 @@ public class StockRemovalActivity extends BaseFirstModuldeActivity{
 
     @Override
     public String moduleCode() {
-        mode = ModuleCode.SCANINSCAN;
-        return mode;
+        module = ModuleCode.ORDERDAILYWORK;
+        return module;
+    }
+
+    @Override
+    protected void initNavigationTitle() {
+        super.initNavigationTitle();
+        mName.setText(R.string.title_pallet_report);
+        // unCom.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected int bindLayoutId() {
-        return R.layout.activity_stockremoval;
+        return R.layout.activity_finished_storage;
     }
 
     @Override
     protected void doBusiness() {
         initFragment();
     }
+
+
     /**
      * 初始化Fragment
      */
     private void initFragment() {
-        scanFg = new StockRemovalaScanFg();
-        detailFg = new StockRemovalaDetailFg();
+
+        scanFg = new ProcessReportCommitFg();
+        peopleFg = new ProcessReportPeopleFg();
         fragments = new ArrayList<>();
         fragments.add(scanFg);
-        fragments.add(detailFg);
+        fragments.add(peopleFg);
         titles = new ArrayList<>();
         titles.add(getResources().getString(R.string.ScanCode));
-        titles.add(getResources().getString(R.string.scandetail));
+        titles.add(getResources().getString(R.string.SumData));
         fragmentManager = getSupportFragmentManager();
         adapter = new ModuleViewPagerAdapter(fragmentManager, fragments, titles);
-        mZXVp.setAdapter(adapter);
+        moduleVp.setAdapter(adapter);
         tlTab.addTab(tlTab.newTab().setText(titles.get(0)));
         tlTab.addTab(tlTab.newTab().setText(titles.get(1)));
         //Tablayout和ViewPager关联起来
-        tlTab.setupWithViewPager(mZXVp);
+        tlTab.setupWithViewPager(moduleVp);
         tlTab.setTabsFromPagerAdapter(adapter);
         select();
     }
+
+    /**
+     * 滑动
+     */
     private void select() {
-        mZXVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 1) {
-                    detailFg.upDateList();
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
+
+
     @Override
     public BaseFirstModuldeActivity.ExitMode exitOrDel() {
-        return BaseFirstModuldeActivity.ExitMode.EXITISD;
+        return ExitMode.EXITD;
     }
+
 }

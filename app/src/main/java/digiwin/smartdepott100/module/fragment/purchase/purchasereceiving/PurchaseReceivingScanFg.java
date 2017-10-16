@@ -21,6 +21,7 @@ import digiwin.smartdepott100.R;
 import digiwin.smartdepott100.core.appcontants.AddressContants;
 import digiwin.smartdepott100.core.base.BaseFragment;
 import digiwin.smartdepott100.core.modulecommon.ModuleUtils;
+import digiwin.smartdepott100.login.loginlogic.LoginLogic;
 import digiwin.smartdepott100.module.activity.purchase.purchasereceiving.PurchaseReceivingActivity;
 import digiwin.smartdepott100.module.bean.common.SaveBackBean;
 import digiwin.smartdepott100.module.bean.common.SaveBean;
@@ -104,6 +105,7 @@ public class PurchaseReceivingScanFg extends BaseFragment {
             return;
         }
         showLoadingDialog();
+        saveBean.setWarehouse_in_no(LoginLogic.getWare());
         saveBean.setQty(etInputNum.getText().toString().trim());
         commonLogic.scanSave(saveBean, new CommonLogic.SaveListener() {
             @Override

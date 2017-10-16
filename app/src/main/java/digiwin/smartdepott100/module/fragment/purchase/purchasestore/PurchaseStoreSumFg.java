@@ -72,7 +72,7 @@ public class PurchaseStoreSumFg extends BaseFragment {
     /**
      * 单头数据
      */
-    HashMap<String,String> headMap;
+    HashMap<String, String> headMap;
 
     @OnClick(R.id.commit)
     void commit() {
@@ -81,6 +81,7 @@ public class PurchaseStoreSumFg extends BaseFragment {
             public void onCallback1() {
                 sureCommit();
             }
+
             @Override
             public void onCallback2() {
 
@@ -97,7 +98,7 @@ public class PurchaseStoreSumFg extends BaseFragment {
             return;
         }
         showLoadingDialog();
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         commonLogic.commit(map, new CommonLogic.CommitListener() {
             @Override
             public void onSuccess(String msg) {
@@ -133,9 +134,11 @@ public class PurchaseStoreSumFg extends BaseFragment {
         ryList.setLayoutManager(linearLayoutManager);
         initData();
     }
+
     Bundle extras;
+
     private void initData() {
-        extras= activity.getIntent().getExtras();
+        extras = activity.getIntent().getExtras();
         list = new ArrayList<>();
 
         order = extras.getString(AddressContants.DOC_NO);
@@ -143,7 +146,7 @@ public class PurchaseStoreSumFg extends BaseFragment {
         tvDate.setText(extras.getString(AddressContants.DATE));
         tvSupplier.setText(extras.getString(AddressContants.SUPPLIER));
 
-        commonLogic = PurchaseStoreLogic.getInstance(activity,rmActivity.module,rmActivity.mTimestamp.toString());
+        commonLogic = PurchaseStoreLogic.getInstance(activity, rmActivity.module, rmActivity.mTimestamp.toString());
     }
 
     /**
@@ -152,18 +155,18 @@ public class PurchaseStoreSumFg extends BaseFragment {
     public void upDateList() {
         try {
             list.clear();
-            adapter = new StoreReturnMaterialSumAdapter(rmActivity,list);
+            adapter = new StoreReturnMaterialSumAdapter(rmActivity, list);
             ryList.setAdapter(adapter);
             showLoadingDialog();
-            headMap =new HashMap<>();
-            headMap.put(AddressContants.DOC_NO,extras.getString(AddressContants.DOC_NO));
+            headMap = new HashMap<>();
+            headMap.put(AddressContants.DOC_NO, extras.getString(AddressContants.DOC_NO));
             headMap.put(AddressContants.WAREHOUSE_NO, LoginLogic.getWare());
             commonLogic.getSumDatas(headMap, new PurchaseStoreLogic.GetSumDataListener() {
                 @Override
                 public void onSuccess(List<ListSumBean> datas) {
                     dismissLoadingDialog();
                     list = datas;
-                    adapter = new StoreReturnMaterialSumAdapter(rmActivity,list);
+                    adapter = new StoreReturnMaterialSumAdapter(rmActivity, list);
                     ryList.setAdapter(adapter);
                     if (null != list && list.size() > 0) {
                         upDateFlag = true;
@@ -181,26 +184,24 @@ public class PurchaseStoreSumFg extends BaseFragment {
                     showFailedDialog(error);
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtils.e(TAG, "updateList--getSum--Exception" + e);
         }
 
     }
+
     /**
      * 查看单笔料明细
      */
     public void toDetail() {
-        try {
-            adapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(View itemView, int pos) {
-                    getDetail(list.get(pos));
-                }
-            });
-        } catch (Exception e) {
-            LogUtils.e(TAG, "toDetail-->" + e);
-        }
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int pos) {
+                getDetail(list.get(pos));
+            }
+        });
     }
+
     /**
      * 查看明细
      */
@@ -222,7 +223,7 @@ public class PurchaseStoreSumFg extends BaseFragment {
             @Override
             public void onFailed(String error) {
                 dismissLoadingDialog();
-                showCommitFailDialog(error);
+                showFailedDialog(error);
             }
         });
     }

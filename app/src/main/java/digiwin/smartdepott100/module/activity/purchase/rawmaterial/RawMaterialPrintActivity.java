@@ -120,7 +120,7 @@ public class RawMaterialPrintActivity extends BaseTitleActivity {
             @Override
             public void onPageSelected(int position) {
 //                if (position == 1) {
-//                    sumFg.upDateList();
+//                    peopleFg.upDateList();
 //                }
             }
 

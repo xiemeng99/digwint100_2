@@ -294,7 +294,7 @@
     <string name="job_num_scan">请扫描作业号</string>
     <string name="the_workers">报工人</string>
     <string name="good_amount">良品量</string>
-    <string name="not_good_amount">不良品量</string>
+    <string name="not_good_amount">报废数量</string>
     <string name="work_time">工时(分)</string>
     <string name="job_name">作业名</string>
     <string name="day_has_passed">本日已转</string>
@@ -775,4 +775,8 @@
     <string name="main_instock">入库</string>
     <string name="main_check">检验</string>
     <string name="main_return">退货</string>
+
+    <string name="input_goodnum">请输入良品数量</string>
+    <string name="input_badnum">请输入报废数量</string>
+    <string name="sum_small_apply">良品数+报废数不能大于在制量:</string>
 </resources>

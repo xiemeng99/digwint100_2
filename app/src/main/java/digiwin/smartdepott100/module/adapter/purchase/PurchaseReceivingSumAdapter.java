@@ -31,7 +31,7 @@ public class PurchaseReceivingSumAdapter extends BaseRecyclerAdapter<ListSumBean
     @SuppressWarnings("ResourceType")
     @Override
     protected void bindData(RecyclerViewHolder holder, int position, ListSumBean item) {
-        float numb1 = StringUtils.string2Float(item.getAvailable_in_qty());
+        float numb1 = StringUtils.string2Float(item.getApply_qty());
         float numb2 = StringUtils.string2Float(item.getScan_sumqty());
 
         holder.setText(R.id.tv_item_seq,item.getSeq());

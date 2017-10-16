@@ -194,7 +194,7 @@ public interface ReqTypeName {
     /**
      * 工单报工请求
      */
-    static final String PROCESSREPORT = "app.process.name.get";
+    static final String PROCESSREPORT = "als.e001.wo.no.get";
 
     /**
      * 报工人请求

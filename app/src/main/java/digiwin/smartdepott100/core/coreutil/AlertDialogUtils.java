@@ -535,7 +535,7 @@ public class AlertDialogUtils {
                 } else {
                     LogUtils.e(TAG, "showFailedDialog-----content类型Error");
                 }
-                String s = mTv_text.getText().toString();
+                String s = mTv_text.getText().toString().trim();
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
                             R.attr.Base_color
@@ -587,7 +587,7 @@ public class AlertDialogUtils {
                 } else {
                     LogUtils.e(TAG, "showFailedDialog-----content类型Error");
                 }
-                String s = mTv_text.getText().toString();
+                String s = mTv_text.getText().toString().trim();
                 if (null != s && (s.contains("!") || s.contains("！"))) {
                     TypedArray a = context.obtainStyledAttributes(new int[]{
                             R.attr.Base_color

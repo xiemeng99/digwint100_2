@@ -60,8 +60,6 @@ public class FinishedStorageScanFg extends BaseFragment {
     EditText etInputNum;
     @BindView(R.id.ll_input_num)
     LinearLayout llInputNum;
-    @BindView(R.id.ll_zx_input)
-    LinearLayout llZxInput;
     @BindView(R.id.tv_detail_show)
     TextView tvDetailShow;
     @BindView(R.id.includedetail)
