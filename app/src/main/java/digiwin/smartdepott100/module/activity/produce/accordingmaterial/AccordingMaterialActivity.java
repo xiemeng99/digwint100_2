@@ -116,11 +116,6 @@ public class AccordingMaterialActivity extends BaseFirstModuldeActivity {
      */
     private List<ListSumBean>  showList;
 
-    /**
-     * 提交按钮
-     */
-    @BindView(R.id.commit)
-    Button mBtn_commit;
 
     @OnClick(R.id.commit)
     void commit(){
