@@ -183,11 +183,11 @@ public class BlueToothManager {
             flag = false;
             return flag;
         }
-        String encoding2 = "A\n" + "PS\n"
-                + "%0H0040V0040L0202P02C9B箱号:" + box + "\n"
-                // + "%0H0040V0080L0101P02C9B" + num + "\n"
-                // + "%0H0080V01402D30,M,05,1,0DN" + num.length() + "," + num
-                + "Q1\n" + "Z\n";
+        String encoding2 = "1D 48 02     \n" +
+                "1D 66 00\n" +
+                "1D 68 60\n" +
+                "1D 77 02\n" +
+                "1D 6B 49 0F 7B 42 41 42 43 46 2D 7B 43 0C 35 53 5E 0A 06 0A";
         mPrintSend.sendBtMessage(encoding2);
         return flag;
     }
@@ -319,19 +319,25 @@ public class BlueToothManager {
             flag = false;
             return flag;
         }
-        int num = 10;
-        for (int i = 0; i < printBarcodeBean.size(); i++) {
-            PurchaseGoodsScanBackBean scanBackBean = printBarcodeBean.get(i);
-            String encoding2 = "A\n" + "PS\n"
-                    + "%0H0040V0050L0101P02C9B" + mContext.getResources().getString(R.string.vendor) + ": " +scanBackBean.getCustomer_name()+ "\n"
-                    + "%0H0040V0120L0101P02C9B" + mContext.getResources().getString(R.string.data) + ": " + scanBackBean.getLot_date() + "\n"
-                    + "%0H0040V0190L0101P02C9B" + mContext.getResources().getString(R.string.item_no) + ": " + scanBackBean.getItem_no() + "\n"
-                    + "%0H0280V00402D30,M,06,1,0DN" + scanBackBean.getBarcode_no() + "," +  scanBackBean.getBarcode_no()
-                    + "%0H0040V0260L0101P02C9B" + mContext.getResources().getString(R.string.item_name) + ": " +  scanBackBean.getItem_name() + "\n"
-                    + "%0H0040V0330L0101P02C9B" + mContext.getResources().getString(R.string.model) + ": " +  scanBackBean.getItem_spec()+ "\n"
-                    + "%0H0040V0400L0101P02C9B" + mContext.getResources().getString(R.string.batch_no) + ": " +  scanBackBean.getLot_no() + "\n"
-                    + "Q1\n" + "Z\n";
-            mPrintSend.sendBtMessage(encoding2);
+        try {
+            for (int m=0;m<Integer.valueOf(sumnum);m++) {
+                for (int i = 0; i < printBarcodeBean.size(); i++) {
+                    PurchaseGoodsScanBackBean scanBackBean = printBarcodeBean.get(i);
+                    String encoding2 = "A\n" + "PS\n"
+                            + "%0H0040V0050L0101P02C9B" + mContext.getResources().getString(R.string.vendor) + ": " + scanBackBean.getCustomer_name() + "\n"
+                            + "%0H0040V0120L0101P02C9B" + mContext.getResources().getString(R.string.data) + ": " + scanBackBean.getLot_date() + "\n"
+                            + "%0H0040V0190L0101P02C9B" + mContext.getResources().getString(R.string.item_no) + ": " + scanBackBean.getItem_no() + "\n"
+                            + "%0H0280V00402D30,M,06,1,0DN" + scanBackBean.getBarcode_no() + "," + scanBackBean.getBarcode_no()
+                            + "%0H0040V0260L0101P02C9B" + mContext.getResources().getString(R.string.item_name) + ": " + scanBackBean.getItem_name() + "\n"
+                            + "%0H0040V0330L0101P02C9B" + mContext.getResources().getString(R.string.model) + ": " + scanBackBean.getItem_spec() + "\n"
+                            + "%0H0040V0400L0101P02C9B" + mContext.getResources().getString(R.string.batch_no) + ": " + scanBackBean.getLot_no() + "\n"
+                            + "Q1\n" + "Z\n";
+                    mPrintSend.sendBtMessage(encoding2);
+                }
+            }
+        }catch (Exception e){
+            LogUtils.d(TAG,
+                    "e"+e);
         }
         return flag;
     }

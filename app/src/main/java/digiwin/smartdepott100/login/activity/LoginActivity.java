@@ -381,7 +381,7 @@ public class LoginActivity extends BaseActivity {
                     DataSupport.deleteAll(AccoutBean.class);
                     DataSupport.saveAll(storageList);
                     accoutBean.save();
-                    ActivityManagerUtils.startActivityForBundleDataFinish(activity, MainActivity2.class, bundle);
+                    ActivityManagerUtils.startActivityForBundleDataFinish(activity, MainActivity.class, bundle);
                     JPushManager.login(TelephonyUtils.getDeviceId(activity), TelephonyUtils.getDeviceId(activity));
 //                    dismissLoadingDialog();
                 }

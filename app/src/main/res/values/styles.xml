@@ -311,8 +311,6 @@
         <item name="sumColor_3">@color/sumColor_3_yellow</item>
         <!--资源文件-->
         <item name="click_bg">@mipmap/button_yellow</item>
-        <item name="login_edtid_on">@drawable/login_entid_on_yellow</item>
-        <item name="login_site_on">@drawable/login_site_on_yellow</item>
         <item name="voiceguide">@drawable/voiceguide_yellow</item>
         <item name="time">@drawable/time_yellow</item>
         <item name="setup_rb">@drawable/setup_rb_true_yellow</item>
@@ -349,8 +347,6 @@
         <item name="sumColor_3">@color/sumColor_3_blue</item>
         <!--资源文件-->
         <item name="click_bg">@mipmap/button_blue</item>
-        <item name="login_edtid_on">@drawable/login_entid_on_blue</item>
-        <item name="login_site_on">@drawable/login_site_on_blue</item>
         <item name="voiceguide">@drawable/voiceguide_yellow</item>
         <item name="time">@drawable/time_orange
         </item>
@@ -388,8 +384,6 @@
         <item name="sumColor_3">@color/sumColor_3_green</item>
         <!--资源文件-->
         <item name="click_bg">@mipmap/button_green</item>
-        <item name="login_edtid_on">@drawable/login_entid_on_blue</item>
-        <item name="login_site_on">@drawable/login_site_on_blue</item>
         <item name="voiceguide">@drawable/voiceguide_yellow</item>
         <item name="time">@drawable/time_orange</item>
         <item name="setup_rb">@drawable/setup_rb_true_green</item>

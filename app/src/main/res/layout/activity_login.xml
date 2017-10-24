@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/login_bg">
+    android:background="@mipmap/login_bg_new">
 
     <!--<TextView-->
         <!--android:text="@string/login"-->
@@ -65,16 +65,16 @@
                     android:id="@+id/et_login_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/layout_50dp"
-                    android:layout_toLeftOf="@id/iv_login_user"
                     android:background="@null"
                     android:gravity="bottom"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textCursorDrawable="@drawable/et_cursor_color"
-                    android:textSize="@dimen/textSize_14sp" />
+                    android:textSize="@dimen/textSize_14sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/iv_login_user" />
             </RelativeLayout>
 
             <View
@@ -265,7 +265,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_25dp"
             android:layout_marginRight="@dimen/layout_25dp"
-            android:background="?attr/click_bg"
+            android:background="@mipmap/button_blue"
             android:gravity="center"
             android:padding="@dimen/layout_5dp"
             android:text="@string/login_rightNow"
@@ -278,7 +278,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/system_setting"
-            android:textColor="?attr/Base_color"
+            android:textColor="@color/black32"
             android:textSize="@dimen/textSize_14sp" />
     </LinearLayout>
 

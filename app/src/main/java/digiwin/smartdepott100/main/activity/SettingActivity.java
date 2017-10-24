@@ -362,6 +362,8 @@ public class SettingActivity extends BaseTitleActivity {
     @BindView(R.id.tv_printer_ip)
     TextView tvPrinterIp;
 
+    @BindView(R.id.view_change_theme)
+    View viewChangeTheme;
     /**
      * 无线打印机
      */
@@ -427,6 +429,10 @@ public class SettingActivity extends BaseTitleActivity {
 
     @Override
     protected void doBusiness() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            viewChangeTheme.setVisibility(View.GONE);
+            llChangeTheme.setVisibility(View.GONE);
+        }
         boolean open = BlueToothManager.getManager(activity).isOpen();
         loginlogic = LoginLogic.getInstance(context, module, mTimestamp.toString());
         initVoicerVibrate();
@@ -458,16 +464,16 @@ public class SettingActivity extends BaseTitleActivity {
         String currentTheme = (String) SharedPreferencesUtils.get(activity, SharePreKey.CURRENT_THEME, "red");
         switch (currentTheme) {
             case "red":
-                tvChangeTheme.setText("中国红");
+                tvChangeTheme.setText(R.string.red);
                 break;
             case "yellow":
-                tvChangeTheme.setText("鲜果橙");
+                tvChangeTheme.setText(R.string.orange);
                 break;
             case "blue":
-                tvChangeTheme.setText("雕钻蓝");
+                tvChangeTheme.setText(R.string.blue);
                 break;
             case "green":
-                tvChangeTheme.setText("草木绿");
+                tvChangeTheme.setText(R.string.green);
                 break;
         }
 
@@ -720,6 +726,7 @@ public class SettingActivity extends BaseTitleActivity {
         if (isConnected) {
             tbBlueToothSetting.setChecked(isConnected);
             tvBlueToothSetting.setText(BlueToothManager.getManager(activity).getDeviceName());
+            BlueToothManager.getManager(context).printBarocde("123");
         } else {
             tbBlueToothSetting.setChecked(false);
             tvBlueToothSetting.setText("");

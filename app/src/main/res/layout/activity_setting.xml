@@ -240,6 +240,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_change_theme"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_0.5dp"
                 android:background="@color/gray_da"/>
